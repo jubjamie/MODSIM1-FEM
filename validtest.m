@@ -7,3 +7,5 @@ problemMesh=OneDimLinearMeshGen(0,1,3);
 LaplaceElemMatrix(1,1,problemMesh)
 %Part 1b
 ReactionElemMatrix(1,1,problemMesh)
+problemMesh=OneDimLinearMeshGen(0,1,6);
+ReactionElemMatrix(1,1,problemMesh)

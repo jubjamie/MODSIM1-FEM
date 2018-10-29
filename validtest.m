@@ -40,12 +40,13 @@ Problem.c
 %Part 1d
 %Make global matrix and c vector from lecture
 Problem=[];
-Problem.mesh=OneDimLinearMeshGen(0,1,20);
+Problem.mesh=OneDimLinearMeshGen(0,1,2);
 Problem.Diffusion.LE.Generator=@LaplaceElemMatrix;
 Problem.Reaction.LE.Generator=@ReactionElemMatrix;
 Problem.Diffusion.LE.coef=1;
 Problem.Reaction.LE.coef=-9;
-Problem.BCS.D=[[0,0];[1,1]];
+Problem.f.coef=0;
+Problem.BCS.D=[[0,0];[1,1];];
 [M,c,f,BCrhs,Problem]=globalMatrix(Problem);
 Problem.c=M\f;
 Problem.c

@@ -20,7 +20,7 @@ Problem.BCS.D=[[0,1];[2,0];];
 [M,c,f,BCrhs,Problem]=globalMatrix(Problem);
 Problem.c=M\f;
 Problem.c
-%]
+%}
 
 %Part 1cii
 %Make global matrix and c vector from lecture

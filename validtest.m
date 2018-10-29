@@ -13,7 +13,10 @@ ReactionElemMatrix(1,1,problemMesh)
 
 %Part 1c
 %Make global matrix and c vector from lecture
-Problem.mesh=OneDimLinearMeshGen(0,1,3);
+Problem.mesh=OneDimLinearMeshGen(0,1,4);
 Problem.LE.Generator=@LaplaceElemMatrix;
 Problem.LE.coef=1;
-[M,c]=globalMatrix(Problem);
+Problem.BCS.D=[[2,0];[0,1]];
+Problem.f=[0,0,0,0]';
+[M,c,f,~]=globalMatrix(Problem);
+c=M\f

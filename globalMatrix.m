@@ -61,7 +61,8 @@ end
 %% Clean up
 Problem.M=M;
 Problem.c=c;
-Problem.f=f+BCrhs;
+f=f+BCrhs;
+Problem.f=f;
 Problem.BCrhs=BCrhs;
 
 end

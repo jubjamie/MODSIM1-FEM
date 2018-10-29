@@ -21,7 +21,7 @@ Problem.BCS.D=[[0,1];[2,0];];
 Problem.c=M\f;
 Problem.c
 %}
-
+%{
 %Part 1cii
 %Make global matrix and c vector from lecture
 Problem.mesh=OneDimLinearMeshGen(0,1,4);
@@ -34,3 +34,22 @@ Problem.BCS.N=[[2,0];];
 [M,c,f,BCrhs,Problem]=globalMatrix(Problem);
 Problem.c=M\f;
 Problem.c
+
+%}
+
+%Part 1d
+%Make global matrix and c vector from lecture
+Problem=[];
+Problem.mesh=OneDimLinearMeshGen(0,1,20);
+Problem.Diffusion.LE.Generator=@LaplaceElemMatrix;
+Problem.Reaction.LE.Generator=@ReactionElemMatrix;
+Problem.Diffusion.LE.coef=1;
+Problem.Reaction.LE.coef=-9;
+Problem.BCS.D=[[0,0];[1,1]];
+[M,c,f,BCrhs,Problem]=globalMatrix(Problem);
+Problem.c=M\f;
+Problem.c
+
+%1d analytic answers
+x=Problem.mesh.nvec;
+p1dSol=(exp(3)/(exp(6)-1))*(exp(3*x)-exp(-3*x))

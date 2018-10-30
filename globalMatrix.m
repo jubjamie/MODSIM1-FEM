@@ -23,12 +23,8 @@ end
 %TODO Check only one BC set/node.
 
 %% Generate Basic Global and Soltuion
-%Top left corner
-M(1:2,1:2)=Problem.Diffusion.LE.Generator(Problem.Diffusion.LE.coef,1,Problem.mesh)-...
-           Problem.Reaction.LE.Generator(Problem.Reaction.LE.coef,1,Problem.mesh);
-f(1:2,1)=Problem.f.coef/Problem.mesh.elem(1).J;
-for i=2:N-1
-%loop through each local elem matrix
+for i=1:N-1
+%loop through each local elem matrix and place in row.
 M(i:i+1,i:i+1)=M(i:i+1,i:i+1)+...
                 Problem.Diffusion.LE.Generator(Problem.Diffusion.LE.coef,i,Problem.mesh)-...
                 Problem.Reaction.LE.Generator(Problem.Reaction.LE.coef,i,Problem.mesh);

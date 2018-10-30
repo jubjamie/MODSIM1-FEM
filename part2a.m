@@ -3,6 +3,7 @@ function [c,Problem] = part2a(Q,TL,NumOfElems)
 
 %Init empty problem.
 Problem=[];
+Problem.title='Part 2A';
 %Define mesh
 Problem.mesh=OneDimLinearMeshGen(0,0.01,NumOfElems);
 %Define Local element Generator functions

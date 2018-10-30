@@ -28,7 +28,7 @@ for i=1:N-1
 M(i:i+1,i:i+1)=M(i:i+1,i:i+1)+...
                 Problem.Diffusion.LE.Generator(Problem.Diffusion.LE.coef,i,Problem.mesh)-...
                 Problem.Reaction.LE.Generator(Problem.Reaction.LE.coef,i,Problem.mesh);
-f(i:i+1,1)=f(i:i+1,1)+(Problem.f.coef/Problem.mesh.elem(i).J);
+f(i:i+1,1)=f(i:i+1,1)+(Problem.f.coef*Problem.mesh.elem(i).J);
 end
 
 %% Enforce Neumann Boundaries
@@ -36,8 +36,8 @@ if(isfield(Problem.BCS,'N') && size(Problem.BCS.N,1)>0 && size(Problem.BCS.N,2)=
     for j=1:size(Problem.BCS.N,1)
         BCn=Problem.BCS.N(j,:);
         %Calcualte equiv row for BC position x
-        assert(isequal(BCn(2),0) || isequal(BCn(2),1),'Boundary condition not specified for a node'); %Checks equivRow is of integer even if type is doulbe from above division.
-        equivRow=(BCn(2)*(N-1))+1;
+        assert(isequal(BCn(2),Problem.mesh.xmin) || isequal(BCn(2),Problem.mesh.xmax),'N.Boundary condition not specified for an end node'); %Checks equivRow is of integer even if type is doulbe from above division.
+        equivRow=((BCn(2)/(Problem.mesh.xmax-Problem.mesh.xmin))*(N-1))+1;
         BCrhs(equivRow)=BCn(1)*((2*BCn(2))-1);
     end
 end
@@ -47,8 +47,8 @@ if(isfield(Problem.BCS,'D') && size(Problem.BCS.D,1)>0 && size(Problem.BCS.D,2)=
     for j=1:size(Problem.BCS.D,1)
         BCd=Problem.BCS.D(j,:);
         %Calcualte equiv row for BC position x
-        equivRow=(BCd(2)*(N-1))+1;
-        assert(~mod(equivRow,1),'Boundary condition not specified for a node'); %Checks equivRow is of integer even if type is doulbe from above division.
+        equivRow=((BCd(2)/(Problem.mesh.xmax-Problem.mesh.xmin))*(N-1))+1;
+        assert(~mod(equivRow,1),'D.Boundary condition not specified for a node'); %Checks equivRow is of integer even if type is doulbe from above division.
         M(equivRow,:)=0;
         f(equivRow)=BCd(1);
         M(equivRow,equivRow)=1;

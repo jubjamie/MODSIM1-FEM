@@ -1,4 +1,5 @@
-function [c,Problem] = part2b(Q,TL,NumOfElems)
+function [Problem] = part2b(Q,TL,NumOfElems)
+
 %Init empty problem.
 Problem=[];
 Problem.title='Part 2B';
@@ -15,11 +16,5 @@ Problem.f.coef=Q*TL;
 Problem.f.fcn=@(x) Q*TL*(1+(4*x));
 %Set BCs
 Problem.BCS.D=[[323.15,0];[293.15,0.01];];
-[M,~,f,~,Problem]=globalMatrix(Problem);
-Problem.c=M\f;
-c=Problem.c;
-Problem.c;
-
-
 end
 

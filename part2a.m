@@ -1,5 +1,4 @@
-function [c,Problem] = part2a(Q,TL,NumOfElems)
-%% Answer to Part 2 A
+function [Problem] = part2a(Q,TL,NumOfElems)
 
 %Init empty problem.
 Problem=[];
@@ -16,8 +15,5 @@ Problem.Reaction.LE.coef=-Q;
 Problem.f.coef=Q*TL;
 %Set BCs
 Problem.BCS.D=[[323.15,0];[293.15,0.01];];
-[M,~,f,~,Problem]=globalMatrix(Problem);
-Problem.c=M\f;
-c=Problem.c;
-Problem.c
+
 end

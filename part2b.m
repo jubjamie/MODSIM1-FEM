@@ -20,14 +20,11 @@ c=Problem.c;
 Problem.c;
 
 %Set Plot Options
-
+PlotOpts.title='Part 2b Mesh Result';
 PlotOpts.filepath='status/part2b.png';
 PlotOpts.x.label='x';
 PlotOpts.y.label='Temperature (K)';
-PlotOpts.nodePlot.LineStyle='-';
-PlotOpts.nodePlot.Color='r';
-PlotOpts.nodePlot.Marker='o';
-PlotOpts.nodePlot.MarkerEdgeColor='k';
+close all
 plotSolution(Problem,PlotOpts);
 end
 

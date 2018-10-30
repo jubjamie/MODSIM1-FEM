@@ -70,3 +70,15 @@ if (isfield(opts,'y') && isfield(opts.y,'label'))
 else
     ylabel_title='';
 end
+
+%Set legend
+if (isfield(opts,'legend'))
+    legend_text=opts.legend.labels;
+    if (isfield(opts.legend,'pos'))
+        legend_pos=opts.legend.pos;
+    else
+        legend_pos='southwest';
+    end
+else
+    legend_text=false;
+end

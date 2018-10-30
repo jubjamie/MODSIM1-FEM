@@ -2,7 +2,7 @@
 p=genpath('lib');addpath(p);p=genpath('status');addpath(p);p=genpath('src');addpath(p);
 
 [~,part2bProblem] = part2b(1,300,5);
-[~,part2aProblem] = part2a(0.5,300,5);
+[~,part2aProblem] = part2a(1,300,5);
 %Set Plot Options
 PlotOpts=[]; %Clear previous opts.
 PlotOpts.title='Part 2 Mesh Comparison Results';

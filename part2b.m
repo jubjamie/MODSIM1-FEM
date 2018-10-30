@@ -1,6 +1,6 @@
 function [c,Problem] = part2b(Q,TL)
 %Init empty problem.
-Problem=[];
+Problem.title='Part 2B';
 %Define mesh
 Problem.mesh=OneDimLinearMeshGen(0,0.01,5);
 %Define Local element Generator functions
@@ -18,5 +18,16 @@ Problem.BCS.D=[[323.15,0];[293.15,0.01];];
 Problem.c=M\f;
 c=Problem.c;
 Problem.c;
+
+%Set Plot Options
+
+PlotOpts.filepath='status/part2b.png';
+PlotOpts.x.label='x';
+PlotOpts.y.label='Temperature (K)';
+PlotOpts.nodePlot.LineStyle='-';
+PlotOpts.nodePlot.Color='r';
+PlotOpts.nodePlot.Marker='o';
+PlotOpts.nodePlot.MarkerEdgeColor='k';
+plotSolution(Problem,PlotOpts);
 end
 

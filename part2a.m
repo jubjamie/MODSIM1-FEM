@@ -1,10 +1,10 @@
-function [c,Problem] = part2a(Q,TL)
+function [c,Problem] = part2a(Q,TL,NumOfElems)
 %% Answer to Part 2 A
 
 %Init empty problem.
 Problem=[];
 %Define mesh
-Problem.mesh=OneDimLinearMeshGen(0,0.01,10);
+Problem.mesh=OneDimLinearMeshGen(0,0.01,NumOfElems);
 %Define Local element Generator functions
 Problem.Diffusion.LE.Generator=@LaplaceElemMatrix;
 Problem.Reaction.LE.Generator=@ReactionElemMatrix;

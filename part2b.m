@@ -1,8 +1,8 @@
-function [c,Problem] = part2b(Q,TL)
+function [c,Problem] = part2b(Q,TL,NumOfElems)
 %Init empty problem.
 Problem.title='Part 2B';
 %Define mesh
-Problem.mesh=OneDimLinearMeshGen(0,0.01,5);
+Problem.mesh=OneDimLinearMeshGen(0,0.01,NumOfElems);
 %Define Local element Generator functions
 Problem.Diffusion.LE.Generator=@LaplaceElemMatrix;
 Problem.Reaction.LE.Generator=@ReactionElemMatrix;
@@ -19,12 +19,6 @@ Problem.c=M\f;
 c=Problem.c;
 Problem.c;
 
-%Set Plot Options
-PlotOpts.title='Part 2b Mesh Result';
-PlotOpts.filepath='status/part2b.png';
-PlotOpts.x.label='x';
-PlotOpts.y.label='Temperature (K)';
-close all
-plotSolution(Problem,PlotOpts);
+
 end
 

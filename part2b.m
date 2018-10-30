@@ -1,5 +1,6 @@
 function [c,Problem] = part2b(Q,TL,NumOfElems)
 %Init empty problem.
+Problem=[];
 Problem.title='Part 2B';
 %Define mesh
 Problem.mesh=OneDimLinearMeshGen(0,0.01,NumOfElems);

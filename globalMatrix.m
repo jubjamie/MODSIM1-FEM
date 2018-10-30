@@ -20,6 +20,9 @@ if(~isfield(Problem,'Reaction') || ~isfield(Problem.Reaction,'LE') || ~isfield(P
 Problem.Reaction.LE.Generator=@(a,b,c) 0;
 Problem.Reaction.LE.coef=0;
 end
+if(~isfield(Problem,'f') || ~isfield(Problem.f,'fcn'))
+Problem.f.fcn=@(a) Problem.f.coef;
+end
 %TODO Check only one BC set/node.
 
 %% Generate Basic Global and Soltuion
@@ -28,7 +31,7 @@ for i=1:N-1
 M(i:i+1,i:i+1)=M(i:i+1,i:i+1)+...
                 Problem.Diffusion.LE.Generator(Problem.Diffusion.LE.coef,i,Problem.mesh)-...
                 Problem.Reaction.LE.Generator(Problem.Reaction.LE.coef,i,Problem.mesh);
-f(i:i+1,1)=f(i:i+1,1)+(Problem.f.coef*Problem.mesh.elem(i).J);
+f(i:i+1,1)=f(i:i+1,1)+(Problem.f.fcn([Problem.mesh.elem(i).x])'*Problem.mesh.elem(i).J);
 end
 
 %% Enforce Neumann Boundaries

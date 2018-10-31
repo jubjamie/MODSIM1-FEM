@@ -37,6 +37,11 @@ if size(LB,2)==3
                     assert(term3==UB(3),'Boundary Step Error ARG 3. Final terms not equal to UB.');
                 end
                 Batch{posCounter}=problemTemplate(term1,term2,term3);
+                Batch{posCounter}.initParams=[term1 term2 term3];
+                Batch{posCounter}.BatchOptions.template=problemTemplate;
+                Batch{posCounter}.BatchOptions.LB=LB;
+                Batch{posCounter}.BatchOptions.UB=UB;
+                Batch{posCounter}.BatchOptions.STEPS=STEPS;
             end
             
         end

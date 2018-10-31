@@ -20,6 +20,8 @@ elseif (size(varargin,2)==1)
         else
             extraFcn=varargin{2};
         end
+else
+    extraFcn='@(aa) 0;';
 end
 
 

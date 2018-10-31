@@ -1,5 +1,5 @@
 %%Set up path space
-p=genpath('lib');addpath(p);p=genpath('status');addpath(p);p=genpath('src');addpath(p);
+startSolver;
 
 %Generate Problem using part2 quick templates (variable inputs Q,TL,No. of Elems);
 part2bProblem = part2b(1,300,5);

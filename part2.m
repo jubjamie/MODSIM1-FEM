@@ -13,10 +13,12 @@ PlotOpts.title='Part 2 Mesh Comparison Results';
 PlotOpts.filepath='status/part2b.png';
 PlotOpts.x.label='x (m)';
 PlotOpts.y.label='Temperature (K)';
-PlotOpts.nodePlot.Color={'r','b'};
-PlotOpts.legend.labels={part2bProblem.title,part2aProblem.title};
+PlotOpts.nodePlot.Color={'r','b'}';
+%PlotOpts.legend.labels={part2bProblem.title,part2aProblem.title};
 extraFcn='grid;';
 close all
 
+Batch={part2bProblem,part2aProblem};
+
 %Plot the solution with dedicated function.
-plotSolution({part2bProblem,part2aProblem},PlotOpts,extraFcn);
+plotSolution(Batch,PlotOpts,extraFcn);

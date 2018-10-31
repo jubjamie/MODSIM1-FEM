@@ -18,7 +18,7 @@ PlotOpts.nodePlot.Color={'r','b'}';
 extraFcn='grid;';
 close all
 
-Batch={part2bProblem,part2aProblem};
+probs2plot={part2bProblem,part2aProblem};
 
 %Plot the solution with dedicated function.
-plotSolution(Batch,PlotOpts,extraFcn);
+plotSolution(probs2plot,PlotOpts,extraFcn);

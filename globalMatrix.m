@@ -21,17 +21,26 @@ Problem.Reaction.LE.Generator=@(a,b,c) 0;
 Problem.Reaction.LE.coef=0;
 end
 if(~isfield(Problem,'f') || ~isfield(Problem.f,'fcn'))
-Problem.f.fcn=@(a) Problem.f.coef;
+    %If no function is defined then set to 0
+Problem.f.fcn=@(a,b) 0;
+end
+if(~isfield(Problem,'f') || ~isfield(Problem.f,'coef'))
+    %If no function is defined then set to 0
+Problem.f.coef=1;
 end
 %TODO Check only one BC set/node.
 
-%% Generate Basic Global and Soltuion
+%% Generate Basic Global and Source
 for i=1:N-1
 %loop through each local elem matrix and place in row.
 M(i:i+1,i:i+1)=M(i:i+1,i:i+1)+...
                 Problem.Diffusion.LE.Generator(Problem.Diffusion.LE.coef,i,Problem.mesh)-...
                 Problem.Reaction.LE.Generator(Problem.Reaction.LE.coef,i,Problem.mesh);
-f(i:i+1,1)=f(i:i+1,1)+(Problem.f.fcn([Problem.mesh.elem(i).x])'*Problem.mesh.elem(i).J);
+% Calculate the source vector integrals symbolically.
+x0=Problem.mesh.elem(i).x(1);
+x1=Problem.mesh.elem(i).x(2);
+
+f(i:i+1,1)=f(i:i+1,1)+(Problem.f.coef*Problem.f.fcn(x0,x1)*Problem.mesh.elem(i).J);
 end
 
 %% Enforce Neumann Boundaries

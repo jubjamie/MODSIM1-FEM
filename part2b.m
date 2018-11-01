@@ -13,7 +13,7 @@ k=1.01e-5;
 Problem.Diffusion.LE.coef=k;
 Problem.Reaction.LE.coef=-Q;
 Problem.f.coef=Q*TL;
-Problem.f.fcn=@(x) Q*TL*(1+(4*x));
+Problem.f.fcn=sourceVector('1+(4*x)');
 %Set BCs
 Problem.BCS.D=[[323.15,0];[293.15,0.01];];
 end

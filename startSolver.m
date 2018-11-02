@@ -1,8 +1,3 @@
-p=genpath('lib');
-addpath(p);
-p=genpath('status');
-addpath(p);
-p=genpath('src');
-addpath(p);
-p=genpath('tests');
-addpath(p);
+folder=fileparts(which(mfilename));
+addpath(genpath(folder));
+rmpath('.git');

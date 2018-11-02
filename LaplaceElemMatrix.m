@@ -34,6 +34,8 @@ dpsi1_dz=0.5;
 %Int11=IntF(D*dpsi1_dz*dz_dx*dpsi1_dz*dz_dx*J)dz<>[-1,1];-----------/
 Int00=(D*dpsi0_dz*dz_dx*dpsi0_dz*dz_dx*J)*(1-(-1));
 Int01=(D*dpsi0_dz*dz_dx*dpsi1_dz*dz_dx*J)*(1-(-1));
+%Int00=D/(x1-x0);
+%Int01=-D/(x1-x0);
 
 localElemMatrix=[Int00, Int01;Int01, Int00];
 

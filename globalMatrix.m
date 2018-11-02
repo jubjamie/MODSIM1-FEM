@@ -44,7 +44,7 @@ f(i:i+1,1)=f(i:i+1,1)+(Problem.f.coef*Problem.f.fcn(x0,x1)*Problem.mesh.elem(i).
 end
 
 %% Enforce Neumann Boundaries
-if(isfield(Problem.BCS,'N') && size(Problem.BCS.N,1)>0 && size(Problem.BCS.N,2)==2)
+if(isfield(Problem,'BCS') && isfield(Problem.BCS,'N') && size(Problem.BCS.N,1)>0 && size(Problem.BCS.N,2)==2)
     for j=1:size(Problem.BCS.N,1)
         BCn=Problem.BCS.N(j,:);
         %Calcualte equiv row for BC position x
@@ -55,7 +55,7 @@ if(isfield(Problem.BCS,'N') && size(Problem.BCS.N,1)>0 && size(Problem.BCS.N,2)=
 end
 
 %% Enforce Dirichlet BCs
-if(isfield(Problem.BCS,'D') && size(Problem.BCS.D,1)>0 && size(Problem.BCS.D,2)==2)
+if(isfield(Problem,'BCS') && isfield(Problem.BCS,'D') && size(Problem.BCS.D,1)>0 && size(Problem.BCS.D,2)==2)
     for j=1:size(Problem.BCS.D,1)
         BCd=Problem.BCS.D(j,:);
         %Calcualte equiv row for BC position x

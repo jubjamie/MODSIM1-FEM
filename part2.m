@@ -14,7 +14,7 @@ PlotOpts.filepath='status/part2b.png';
 PlotOpts.x.label='x (m)';
 PlotOpts.y.label='Temperature (K)';
 PlotOpts.nodePlot.Color={'r','b'}';
-%PlotOpts.legend.labels={part2bProblem.title,part2aProblem.title};
+PlotOpts.legend.labels={part2bProblem.title,part2aProblem.title};
 extraFcn='grid;';
 close all
 

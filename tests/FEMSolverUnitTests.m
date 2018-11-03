@@ -18,7 +18,7 @@ assert(size(Test1.Result,1)==expectedSize(1),'Solver result vector c not of the 
 assert(size(Test1.Result,2)==expectedSize(2),'Solver result vector c not of the expected size for this problem.');
 
 
-%% Test 2: Test for analytical result example.
+%% Test 2: Test for analytical result example from part 1c.
 Test2=[];
 NumOfElems=4;
 %Define problem.
@@ -79,3 +79,36 @@ Test5=FEMSolve(Test5);
 assert(all(all(isfinite(Test5.M)))==1,'Non-finite elemnts in Global Matrix.');
 assert(all(all(isfinite(Test5.Result)))==1,'Non-finite elemnts in Result Vector.');
 assert(all(all(isfinite(Test5.f)))==1,'Non-finite elemnts in Source Vector.');
+
+%% Test 6: Test accuracy of reaction term calculations using part 1d analytical example.
+Test6=[];
+Test6.mesh=OneDimLinearMeshGen(0,1,100);
+Test6.Diffusion.LE.Generator=@LaplaceElemMatrix;
+Test6.Reaction.LE.Generator=@ReactionElemMatrix;
+Test6.Diffusion.LE.coef=1;
+Test6.Reaction.LE.coef=-9;
+Test6.f.coef=0;
+Test6.BCS.D=[[0,0];[1,1];];
+%Solve
+Test6=FEMSolve(Test6);
+
+%Expected result of this is (e^3/(e^6-1))*(e^3x - e^-3x)
+xvals=Test6.mesh.nvec';
+expectedResult=(exp(3)/(exp(6)-1)*(exp(3*xvals)-exp(-3*xvals)));
+
+assert(all(abs(expectedResult-Test6.Result)<1e-4)==1, 'Solver does not return expected result within the required tolerance.');
+
+%% Test 7: Check Dirichlet boundary conditions are met.
+Test7=[];
+Test7.mesh=OneDimLinearMeshGen(0,1,100);
+Test7.Diffusion.LE.Generator=@LaplaceElemMatrix;
+Test7.Reaction.LE.Generator=@ReactionElemMatrix;
+Test7.Diffusion.LE.coef=1;
+Test7.Reaction.LE.coef=-9;
+Test7.f.coef=0;
+Test7.BCS.D=[[0,0];[1,1];];
+%Solve
+Test7=FEMSolve(Test7);
+
+assert(abs(Test7.Result(1))<1e5,'First global node does not match the set boundary condition.');
+assert(abs(Test7.Result(end)-1)<1e5,'Final global node does not match the set boundary condition.');

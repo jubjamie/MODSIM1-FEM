@@ -13,6 +13,7 @@ if size(LB,2)==3
     batchSize=prod(STEPS);
     Batch=cell(1,batchSize);
     tDelta=zeros(1,3);
+    assert(all(~mod(STEPS,1)),'Non-integer number of steps.');
     for u=1:3
         if(STEPS(u)>1)
             tDelta(u)=(UB(u)-LB(u))./(STEPS(u)-1);

@@ -47,6 +47,37 @@ if size(LB,2)==3
         end
     end
     
+elseif size(LB,2)==1
+    paramSize=STEPS;
+    assert(min(STEPS)>0,'Steps must be at least 0');
+    %assert(~mod(paramSize,1),'Step size is not a divisor of bound space.');
+    batchSize=prod(STEPS);
+    Batch=cell(1,batchSize);
+    tDelta=0;
+    assert(~mod(STEPS(1),1),'Non-integer number of steps.');
+        if(STEPS(1)>1)
+            tDelta=(UB(1)-LB(1))./(STEPS(1)-1);
+        elseif(STEPS(1)==1)
+            tDelta=0;
+        else
+            error('Negative step not allowed');
+        end
+
+    for k=1:paramSize(1)
+        posCounter=posCounter+1;
+        term1=LB(1)+((k-1)*tDelta);
+        disp(['Making Problem with params>> Arg1:' num2str(term1)]);
+        if k==paramSize(1)
+            assert(term1==UB(1),'Boundary Step Error ARG 1. Final terms not equal to UB.');
+        end
+        Batch{posCounter}=problemTemplate(term1);
+        Batch{posCounter}.initParams=[term1];
+        Batch{posCounter}.BatchOptions.template=problemTemplate;
+        Batch{posCounter}.BatchOptions.LB=LB;
+        Batch{posCounter}.BatchOptions.UB=UB;
+        Batch{posCounter}.BatchOptions.STEPS=STEPS;
+        
+    end
 end
 
 

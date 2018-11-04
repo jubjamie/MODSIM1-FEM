@@ -3,7 +3,7 @@ function [Batch] = problemBatch(problemTemplate,LB,UB,STEPS)
 %   Detailed explanation goes here
 assert(size(LB,2)<4,'Variable Parameters for batch processing is limited to 3 to reduce computational load');
 assert(size(LB,2)==size(UB,2) && size(LB,2)==size(STEPS,2),'Parameter bounds and step dimensions do not match');
-posCounter=0;
+totalNodes=0;
 
 if size(LB,2)==3
     %Calculate size of each parameter space
@@ -29,7 +29,7 @@ if size(LB,2)==3
         for j=1:paramSize(2)
             %For second param
             for k=1:paramSize(3)
-                posCounter=posCounter+1;
+                posCounter=((i-1)*(paramSize(2)*paramSize(3)))+((j-1)*paramSize(3))+k;
                 term1=LB(1)+((i-1)*tDelta(1));
                 term2=LB(2)+((j-1)*tDelta(2));
                 term3=LB(3)+((k-1)*tDelta(3));
@@ -44,6 +44,8 @@ if size(LB,2)==3
                 Batch{posCounter}.BatchOptions.UB=UB;
                 Batch{posCounter}.BatchOptions.STEPS=STEPS;
                 Batch{posCounter}.BatchOptions.BatchSize=batchSize;
+                totalNodes=totalNodes+Batch{posCounter}.mesh.ngn;
+
             end
             
         end
@@ -78,10 +80,13 @@ elseif size(LB,2)==1
         Batch{posCounter}.BatchOptions.LB=LB;
         Batch{posCounter}.BatchOptions.UB=UB;
         Batch{posCounter}.BatchOptions.STEPS=STEPS;
+        Batch{posCounter}.BatchOptions.BatchSize=batchSize;
+        totalNodes=totalNodes+Batch{posCounter}.mesh.ngn
         
     end
 end
 
-
+%Add total node info to each BatchOptions entry,
+Batch{1}.BatchOptions.TotalNodes=totalNodes;
 end
 

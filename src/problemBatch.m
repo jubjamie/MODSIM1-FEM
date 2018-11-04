@@ -43,6 +43,7 @@ if size(LB,2)==3
                 Batch{posCounter}.BatchOptions.LB=LB;
                 Batch{posCounter}.BatchOptions.UB=UB;
                 Batch{posCounter}.BatchOptions.STEPS=STEPS;
+                Batch{posCounter}.BatchOptions.BatchSize=batchSize;
             end
             
         end

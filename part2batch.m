@@ -23,3 +23,4 @@ contourf(x,y,z,10,'ShowText','on');
 xlabel('Q');
 ylabel('TL');
 zlabel('c value');
+saveas(f,'status/part2a_contor.png');

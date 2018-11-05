@@ -1,5 +1,5 @@
 %%Set up path space
-p=genpath('lib');addpath(p);p=genpath('status');addpath(p);p=genpath('src');addpath(p);
+startSolver;
 
 Batch=problemBatch(@part2a,[0.5 294.15 5],[1.5 322.15 5],[5 5 1]);
 Batch=solveBatch(Batch);

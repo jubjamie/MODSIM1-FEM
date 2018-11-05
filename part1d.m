@@ -23,5 +23,5 @@ xvals=linspace(0,1,100);
 expectedSolFcn=(exp(3)/(exp(6)-1)*(exp(3*xvals)-exp(-3*xvals)));
 plot(xvals,expectedSol,'LineStyle','-','Color','k','DisplayName','Analytical Solution');
 
-Problem=RMS(Problem);
-Problem.RMS
+Batch{1}=RMS(Batch{1});
+Batch{1}.RMS

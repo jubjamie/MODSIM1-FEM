@@ -29,7 +29,7 @@ zlabel('c value');
 saveas(f,'status/part2a_contor.png');
 
 
-%Plot how temp profile varies with Q
+%Plot how temp profile varies with TL
 f4=figure('pos',[400,400,620,475]);
 [x,y,z]= compileResultProfiles(Batch,2,2);
 contourf(x,y,z,50,'ShowText','off','LineColor','none');
@@ -41,4 +41,17 @@ xlabel('TL');
 ylabel('x');
 zlabel('c value');
 saveas(f4,'status/part2a_profile.png');
+
+%Plot how temp profile varies with Q
+f5=figure('pos',[400,400,620,475]);
+[x,y,z]= compileResultProfiles(Batch,1,5);
+contourf(x,y,z,50,'ShowText','off','LineColor','none');
+hold on
+[cc,hh]=contour(x,y,z,6,'ShowText','on','LineColor','k');
+hh.LevelList=round(hh.LevelList,0);  %rounds levels to 3rd decimal place
+  clabel(cc,hh)
+xlabel('Q');
+ylabel('x');
+zlabel('c value');
+saveas(f5,'status/part2a_profile_Q.png');
 

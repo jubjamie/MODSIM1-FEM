@@ -40,7 +40,7 @@ hh.LevelList=round(hh.LevelList,0);  %rounds levels to 3rd decimal place
 xlabel('TL');
 ylabel('x');
 zlabel('c value');
-saveas(f11,'status/part2a_profile.png');
+saveas(f11,'status/part2b_profile.png');
 
 %Plot how temp profile varies with Q
 f12=figure('pos',[400,400,620,475]);
@@ -53,5 +53,5 @@ hh.LevelList=round(hh.LevelList,0);  %rounds levels to 3rd decimal place
 xlabel('Q');
 ylabel('x');
 zlabel('c value');
-saveas(f12,'status/part2a_profile_Q.png');
+saveas(f12,'status/part2b_profile_Q.png');
 

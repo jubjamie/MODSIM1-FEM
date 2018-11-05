@@ -42,7 +42,8 @@ Test3.BCS.N=[[2,0];];
 
 Test3=FEMSolve(Test3);
 %Expected result is that the boundary is satisfied at x=1 (final node). 
-%No source term and diffusion coef of 1 means linear response expected.
+%No source or reaction term means linear response expected.
+%Diffusion of 1 means no scaling.
 %With gradient of 2 at x=0 then expecting straight line y=2x-2
 expectedResult=(2*Test3.mesh.nvec)'-2;
 

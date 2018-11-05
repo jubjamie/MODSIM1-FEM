@@ -51,6 +51,51 @@ if size(LB,2)==3
         end
     end
     
+elseif size(LB,2)==2
+    %Calculate size of each parameter space
+    paramSize=STEPS;
+    assert(min(STEPS)>0,'Steps must be at least 0');
+    %assert(~mod(paramSize,1),'Step size is not a divisor of bound space.');
+    batchSize=prod(STEPS);
+    Batch=cell(1,batchSize);
+    tDelta=zeros(1,2);
+    assert(all(~mod(STEPS,1)),'Non-integer number of steps.');
+    for u=1:2
+        if(STEPS(u)>1)
+            tDelta(u)=(UB(u)-LB(u))./(STEPS(u)-1);
+        elseif(STEPS(u)==1)
+            tDelta(u)=0;
+        else
+            error('Negative step not allowed');
+        end
+    end
+    %Create 3 nested loops
+
+        %For first param
+        for j=1:paramSize(1)
+            %For second param
+            for k=1:paramSize(2)
+                posCounter=+((j-1)*paramSize(2))+k;
+                term1=LB(1)+((j-1)*tDelta(1));
+                term2=LB(2)+((k-1)*tDelta(2));
+                disp(['Making Problem with params>> Arg1:' num2str(term1) ' Arg2:' num2str(term2)]);
+                if k==paramSize(2)
+                    assert(term2==UB(2),'Boundary Step Error ARG 2. Final terms not equal to UB.');
+                end
+                Batch{posCounter}=problemTemplate(term1,term2);
+                Batch{posCounter}.initParams=[term1 term2];
+                Batch{posCounter}.BatchOptions.template=problemTemplate;
+                Batch{posCounter}.BatchOptions.LB=LB;
+                Batch{posCounter}.BatchOptions.UB=UB;
+                Batch{posCounter}.BatchOptions.STEPS=STEPS;
+                Batch{posCounter}.BatchOptions.BatchSize=batchSize;
+                totalNodes=totalNodes+Batch{posCounter}.mesh.ngn;
+
+            end
+            
+        end
+    
+    
 elseif size(LB,2)==1
     paramSize=STEPS;
     assert(min(STEPS)>0,'Steps must be at least 0');

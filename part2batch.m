@@ -31,7 +31,7 @@ saveas(f,'status/part2a_contor.png');
 
 %Plot how temp profile varies with Q
 f4=figure('pos',[400,400,620,475]);
-[x,y,z]= compileResultProfiles(Batch,2);
+[x,y,z]= compileResultProfiles(Batch,2,2);
 contourf(x,y,z,50,'ShowText','off','LineColor','none');
 hold on
 [cc,hh]=contour(x,y,z,6,'ShowText','on','LineColor','k');

@@ -68,7 +68,7 @@ elseif size(LB,2)==1
         end
 
     for k=1:paramSize(1)
-        posCounter=posCounter+1;
+        posCounter=k;
         term1=LB(1)+((k-1)*tDelta);
         disp(['Making Problem with params>> Arg1:' num2str(term1)]);
         if k==paramSize(1)
@@ -81,7 +81,7 @@ elseif size(LB,2)==1
         Batch{posCounter}.BatchOptions.UB=UB;
         Batch{posCounter}.BatchOptions.STEPS=STEPS;
         Batch{posCounter}.BatchOptions.BatchSize=batchSize;
-        totalNodes=totalNodes+Batch{posCounter}.mesh.ngn
+        totalNodes=totalNodes+Batch{posCounter}.mesh.ngn;
         
     end
 end

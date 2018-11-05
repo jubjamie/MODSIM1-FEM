@@ -25,12 +25,16 @@ if (size(varargin,2)==1)
 else
     holdIndex=[round(paramSize(2)/2,0),round(paramSize(1)/2,0)];
 end
+if size(paramSize,2)==1
+    posCounter=@(i) i;
+else
 if xterm==1
     %Then j loop held at value
     posCounter=@(i) ((i-1)*(paramSize(2)*paramSize(3)))+((holdIndex(xterm)-1)*paramSize(3))+paramSize(3);
 else
     %i loop held at value
     posCounter=@(j) ((holdIndex(xterm)-1)*(paramSize(2)*paramSize(3)))+((j-1)*paramSize(3))+paramSize(3);
+end
 end
 z=zeros(ystep,xstep);
 for i=1:batchSize

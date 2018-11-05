@@ -20,13 +20,20 @@ f=zeros(N,1);
 BCrhs=zeros(N,1);
 
 %If no Reaction or Diffusion coef or function set then set to zero and ignore.
-if(~isfield(Problem,'Diffusion') || ~isfield(Problem.Diffusion,'LE') || ~isfield(Problem.Diffusion.LE,'Generator') || ~isfield(Problem.Diffusion.LE,'coef'))
+if(~isfield(Problem,'Diffusion') || ~isfield(Problem.Diffusion,'LE') || ~isfield(Problem.Diffusion.LE,'coef')) % If no coeff then assume section not need and set all to zero.
 Problem.Diffusion.LE.Generator=@(a,b,c) 0;
 Problem.Diffusion.LE.coef=0;
 end
-if(~isfield(Problem,'Reaction') || ~isfield(Problem.Reaction,'LE') || ~isfield(Problem.Reaction.LE,'Generator') || ~isfield(Problem.Reaction.LE,'coef'))
+if(~isfield(Problem,'Diffusion') || ~isfield(Problem.Diffusion,'LE') || ~isfield(Problem.Diffusion.LE,'Generator')) %If no generator specified, give default.
+Problem.Diffusion.LE.Generator=@LaplaceElemMatrix;
+end
+if(~isfield(Problem,'Reaction') || ~isfield(Problem.Reaction,'LE') || ~isfield(Problem.Reaction.LE,'coef'))
 Problem.Reaction.LE.Generator=@(a,b,c) 0;
 Problem.Reaction.LE.coef=0;
+end
+if(~isfield(Problem,'Reaction') || ~isfield(Problem.Reaction,'LE') || ~isfield(Problem.Reaction.LE,'Generator'))
+Problem.Reaction.LE.Generator=@ReactionElemMatrix;
+
 end
 if(~isfield(Problem,'f') || ~isfield(Problem.f,'fcn'))
     %If no function is defined then set to 0

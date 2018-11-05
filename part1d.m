@@ -20,4 +20,8 @@ close all
 %Plot the solution with dedicated function.
 plotSolution(Batch,PlotOpts,extraFcn);
 xvals=linspace(0,1,100);
-plot(xvals,(exp(3)/(exp(6)-1)*(exp(3*xvals)-exp(-3*xvals))),'LineStyle','-','Color','k','DisplayName','Analytical Solution');
+expectedSolFcn=(exp(3)/(exp(6)-1)*(exp(3*xvals)-exp(-3*xvals)));
+plot(xvals,expectedSol,'LineStyle','-','Color','k','DisplayName','Analytical Solution');
+
+Problem=RMS(Problem);
+Problem.RMS

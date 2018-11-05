@@ -63,7 +63,7 @@ Test4=FEMSolve(Test4);
 
 assert(issymmetric(Test4.M(2:end-1,2:end-1)),'Global Matrix is not symmetric within the boundaries.');
 
-%% Test 5: Test that solver returns all numeric, finite elements for large matricies iwth large BCs (i.e. no NaNs or infs).
+%% Test 5: Test that solver returns all numeric, finite elements for large matricies with large BCs (i.e. no NaNs or infs).
 Test5=[];
 %Define problem.
 Test5.mesh=OneDimLinearMeshGen(0,1,100);

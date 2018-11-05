@@ -1,6 +1,15 @@
 function [x,y,z] = compileResultProfiles(Batch,xterm,varargin)
-%COMPILERESULTPROFILES Summary of this function goes here
-%   Detailed explanation goes here
+%COMPILERESULTPROFILES Creates the vectors and matricies for drawing contorf of result profiles.
+%   Given a batch and the variable term, this function produces the 3 vectors/matricies for contorf to draw a variable profile of the result as xterm changes.
+%   (Batch, xterm, holdIndez(optional))
+%   Batch - Batch of Problems.
+%   xterm - The term to vary on the x-axis within the batch.
+%   holdIndex - The nodal position/index to hold the other parameter at. If not given will use middle (or closest) node.
+%   NOTE: This function assumes a 2 term Batch. #TODO Single term batch.
+%
+%   Outputs [x,y,z]
+%   All 1xN vectors with a c (z) value for the x and y inputs parameters.
+
 xstep=Batch{1}.BatchOptions.STEPS(xterm);
 xlb=Batch{1}.BatchOptions.LB(xterm);
 xub=Batch{1}.BatchOptions.UB(xterm);

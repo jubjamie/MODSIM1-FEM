@@ -1,6 +1,10 @@
 function [sourceFunction] = sourceVector(symbExp)
-%SOURCEVECTOR Summary of this function goes here
-%   Detailed explanation goes here
+%SOURCEVECTOR Creates a custom function for the FEM Solver to construct the correct source vector (excluding Jacobian) 
+%   By using either a symbolic expression in x or a constant numeric calue, a source vector is created. This is multiplied out by the Jacobian in the FEMSolver.
+%   symbExp - Either a constant numeric value or a symbolic expression in x for the source terms.
+%
+%   Outputs
+%   sourceFunction - Returns a function of x0 and x1 for the FEM Solver to use to calculate the source vector for each node.
 if isnumeric(symbExp)
     symbExp=num2str(symbExp);
 end

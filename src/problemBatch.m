@@ -1,6 +1,15 @@
 function [Batch] = problemBatch(problemTemplate,LB,UB,STEPS)
-%PROBLEMBATCH Summary of this function goes here
-%   Detailed explanation goes here
+%PROBLEMBATCH Using a problem template, iterate through a range of parameter values to create a Batch of Problems.
+%   A problem template can be created that takes in various parameters, perhaps to do with varying mesh resolution or diffusion/reaction coefficients.
+%   (problemTemplate,LB,UB,STEPS)
+%   problemTemplate - A function that takes in the inputs that will be iterated in in the form of @problemTemplate(a,b,c); Must return a Problem ready to be solved.
+%   LB - The lower bounds for each term, in order of entry to the problemTemplate e.g. [lowera, lowerb, lowerc]
+%   UB - The upper bounds for each term, in order of entry to the problemTemplate e.g. [uppera, upperb, upperc]
+%   STEPS - The number of steps to do for each term, in order of entry to the problemTemplate e.g [5, 5, 5] gives 125 Problem combinations.
+%
+%   Outputs
+%   Batch - A Batch of Problems as a cell array with extra information on the Batch settings attached to the Problems and additional info attached to the first Problem (i.e. Batch{1}).
+
 assert(size(LB,2)<4,'Variable Parameters for batch processing is limited to 3 to reduce computational load');
 assert(size(LB,2)==size(UB,2) && size(LB,2)==size(STEPS,2),'Parameter bounds and step dimensions do not match');
 totalNodes=0;

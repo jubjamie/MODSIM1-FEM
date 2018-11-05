@@ -1,6 +1,9 @@
 function [Problem] = RMS(Problem)
-%RMS Summary of this function goes here
-%   Detailed explanation goes here
+%RMS Takes a problem and calculates the RMS L2 Norm
+%   Problem - Valid Problem
+%
+%   Outputs
+%   Problem - With Problem.RMS attached with RMS value for the Problem.
 NumOfElems=Problem.mesh.ne;
 errorInts=zeros(1,NumOfElems);
 basis0=@(z) (1-z)/2;

@@ -1,7 +1,15 @@
 function [M,c,f,BCrhs,Problem] = globalMatrix(Problem)
-%GLOBALMATRIX Returns Global Matrix filled with local elems
-%Size is NxN and.
+%GLOBALMATRIX Calculates all requierd matricies and vectors to solve a 1D FEM problem.
+%Generates Global Matrix and source vector, then applies boundary conditions to the vectors.
 %Also returns solution column vector initialised to zero
+%   Problem - A valid Problem.
+%
+%   Outputs
+%   M - Completed Global Matrix
+%   c - Empty solution vector of correct size.
+%   f - Completed Source Vector
+%   BCrhs - The RHS BC vector that eventually gets added to f.
+%   Updated Problem containing all above information added e.g. Problem.M = M
 
 %% Init matricies
 %Get problem info from mesh

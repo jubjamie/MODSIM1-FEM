@@ -1,6 +1,6 @@
 function [Titles] = getBatchTitles(Batch)
-%GETBATCHTITLES Summary of this function goes here
-%   Detailed explanation goes here
+%GETBATCHTITLES Returns cell array of Titles from Problems within a Batch
+%   Use for auto generating a legend for plotting or otherwise.
 Titles=cell(1,size(Batch,2));
 for i=1:size(Batch,2)
     Titles{i}=Batch{i}.title;    

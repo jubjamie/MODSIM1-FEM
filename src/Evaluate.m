@@ -1,6 +1,11 @@
 function [value] = Evaluate(Problem,x)
-%EVALUATE Summary of this function goes here
-%   Detailed explanation goes here
+%EVALUATE Given a Problem, returns the interpolated value at x
+%   (Problem, x)
+%   Problem - A generated Problem WITH solution/result.
+%   x - The value at which the solved Problem should be evaluted.
+%
+%   Outputs
+%   value - The linearly interpolated value at x.
 
 %Work out position of x in nvec
 flooredValue=x-Problem.mesh.xmin; % Convert value to a position from x=0;

@@ -1,6 +1,9 @@
 function [localElemMatrix] = LaplaceElemMatrix(D,eID,msh)
-%LAPLACEELEMMATRIX Summary of this function goes here
-%   Detailed explanation goes here
+%LAPLACEELEMMATRIX Creates the diffusion localElem Matrix.
+%   (D, eID, mesh)
+%   D - The diffusion coefficent to use in the matrix.
+%   eID - The ID of the element to create the local element matrix for.
+%   msh - The mesh object for the problem.
 % Local element properties within mesh can accessed as follows:
 %   Pos-x0: msh.elem(eID).x(1);   GlobalNodeID-x0: msh.elem(eID).n(1);
 %   Pos-x1: msh.elem(eID).x(2);   GlobalNodeID-x1: msh.elem(eID).n(2);

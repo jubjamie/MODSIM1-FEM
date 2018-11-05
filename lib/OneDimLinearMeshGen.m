@@ -7,6 +7,7 @@ function [mesh] = OneDimLinearMeshGen(xmin,xmax,Ne)
     mesh.ngn = Ne+1; %set number of global nodes
     mesh.nvec = zeros(mesh.ngn,1); %allocate vector to store global node values
     dx = (xmax - xmin)/Ne; %calculate element size
+    mesh.dx=dx;
     mesh.xmin=xmin;
     mesh.xmax=xmax;
 

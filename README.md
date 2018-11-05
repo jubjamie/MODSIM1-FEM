@@ -1,5 +1,12 @@
 # MODSIM1-FEM
-MODSIM Unit CW 1. Limited result graphs are displayed in this README for this project. This is a semi object oriented FEM Solver for 1D problems as specified in the assignment sheet. Basic Usage as shown below.
+MODSIM Unit CW 1. Limited result graphs are displayed in this README for this project. This is a semi object oriented FEM Solver for 1D problems as specified in the assignment sheet. [Basic Usage as shown below.](https://github.com/jubjamie/MODSIM1-FEM#usage)
+
+## Part 2 Parameter Plots
+The left contor plot shows how the temperature at a constant x is varied by the change in Q and TL. The right image shows how the temperature profile changes as Q is increased left to right. Up/down is the material temperature profile. 
+<p align="center">
+<img src="status/part2a_contor.png?raw=true" />
+<img src="status/part2a_profile.png?raw=true" />
+</p>
 
 ## Usage
 

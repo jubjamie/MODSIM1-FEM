@@ -1,8 +1,11 @@
 %%Set up path space
 startSolver;
 
+% Create Batch based on @part2a template interating Q,TL and Number of Elements through
+% [Lower Bounds],[Upper Bounds], [Number of Steps];
 Batch=problemBatch(@part2a,[0.5 294.15 5],[1.5 322.15 5],[5 5 1]);
-Batch=solveBatch(Batch);
+
+Batch=solveBatch(Batch); % Send to Batch solver using default @FEMSolver.
 
 %Set Plot Options
 PlotOpts=[]; %Clear previous opts.

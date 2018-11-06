@@ -1,8 +1,10 @@
-startSolver;
+startSolver; %#ok<*NBRAK>
 
-Batch=problemBatch(@part1dProblem,[2],[6],[3]);
+Batch=problemBatch(@part1dProblem,[2],[6],[3]); % Create a batch of problems using the 
+                                    %@part1dProblem Template iterating template input 1 (# of elems)
+                                    % from 2 to 6 in 3 steps.
 
-Batch=solveBatch(Batch);
+Batch=solveBatch(Batch); % Send the Batch of Problems to the Batch Solver using default @FEMSolve
 
 %Set Plot Options
 PlotOpts=[]; %Clear previous opts.

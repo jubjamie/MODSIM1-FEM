@@ -25,7 +25,8 @@ plotSolution({Problem},PlotOpts,extraFcn);
 %Part 1cii using the example D/N BCs
 Problem2=[]; % Init an empty Problem object.
 Problem2.mesh=OneDimLinearMeshGen(0,1,4); % Define the mesh with 4 elements x=0<>1
-Problem2.Diffusion.LE.coef=1; % Set a diffusion coefficient of 1.
+Problem2.Diffusion.LE.coef=1;
+Problem2.Reaction.LE.coef=2;% Set a diffusion coefficient of 1.
 Problem2.BCS.D=[[0,1];]; %#ok<*NBRAK> % Define Dirichlet BC -> c=0@x=1
 Problem2.BCS.N=[[2,0];]; % Define Neumann BC -->dc/dx=2@x=0;
 

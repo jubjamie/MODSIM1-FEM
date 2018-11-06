@@ -40,7 +40,7 @@ if(~isfield(Problem,'f') || ~isfield(Problem.f,'fcn'))
 Problem.f.fcn=@(a,b) 0;
 end
 if(~isfield(Problem,'f') || ~isfield(Problem.f,'coef'))
-    %If no function is defined then set to 0
+    %If no coef is defined then set to 1
 Problem.f.coef=1;
 end
 %TODO Check only one BC set/node.

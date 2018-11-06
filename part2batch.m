@@ -22,14 +22,17 @@ plotSolution(Batch,PlotOpts,extraFcn);
 %3D plot max positions.
 
 f3=figure('Name','Parameter Space - Part 2a - Constant x Position');
-[x,y,z]= generateContorMatricies(Batch,1,2,3);
-[cc,hh]=contourf(x,y,z,10,'ShowText','on');
+heldXindex=2;
+[x,y,z]= generateContorMatricies(Batch,1,2,heldXindex);
+[cc,hh]=contourf(x,y,z,14,'ShowText','on');
+hh.LevelStep=1;
 hh.LevelList=round(hh.LevelList,0);  %rounds levels to 3rd decimal place
   clabel(cc,hh)
 xlabel('Q');
 ylabel('TL (K)');
 zlabel('c value');
-title('Variation in Temperature at Constant x Position with Q and TL');
+heldXpos=((heldXindex-1)/Batch{1}.mesh.ne)*(Batch{1}.mesh.xmax-Batch{1}.mesh.xmin);
+title(['Variation in Temperature at x=' num2str(round(heldXpos,3)) 'm with Q and TL']);
 colorbar;
 saveas(f3,'status/part2a_contor.png');
 

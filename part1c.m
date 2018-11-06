@@ -1,14 +1,12 @@
 startSolver;
 
-%Part 1ci with two D-BCs
-Problem=[];
-%Define problem.
-Problem.mesh=OneDimLinearMeshGen(0,1,4);
-Problem.Diffusion.LE.Generator=@LaplaceElemMatrix;
-Problem.Diffusion.LE.coef=1;
-Problem.BCS.D=[[0,1];[2,0];];
+%Make Problem for Part 1ci with two D-BCs
+Problem=[]; % Init an empty Problem object.
+Problem.mesh=OneDimLinearMeshGen(0,1,4); % Define the mesh with 4 elements x=0<>1
+Problem.Diffusion.LE.coef=1; % Set a diffusion coefficient of 1.
+Problem.BCS.D=[[2,0];[0,1];]; % Define Dirichlet Boundaries-> c=2@x=0 & c=0@x=1
 
-Problem=FEMSolve(Problem);
+Problem=FEMSolve(Problem); % Send Problem to FEM Solver.
 
 %Set Plot Options
 PlotOpts=[]; %Clear previous opts.
@@ -16,6 +14,8 @@ PlotOpts.title='Part 1ci Solution';
 PlotOpts.filepath='status/part1ci.png';
 PlotOpts.x.label='x';
 PlotOpts.y.label='c';
+PlotOpts.legend.labels={'Part 1ci - 2 D BCs'};
+PlotOpts.legend.pos='Southwest';
 extraFcn='grid;';
 close all
 
@@ -23,15 +23,13 @@ close all
 plotSolution({Problem},PlotOpts,extraFcn);
 
 %Part 1cii using the example D/N BCs
-Problem2=[];
-%Define problem.
-Problem2.mesh=OneDimLinearMeshGen(0,1,4);
-Problem2.Diffusion.LE.Generator=@LaplaceElemMatrix;
-Problem2.Diffusion.LE.coef=1;
-Problem2.BCS.D=[[0,1];];
-Problem2.BCS.N=[[2,0];];
+Problem2=[]; % Init an empty Problem object.
+Problem2.mesh=OneDimLinearMeshGen(0,1,4); % Define the mesh with 4 elements x=0<>1
+Problem2.Diffusion.LE.coef=1; % Set a diffusion coefficient of 1.
+Problem2.BCS.D=[[0,1];]; %#ok<*NBRAK> % Define Dirichlet BC -> c=0@x=1
+Problem2.BCS.N=[[2,0];]; % Define Neumann BC -->dc/dx=2@x=0;
 
-Problem2=FEMSolve(Problem2);
+Problem2=FEMSolve(Problem2); % Send Problem to FEM Solver.
 
 %Set Plot Options
 PlotOpts=[]; %Clear previous opts.

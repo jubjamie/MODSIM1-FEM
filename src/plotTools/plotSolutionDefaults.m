@@ -12,7 +12,7 @@ if (isfield(opts,'nodePlot'))
         nodePlot{j}=opts.nodePlot;
         if (~isfield(opts.nodePlot,'LineStyle'))
             nodePlot{j}.LineStyle='-';
-            elseif (isfield(opts.nodePlot,'LineStyle') && size(opts.nodePlot.LineStyle,1)>1)
+            elseif (isfield(opts.nodePlot,'LineStyle') && size(opts.nodePlot.LineStyle,2)>1)
             nodePlot{j}.LineStyle=opts.nodePlot.LineStyle{j};
         else
             nodePlot{j}.LineStyle=opts.nodePlot.LineStyle;

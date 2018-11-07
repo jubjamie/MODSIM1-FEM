@@ -26,7 +26,7 @@ plotSolution(Batch,PlotOpts,extraFcn);
 f3=figure('Name','Parameter Space - Part 2a - Constant x Position');
 heldXindex=4;
 [x,y,z]= generateContorMatricies(Batch,1,2,heldXindex);
-[cc,hh]=contourf(x,y,z,14,'ShowText','on');
+[cc,hh]=contourf(x,y,z,17,'ShowText','on');
 hh.LevelStep=1;
 hh.LevelList=round(hh.LevelList,0);  %rounds levels to 3rd decimal place
   clabel(cc,hh)
@@ -51,7 +51,8 @@ hh.LevelList=round(hh.LevelList,0);  %rounds levels to 3rd decimal place
 xlabel('TL (K)');
 ylabel('x (m)');
 zlabel('c value');
-holdPvalue=(((Batch{1}.BatchOptions.UB(1)-Batch{1}.BatchOptions.LB(1))/(Batch{1}.BatchOptions.STEPS(1)-1))*(holdPindex-1))+Batch{1}.BatchOptions.LB(1);
+holdPterm=1;
+holdPvalue=(((Batch{1}.BatchOptions.UB(holdPterm)-Batch{1}.BatchOptions.LB(holdPterm))/(Batch{1}.BatchOptions.STEPS(holdPterm)-1))*(holdPindex-1))+Batch{1}.BatchOptions.LB(holdPterm);
 title(['Part 2a Temperature Profile as TL Only Varies. Q=' num2str(holdPvalue)]);
 colorbar;
 saveas(f4,'status/part2a_profile.png');

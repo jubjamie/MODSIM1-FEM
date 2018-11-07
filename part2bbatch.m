@@ -1,7 +1,7 @@
 %%Set up path space
 startSolver;
 
-Batch=problemBatch(@part2b,[0.5 294.15 5],[1.5 322.15 5],[5 5 1]);
+Batch=problemBatch(@part2b,[0.5 294.15 10],[1.5 322.15 10],[5 5 1]);
 Batch=solveBatch(Batch);
 
 %Set Plot Options
@@ -19,58 +19,68 @@ plotSolution(Batch,PlotOpts,extraFcn);
 %3D plot max positions.
 
 f10=figure('Name','Parameter Space - Part 2b - Constant x Position');
-[x,y,z]= generateContorMatricies(Batch,1,2,3);
-[cc,hh]=contourf(x,y,z,10,'ShowText','on');
+heldXindex=4;
+[x,y,z]= generateContorMatricies(Batch,1,2,heldXindex);
+[cc,hh]=contourf(x,y,z,18,'ShowText','on');
+hh.LevelStep=1;
 hh.LevelList=round(hh.LevelList,0);  %rounds levels to 3rd decimal place
   clabel(cc,hh)
 xlabel('Q');
 ylabel('TL (K)');
 zlabel('c value');
-title('Variation in Temperature at Constant x Position with Q and TL');
+heldXpos=((heldXindex-1)/Batch{1}.mesh.ne)*(Batch{1}.mesh.xmax-Batch{1}.mesh.xmin);
+title(['Variation in Temperature at x=' num2str(round(heldXpos,3)) 'm with Q and TL']);
 colorbar;
 saveas(f10,'status/part2b_contor.png');
 
 
 %Plot how temp profile varies with TL
-f11=figure('pos',[0,400,620,475],'Name','Temperature Profile - Part 2b - Varying TL');
-[x,y,z]= compileResultProfiles(Batch,2,2);
+f11=figure('pos',[0,400,820,475],'Name','Temperature Profile - Part 2b - Varying TL');
+holdPindex=4;
+[x,y,z]= compileResultProfiles(Batch,2,holdPindex);
 contourf(x,y,z,50,'ShowText','off','LineColor','none');
 hold on
-[cc,hh]=contour(x,y,z,12,'ShowText','on','LineColor','k');
+[cc,hh]=contour(x,y,z,9,'ShowText','on','LineColor','k');
 hh.LevelList=round(hh.LevelList,0);  %rounds levels to 3rd decimal place
   clabel(cc,hh)
 xlabel('TL (K)');
 ylabel('x (m)');
 zlabel('c value');
-title('Part 2b Temperature Profile as TL Only Varies');
+holdPterm=1;
+holdPvalue=(((Batch{1}.BatchOptions.UB(holdPterm)-Batch{1}.BatchOptions.LB(holdPterm))/(Batch{1}.BatchOptions.STEPS(holdPterm)-1))*(holdPindex-1))+Batch{1}.BatchOptions.LB(holdPterm);
+title(['Part 2b Temperature Profile as TL Only Varies. Q=' num2str(holdPvalue)]);
 colorbar;
 saveas(f11,'status/part2b_profile.png');
 
 %Plot how temp profile varies with Q
-f12=figure('pos',[400,0,620,475],'Name','Temperature Profile - Part 2b - Varying Q');
-[x,y,z]= compileResultProfiles(Batch,1,5);
+f12=figure('pos',[400,0,820,475],'Name','Temperature Profile - Part 2b - Varying Q');
+holdPindex=1;
+[x,y,z]= compileResultProfiles(Batch,1,holdPindex);
 contourf(x,y,z,50,'ShowText','off','LineColor','none');
 hold on
-[cc,hh]=contour(x,y,z,12,'ShowText','on','LineColor','k');
+[cc,hh]=contour(x,y,z,9,'ShowText','on','LineColor','k');
 hh.LevelList=round(hh.LevelList,0);  %rounds levels to 3rd decimal place
   clabel(cc,hh)
 xlabel('Q');
 ylabel('x (m)');
 zlabel('c value');
-title('Part 2b Temperature Profile as Q Only Varies');
+holdPterm=2;
+holdPvalue=(((Batch{1}.BatchOptions.UB(holdPterm)-Batch{1}.BatchOptions.LB(holdPterm))/(Batch{1}.BatchOptions.STEPS(holdPterm)-1))*(holdPindex-1))+Batch{1}.BatchOptions.LB(holdPterm);
+title(['Part 2b Temperature Profile as Q Only Varies. TL=' num2str(holdPvalue)]);
 colorbar;
 saveas(f12,'status/part2b_profile_Q.png');
 
 %% Compare to part2a.
-Batch2a=problemBatch(@part2a,[0.5 294.15 5],[1.5 322.15 5],[5 5 1]);
+Batch2a=problemBatch(@part2a,[0.5 294.15 10],[1.5 322.15 10],[5 5 1]);
 Batch2a=solveBatch(Batch2a);
 
 %Plot difference between a and b.
 
 %Show effect on temperature profile by subtraction.
 f13=figure('pos',[400,500,620,475],'Name','Subtraction Camparison Parts 2 a/b');
-[x,y,z]= compileResultProfiles(Batch,2,5);
-[~,~,z2a]= compileResultProfiles(Batch2a,2,5);
+holdPindex=4;
+[x,y,z]= compileResultProfiles(Batch,2,holdPindex);
+[~,~,z2a]= compileResultProfiles(Batch2a,2,holdPindex);
 z=z-z2a;
 contourf(x,y,z,50,'ShowText','off','LineColor','none');
 hold on
@@ -81,7 +91,9 @@ hh.LevelList=round(hh.LevelList,0);  %rounds levels to 3rd decimal place
 xlabel('TL (K)');
 ylabel('x (m)');
 zlabel('c value');
-title('Part 2a/b Difference as TL Varies');
+holdPterm=1;
+holdPvalue=(((Batch{1}.BatchOptions.UB(holdPterm)-Batch{1}.BatchOptions.LB(holdPterm))/(Batch{1}.BatchOptions.STEPS(holdPterm)-1))*(holdPindex-1))+Batch{1}.BatchOptions.LB(holdPterm);
+title(['Difference between Part 2a and Part 2b as TL Only Varies. Q=' num2str(holdPvalue)]);
 colorbar;
 saveas(f13,'status/part2a_b_profile_comp.png');
 

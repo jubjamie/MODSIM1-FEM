@@ -46,7 +46,7 @@ title(plotTitle);
 xlabel(xlabel_title);
 ylabel(ylabel_title);
 if iscell(legend_text)
-    legend(legend_text,'Location',legend_pos);
+    legend(legend_text,'Location',legend_pos, 'Interpreter','latex');
 end
 if(isfield(opts,'filepath'))
 saveas(f,opts.filepath);

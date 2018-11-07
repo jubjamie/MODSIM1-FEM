@@ -3,7 +3,7 @@ function [Problem] = part2a(Q,TL,NumOfElems)
 %   Given a value of Q, TL & number of elements, a Problem object is returned with those parameters.
 
 Problem=[]; %Init empty problem.
-Problem.title='Part 2A'; % Set a title for use in plotting function.
+Problem.title=['Q=' num2str(Q) ', $T_L$=' num2str(TL)]; % Set a title for use in plotting function.
 Problem.mesh=OneDimLinearMeshGen(0,0.01,NumOfElems); % Define mesh with input number of elements.
 
 k=1.01e-5; % Define material constant diffusion coefficient.

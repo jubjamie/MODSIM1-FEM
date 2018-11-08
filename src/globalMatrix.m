@@ -132,7 +132,7 @@ end
 Problem.M=M; % Place global matrix into Problem.
 Problem.c=c; % Place initialised results vector into Problem.
 f=f+BCrhs;   % Sum source vector and Neumann BCs vector.
-Problem.f=f; % Place source vector into Problem.
+Problem.f.vec=f; % Place source vector into Problem.
 Problem.BCrhs=BCrhs; % Place Neumann BCs vector into Problem for future reference.
 
 end

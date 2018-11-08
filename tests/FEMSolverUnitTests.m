@@ -79,7 +79,7 @@ Test5=FEMSolve(Test5);
 
 assert(all(all(isfinite(Test5.M)))==1,'Non-finite elemnts in Global Matrix.');
 assert(all(all(isfinite(Test5.Result)))==1,'Non-finite elemnts in Result Vector.');
-assert(all(all(isfinite(Test5.f)))==1,'Non-finite elemnts in Source Vector.');
+assert(all(all(isfinite(Test5.f.vec)))==1,'Non-finite elemnts in Source Vector.');
 
 %% Test 6: Test accuracy of reaction term calculations using part 1d analytical example.
 Test6=[];

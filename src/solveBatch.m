@@ -13,9 +13,10 @@ else
     %Specify default FEM Solver
     solver=@FEMSolve;
 end
-BatchSize=size(Batch,2);
-for i=1:BatchSize
-    Batch{i}=solver(Batch{i});
+
+BatchSize=size(Batch,2); % Calulate number of problems in Batch
+for i=1:BatchSize % Iterate through Problems in Batch
+    Batch{i}=solver(Batch{i}); % Solve using the specified solver of the default @FEMSolve.
 end
 
 end

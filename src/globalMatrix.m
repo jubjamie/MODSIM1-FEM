@@ -59,13 +59,18 @@ if(~isfield(Problem,'Reaction') || ~isfield(Problem.Reaction,'LE') || ~isfield(P
     Problem.Reaction.LE.coef=0;
 end
 
+% If no source function is defined but a constant is, set to 1 to bypass. (Allows constant cource terms still).
 if(~isfield(Problem,'f') || ~isfield(Problem.f,'fcn'))
-    %If no function is defined then set to 0
-Problem.f.fcn=@(a,b) 0;
+    if (isfield(Problem,'f') && isfield(Problem.f,'coef'))
+        Problem.f.fcn=@(a,b) 1;
+    else
+        Problem.f.fcn=@(a,b) 0; % With no function or constant term, set to zero for no source terms at all.
+    end
 end
+
+% If no constant multiplier is defined for polynomial source function then set to 1.
 if(~isfield(Problem,'f') || ~isfield(Problem.f,'coef'))
-    %If no coef is defined then set to 1
-Problem.f.coef=1;
+    Problem.f.coef=1;
 end
 
 %------------%

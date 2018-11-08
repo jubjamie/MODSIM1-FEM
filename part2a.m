@@ -9,7 +9,7 @@ Problem.mesh=OneDimLinearMeshGen(0,0.01,NumOfElems); % Define mesh with input nu
 k=1.01e-5; % Define material constant diffusion coefficient.
 Problem.Diffusion.LE.coef=k; % Set diffusion coefficient.
 Problem.Reaction.LE.coef=-Q; % Set reaction coefficient.
-Problem.f.fcn=sourceVector(Q*TL); % Create custom function that will generate local source vectors.
+Problem.f.coef=Q*TL; % Create custom function that will generate local source vectors.
                                   % This allows polynomial source terms to be used later.
                                   % Accepts numeric constants too.
 

@@ -13,10 +13,12 @@ function [x,y,z] = compileResultProfiles(Batch,xterm,varargin)
 xstep=Batch{1}.BatchOptions.STEPS(xterm); % Fetch step count for variable parameter.
 xlb=Batch{1}.BatchOptions.LB(xterm); % Fetch lower bounds for variable parameter.
 xub=Batch{1}.BatchOptions.UB(xterm); % Fetch upper bounds for variable parameter.
+ystep=Batch{1}.mesh.ngn; % Fetch step count for variable parameter.
 
 % Generate x,y vectors for Result Profile
 x=linspace(xlb,xub,xstep);
 y=Batch{1}.mesh.nvec;
+
 
 % Generate z matrix for Result Profile
 batchSize=xstep; % Use step count in x as number of batches to evaluate.

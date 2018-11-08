@@ -1,8 +1,10 @@
-%%Set up path space
+%Set up path space
 startSolver;
-
+% Create Batch based on @part2a template interating Q,TL and Number of Elements through
+% [Lower Bounds],[Upper Bounds], [Number of Steps];
 Batch=problemBatch(@part2b,[0.5 294.15 10],[1.5 322.15 10],[5 5 1]);
-Batch=solveBatch(Batch);
+
+Batch=solveBatch(Batch);  % Send to Batch solver using default @FEMSolver.
 
 %Set Plot Options
 PlotOpts=[]; %Clear previous opts.
@@ -70,7 +72,7 @@ title(['Part 2b Temperature Profile as Q Only Varies. TL=' num2str(holdPvalue)])
 colorbar;
 saveas(f12,'status/part2b_profile_Q.png');
 
-%% Compare to part2a.
+% Compare to part2a.
 Batch2a=problemBatch(@part2a,[0.5 294.15 10],[1.5 322.15 10],[5 5 1]);
 Batch2a=solveBatch(Batch2a);
 

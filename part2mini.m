@@ -5,8 +5,9 @@ startSolver;
 % [Lower Bounds],[Upper Bounds], [Number of Steps];
 Batcha=problemBatch(@part2a,[0.5 294.15 10],[1.5 322.15 10],[2 2 1]);
 Batcha=solveBatch(Batcha); % Send to Batch solver using default @FEMSolver.
-Batchb=problemBatch(@part2b,[0.5 294.15 10],[1.5 322.15 10],[2 2 1]);
 
+% Same as above for the part 2b batch
+Batchb=problemBatch(@part2b,[0.5 294.15 10],[1.5 322.15 10],[2 2 1]);
 Batchb=solveBatch(Batchb); % Send to Batch solver using default @FEMSolver.
 
 %Set Plot Options

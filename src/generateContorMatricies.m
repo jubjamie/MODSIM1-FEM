@@ -14,10 +14,13 @@ function [x,y,z] = generateContorMatricies(Batch,xterm,yterm,zpos)
 xstep=Batch{1}.BatchOptions.STEPS(xterm); % Fetch step count for variable parameter.
 xlb=Batch{1}.BatchOptions.LB(xterm); % Fetch lower bounds for variable parameter.
 xub=Batch{1}.BatchOptions.UB(xterm); % Fetch upper bounds for variable parameter.
+ylb=Batch{1}.BatchOptions.LB(yterm); % Fetch lower bounds for variable parameter.
+yub=Batch{1}.BatchOptions.UB(yterm); % Fetch upper bounds for variable parameter.
+ystep=Batch{1}.BatchOptions.STEPS(yterm); % Fetch step count for variable parameter.
 
 % Generate x,y vectors for Contor
 x=linspace(xlb,xub,xstep);
-y=Batch{1}.mesh.nvec;
+y=linspace(ylb,yub,ystep);
 
 batchSize=Batch{1}.BatchOptions.BatchSize; % Fetch batch size from BatchOptions
 z=zeros(ystep,xstep); % Pre-allocate z.

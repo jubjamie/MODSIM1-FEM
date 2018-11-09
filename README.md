@@ -8,7 +8,7 @@ The first contor plot shows how the temperature at a constant x is varied by the
 <img src="status/part2a_profile.png?raw=true" width="45%"/>
 </p>
 
-## Usage
+## Example Usage
 
 ### Single Problem Mesh Example
 This code uses an object based approach meaning you initialise a **Problem** and then solve, plot it etc.
@@ -26,9 +26,35 @@ Create a new problem using the part2a template and the variables as above. Then 
 part2aProblem = part2a(0.8,305,10); % Create the problem using the part2a template.
 part2aProblem = FEMSolve(part2aProblem); % Solve this single problem with the solver.
 ```
-This Problem is now solved and can be plotted. [Solver plotting options can be set as in the docs](#), otherwise the solver defaults are used.  
+This Problem is now solved and can be plotted. Solver plotting options can be set as, otherwise the solver defaults are used.  
 ```Matlab
 plotSolution({part2aProblem}); % Note how the single problem is inside a singluar cell. This is important.
 ```
 
-That's it, the result will now be displayed. Full information can be retrieved from the Problem as per [the docs/](#).
+That's it, the result will now be displayed. Full information can be access from the Problem structure.
+
+## Problem Structure
+Setting up a Problem involves using some of the following. Example of this formation includes part2b.m.
+
+
+### The Problem can contain the following:
+
+           Problem.title: A string title for the problem, useful for legends later.
+           Problem.mesh: The 1D mesh
+           Problem.Diffusion.LE.Generator: A function handle for a function returning the local element matrix. Optional, default will be set.
+           Problem.Diffusion.LE.coef: The diffusion coefficient D.
+           Problem.Reaction.LE.Generator: A function handle for a function returning the local element matrix.
+           Problem.Reaction.LE.coef: The reaction coefficient lambda. If not set, no reaction term used.
+           
+           Problem.f.coef: A constant source term or constant multipying term for a polynomial source.
+           Problem.f.fcn: A function handle for a run-time integrated & compiled function for polynomial source terms.
+                          Definition example:
+                          Problem.f.fcn=sourceVector('1+(4*x)');
+                                       where x is the term for integration.
+
+           Problem.BCS.N: An array of Neumann boundary conditions using value@x notation.
+                          e.g.[[2,0];,[0,1];]; Sets gradient of 2 at x=0
+                                               and gradient of 0 at x=1.
+           Problem.BCS.D: An array of Dirichlet boundary conditions using value@x notation.
+                          e.g.[[2,0];,[0,1];]; Sets value of 2 at x=0
+                                               and value of 0 at x=1.

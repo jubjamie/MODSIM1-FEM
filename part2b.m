@@ -7,7 +7,8 @@ function [Problem] = part2b(Q,TL,NumOfElems)
 
 %Init empty problem.
 Problem=[];
-Problem.title=['Q=' num2str(Q) ', $T_L$=' num2str(TL)]; % Give title based on inputs.
+% Give title based on inputs.
+Problem.title=['Q=' num2str(Q) ', $T_L$=' num2str(TL)]; 
 %Define mesh
 Problem.mesh=OneDimLinearMeshGen(0,0.01,NumOfElems);
 %Define Local element Generator functions

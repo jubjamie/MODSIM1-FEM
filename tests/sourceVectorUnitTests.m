@@ -29,10 +29,12 @@ assert(all(Test2.f.vec==expectedf),'Source term does not match expected value');
 
 %% Test 3: Test polynomial source term local case.
 % Test using the Part 2b linear source term to check if the local element
-% function returned by sourceVector is correct by completing the symbolic integration
-% correctly foa single element.
+% function returned by sourceVector is correct by completing
+% the symbolic integration
+% correctly for a single element.
 fFcn=sourceVector('1+(4*x)');
 % Expected integration result as per report derivation for part 2b.
 expectedFcn=@(x0,x1) [1+((8/3)*x0)+((4/3)*x1);1+((8/3)*x1)+((4/3)*x0);];
 % Assert that expected integration matches that from the sourceVector() function.
-assert(all(fFcn(2,3)==expectedFcn(2,3)),'Function does not produce expected result.');
+assert(all(fFcn(2,3)==expectedFcn(2,3)),...
+    'Function does not produce expected result.');

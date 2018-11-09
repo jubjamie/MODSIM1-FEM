@@ -6,13 +6,14 @@ else
 end
 
 nodePlot=cell(1,size(Problems,2));
-%Set plot option for nodes
+%Set plot option for nodes. If not set, set defaults.
 if (isfield(opts,'nodePlot'))
     for j=1:size(Problems,2)
         nodePlot{j}=opts.nodePlot;
         if (~isfield(opts.nodePlot,'LineStyle'))
             nodePlot{j}.LineStyle='-';
-            elseif (isfield(opts.nodePlot,'LineStyle') && size(opts.nodePlot.LineStyle,2)>1)
+            elseif (isfield(opts.nodePlot,'LineStyle') &&...
+                    size(opts.nodePlot.LineStyle,2)>1)
             nodePlot{j}.LineStyle=opts.nodePlot.LineStyle{j};
         else
             nodePlot{j}.LineStyle=opts.nodePlot.LineStyle;
@@ -28,7 +29,8 @@ if (isfield(opts,'nodePlot'))
         
         if (~isfield(opts.nodePlot,'Marker'))
             nodePlot{j}.Marker='o';
-            elseif (isfield(opts.nodePlot,'Marker') && size(opts.nodePlot.Marker,1)>1)
+            elseif (isfield(opts.nodePlot,'Marker') &&...
+                    size(opts.nodePlot.Marker,1)>1)
             nodePlot{j}.Marker=opts.nodePlot.Marker{j};
         else
             nodePlot{j}.Marker=opts.nodePlot.Marker;
@@ -36,13 +38,15 @@ if (isfield(opts,'nodePlot'))
         
         if (~isfield(opts.nodePlot,'MarkerEdgeColor'))
             nodePlot{j}.MarkerEdgeColor='k';
-            elseif (isfield(opts.nodePlot,'MarkerEdgeColor') && size(opts.nodePlot.MarkerEdgeColor,1)>1)
+            elseif (isfield(opts.nodePlot,'MarkerEdgeColor') &&...
+                    size(opts.nodePlot.MarkerEdgeColor,1)>1)
             nodePlot{j}.MarkerEdgeColor=opts.nodePlot.MarkerEdgeColor{j};
         else
             nodePlot{j}.MarkerEdgeColor=opts.nodePlot.MarkerEdgeColor;
         end
     end
 else
+    % If no options set at all then use defaults
     for j=1:size(Problems,2)
     nodePlot{j}.LineStyle='-';
     nodePlot{j}.Color='r';
@@ -72,7 +76,7 @@ else
     ylabel_title='';
 end
 
-%Set legend
+%Set legend text and position.
 if (isfield(opts,'legend'))
     legend_text=opts.legend.labels;
     if (isfield(opts.legend,'pos'))

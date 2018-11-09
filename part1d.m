@@ -26,5 +26,6 @@ plotSolution(Batch,PlotOpts,extraFcn);
 % Plot analytical solution.
 xvals=linspace(0,1,101); % Create x domain.
 expectedSol=(exp(3)/(exp(6)-1)*(exp(3*xvals)-exp(-3*xvals))); % Solve @ x.
-plot(xvals,expectedSol,'LineStyle','-','Color','k','DisplayName','Analytical Solution');
+plot(xvals,expectedSol,'LineStyle','-','Color','k','DisplayName',...
+    'Analytical Solution');
 saveas(gcf,'status/part1d_MeshComparison.png');

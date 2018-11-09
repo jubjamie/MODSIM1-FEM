@@ -1,7 +1,8 @@
-%%Set up path space
+%Set up path space
 startSolver;
 
-% Create Batch based on @part2a template interating Q,TL and Number of Elements through
+% Create Batch based on @part2a template interating Q,TL and
+% Number of Elements through
 % [Lower Bounds],[Upper Bounds], [Number of Steps];
 Batch=problemBatch(@part2a,[0.5 294.15 10],[1.5 322.15 10],[2 2 1]);
 
@@ -13,7 +14,10 @@ PlotOpts.title='Part 2a Parameter Extremities Comparison';
 PlotOpts.filepath='status/part2a_comp_mini.png';
 PlotOpts.x.label='x (m)';
 PlotOpts.y.label='Temperature (K)';
-PlotOpts.legend.labels=getBatchTitles(Batch); % Create cell array of Problem Titles.
+
+% Create cell array of Problem Titles.
+PlotOpts.legend.labels=getBatchTitles(Batch); 
+
 PlotOpts.nodePlot.Color={'r','g','b',[1, 0.666, 0]}';
 extraFcn='grid;';
 close all

@@ -1,11 +1,16 @@
 function [x,y,z] = compileResultProfiles(Batch,xterm,varargin)
-%COMPILERESULTPROFILES Creates the vectors and matricies for drawing contorf of result profiles.
-%   Given a batch and the variable term, this function produces the 3 vectors/matricies for contorf to draw a variable profile of the result as xterm changes.
+%COMPILERESULTPROFILES Creates the vectors and matrices for drawing contorf
+%                      of result profiles.
+%   Given a batch and the variable term, this function produces the 3 
+%   vectors/matrices for contorf to draw a variable profile of the
+%   result as xterm changes.
+%
 %   (Batch, xterm, holdIndez(optional))
 %   Batch - Batch of Problems as cell array.
 %   xterm - The term to vary on the x-axis within the batch.
-%   holdIndex - The nodal position/index to hold the other parameter at. If not given will use middle (or closest) node.
-%   NOTE: This function assumes a 2 term Batch. #TODO Single term batch.
+%   holdIndex - The nodal position/index to hold the other parameter at.
+%   If not given will use middle (or closest) node.
+%   NOTE: This function assumes a 2 term Batch.
 %
 %   Outputs [x,y,z]
 %   All 1xN vectors with a c (z) value for the x and y inputs parameters.
@@ -41,17 +46,21 @@ if size(paramSize,2)==1
 else
 if xterm==1
     %Then j loop held at value
-    posCounter=@(i) ((i-1)*(paramSize(2)*paramSize(3)))+((holdIndex(xterm)-1)*paramSize(3))+paramSize(3);
+    posCounter=@(i) ((i-1)*(paramSize(2)*paramSize(3)))+...
+        ((holdIndex(xterm)-1)*paramSize(3))+paramSize(3);
 else
     %i loop held at value
-    posCounter=@(j) ((holdIndex(xterm)-1)*(paramSize(2)*paramSize(3)))+((j-1)*paramSize(3))+paramSize(3);
+    posCounter=@(j) ((holdIndex(xterm)-1)*(paramSize(2)*paramSize(3)))+...
+        ((j-1)*paramSize(3))+paramSize(3);
 end
 end
 
 z=zeros(ystep,xstep); % Pre-allocate z matrix.
 for i=1:batchSize % Loop through number of batches required to compile z matrix.
-    % Set the z element to the result that corresponds to the correct varying parameter value.
-    z(:,round(x,5)==round(Batch{posCounter(i)}.initParams(xterm),5))=Batch{posCounter(i)}.Result;
+    % Set the z element to the result that corresponds to the correct
+    % varying parameter value.
+    z(:,round(x,5)==round(Batch{posCounter(i)}.initParams(xterm),5))=...
+        Batch{posCounter(i)}.Result;
 end
 end
 

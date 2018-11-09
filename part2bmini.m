@@ -10,7 +10,7 @@ Batch=solveBatch(Batch); % Send to Batch solver using default @FEMSolver.
 %Set Plot Options for custom plotter.
 PlotOpts=[]; %Clear previous opts.
 PlotOpts.title='Part 2b Coef Comparison Results';
-PlotOpts.filepath='status/part2b_comp_mini.png';
+PlotOpts.filepath='status/part2b_mini.png';
 PlotOpts.x.label='x (m)';
 PlotOpts.y.label='Temperature (K)';
 PlotOpts.legend.labels=getBatchTitles(Batch); % Create cell array of Problem Titles.

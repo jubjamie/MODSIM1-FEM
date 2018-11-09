@@ -1,7 +1,7 @@
 %% Test 1: test symmetry of the matrix
 % Test that this matrix is symmetric
 tol = 1e-14;
-lambda = randi([1,25]); %reaction coefficient??? #todo
+lambda = randi([1,25]); % reaction coefficient
 eID=randi([1,10]); %element ID
 msh = OneDimLinearMeshGen(0,1,10);
 
@@ -13,7 +13,7 @@ assert(abs(elemat(1,2) - elemat(2,1)) <= tol)
 % % Test that for two elements of an equispaced mesh, as described in the
 % % lectures, the element matrices calculated are the same
 tol = 1e-14;
-lambda = randi([1,25]); %reaction coefficient??? #todo
+lambda = randi([1,25]);
 eID=randi([1,5]); %element ID
 msh = OneDimLinearMeshGen(0,1,10);
 

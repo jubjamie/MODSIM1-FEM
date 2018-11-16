@@ -53,7 +53,7 @@ if(~isfield(Problem,'Diffusion') || ~isfield(Problem.Diffusion,'LE') ||...
 end
 
 % If no Diffusion coefficient then set to zero and create empty anonymous function.
-if(~isfield(Problem,'Diffusion') || ~isfield(Problem.Diffusion,'LE') ||...
+if(~isprop(Problem,'Diffusion') || ~isfield(Problem.Diffusion,'LE') ||...
         ~isfield(Problem.Diffusion.LE,'coef'))
     Problem.Diffusion.LE.Generator=@(a,b,c) 0; % Set the local elem function
     % to empty anon fcuntion.
@@ -62,13 +62,13 @@ end
 
 % If no local elem reaction generator function is defined then set the default
 % from Part 1b.
-if(~isfield(Problem,'Reaction') || ~isfield(Problem.Reaction,'LE') ||...
+if(~isprop(Problem,'Reaction') || ~isfield(Problem.Reaction,'LE') ||...
         ~isfield(Problem.Reaction.LE,'Generator'))
     Problem.Reaction.LE.Generator=@ReactionElemMatrix;
 end
 
 % If no Reaction coefficient then set to zero and create empty anonymous function.
-if(~isfield(Problem,'Reaction') || ~isfield(Problem.Reaction,'LE') ||...
+if(~isprop(Problem,'Reaction') || ~isfield(Problem.Reaction,'LE') ||...
         ~isfield(Problem.Reaction.LE,'coef'))
     Problem.Reaction.LE.Generator=@(a,b,c) 0;
     Problem.Reaction.LE.coef=0;
@@ -76,8 +76,8 @@ end
 
 % If no source function is defined but a constant is, set to 1 to bypass.
 % (Allows constant cource terms still).
-if(~isfield(Problem,'f') || ~isfield(Problem.f,'fcn'))
-    if (isfield(Problem,'f') && isfield(Problem.f,'coef'))
+if(~isprop(Problem,'f') || ~isfield(Problem.f,'fcn'))
+    if (isprop(Problem,'f') && isfield(Problem.f,'coef'))
         Problem.f.fcn=@(a,b) 1;
     else
         Problem.f.fcn=@(a,b) 0; % With no function or constant term, set to
@@ -86,7 +86,7 @@ if(~isfield(Problem,'f') || ~isfield(Problem.f,'fcn'))
 end
 
 % If no constant multiplier is defined for polynomial source function then set to 1.
-if(~isfield(Problem,'f') || ~isfield(Problem.f,'coef'))
+if(~isprop(Problem,'f') || ~isfield(Problem.f,'coef'))
     Problem.f.coef=1;
 end
 
@@ -121,7 +121,7 @@ end
 % Enforce Neumann Boundaries
 % Check if any Neumann BCs are specified and are of the correct size.
 % (i.e. [dc/dx, x-position].
-if(isfield(Problem,'BCS') && isfield(Problem.BCS,'N') &&...
+if(isprop(Problem,'BCS') && isfield(Problem.BCS,'N') &&...
         size(Problem.BCS.N,1)>0 && size(Problem.BCS.N,2)==2)
     for j=1:size(Problem.BCS.N,1) % Loop through Neumann BCs.
         BCn=Problem.BCS.N(j,:); % Select the BC for this loop.
@@ -141,7 +141,7 @@ end
 % Enforce Dirichlet BCs
 % Check if any Dirichlet BCs are specified and are of the correct size. 
 % (i.e. [c, x-position].
-if(isfield(Problem,'BCS') && isfield(Problem.BCS,'D') &&...
+if(isprop(Problem,'BCS') && isfield(Problem.BCS,'D') &&...
         size(Problem.BCS.D,1)>0 && size(Problem.BCS.D,2)==2)
     for j=1:size(Problem.BCS.D,1) % Loop through the Dirichlet BCs.
         BCd=Problem.BCS.D(j,:); % Select the BC for this loop.

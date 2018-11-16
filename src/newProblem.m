@@ -13,6 +13,8 @@ classdef newProblem < handle
        c;
        Result;
        BCrhs;
+       initParams;
+       BatchOptions;
     end
     
     methods
@@ -20,6 +22,11 @@ classdef newProblem < handle
             %NEWPROBLEM Construct an instance of this class
             %   Detailed explanation goes here
             obj = FEMSolve(obj);
+        end
+        function obj = DisplayMesh(obj)
+            %NEWPROBLEM Construct an instance of this class
+            %   Detailed explanation goes here
+            DisplayMesh(obj);
         end
 
     end

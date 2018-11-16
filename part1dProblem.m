@@ -1,7 +1,7 @@
 function [Problem] = part1dProblem(NumOfElems)
 %PART1DPROBLEM The Problem template for the example in part 1d.
 %   Given a number of elements, a Problem object is returned with the requested mesh.
-Problem=[]; % Init a new Problem Object
+Problem=newProblem; % Init a new Problem Object
 
 % Set a title for this problem for plotting later.
 Problem.title=[num2str(NumOfElems) ' Elements']; 

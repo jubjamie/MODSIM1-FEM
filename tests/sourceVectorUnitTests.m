@@ -11,13 +11,13 @@ assert(fVector(2)==5,'Element 1 of local source vector is incorrect.');
 %% Test 2: Full test case for complete source vector.
 % Build a problem with a constant source term and check against 
 % analytical expectation from report derivation.
-Test2=[];
+Test2=newProblem;
 Test2.mesh=OneDimLinearMeshGen(0,1,3);
-Test2.Diffusion.LE.coef=1;
-Test2.Reaction.LE.coef=-9;
+Test2.Diffusion.coef=1;
+Test2.Reaction.coef=-9;
 Test2.f.coef=5;
 %Solve
-Test2=FEMSolve(Test2);
+Test2.Solve();
 J=Test2.mesh.elem(1).J; % J constant for this mesh.
 % Expected source vector f
 expectedf=[Test2.f.coef*J;...

@@ -5,10 +5,10 @@ classdef newProblem < handle
     properties
        mesh;
        BCS;
-       Diffusion;
+       Diffusion=struct('Generator',@LaplaceElemMatrix,'coef',0);
        title;
-       Reaction;
-       f;
+       Reaction=struct('Generator',@ReactionElemMatrix,'coef',0);
+       f=struct('fcn',@(a,b) 1,'coef',0);
        M;
        c;
        Result;

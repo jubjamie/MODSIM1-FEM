@@ -3,7 +3,7 @@ function [Problem] = part2a(Q,TL,NumOfElems)
 %   Given a value of Q, TL & number of elements,
 %   a Problem object is returned with those parameters.
 
-Problem=[]; %Init empty problem.
+Problem=newProblem; %Init empty problem.
 
 % Set a title for use in plotting function.
 Problem.title=['Q=' num2str(Q) ', $T_L$=' num2str(TL)]; 
@@ -12,8 +12,8 @@ Problem.title=['Q=' num2str(Q) ', $T_L$=' num2str(TL)];
 Problem.mesh=OneDimLinearMeshGen(0,0.01,NumOfElems); 
 
 k=1.01e-5; % Define material constant diffusion coefficient.
-Problem.Diffusion.LE.coef=k; % Set diffusion coefficient.
-Problem.Reaction.LE.coef=-Q; % Set reaction coefficient.
+Problem.Diffusion.coef=k; % Set diffusion coefficient.
+Problem.Reaction.coef=-Q; % Set reaction coefficient.
 Problem.f.coef=Q*TL; % Set constant source term.
 
 %Set BCs T@x format.

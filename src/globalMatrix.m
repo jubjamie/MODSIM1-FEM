@@ -47,6 +47,7 @@ BCrhs=zeros(N,1); % Pre-allocate a BC vector
 % Sets defaults for when certain parameters are not set.
 % If no local elem diffusion generator function is defined then set the
 % default from Part 1a.
+%{
 if(~isfield(Problem,'Diffusion') || ~isfield(Problem.Diffusion,'LE') ||...
         ~isfield(Problem.Diffusion.LE,'Generator'))
     Problem.Diffusion.LE.Generator=@LaplaceElemMatrix;
@@ -89,7 +90,7 @@ end
 if(~isprop(Problem,'f') || ~isfield(Problem.f,'coef'))
     Problem.f.coef=1;
 end
-
+%}
 %------------%
 % Generate Basic Global and Source
 
@@ -97,8 +98,8 @@ for i=1:N-1 % Loop through each element, creating its entry into the global
     % matrix/source vector.
     % Add the previous value to the new ones. (Allows local elem overlap)
     M(i:i+1,i:i+1)=M(i:i+1,i:i+1)+... 
-        Problem.Diffusion.LE.Generator(Problem.Diffusion.LE.coef,i,Problem.mesh)-...
-        Problem.Reaction.LE.Generator(Problem.Reaction.LE.coef,i,Problem.mesh);
+        Problem.Diffusion.Generator(Problem.Diffusion.coef,i,Problem.mesh)-...
+        Problem.Reaction.Generator(Problem.Reaction.coef,i,Problem.mesh);
     %^^ Insert local element matrices for diffusion and reaction as specified
     %^^ by the generator function.
     %^^ By using function handles referring to a local element function,

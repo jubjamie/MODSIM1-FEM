@@ -12,12 +12,12 @@ Problem.mesh=OneDimLinearMeshGen(0,1,NumOfElems);
 % Set the local element matrix generators for Diffusion and Reaction terms 
 %(Optional. Shown here as example of software flexibility.)
 
-Problem.Diffusion.LE.Generator=@LaplaceElemMatrix; 
-Problem.Reaction.LE.Generator=@ReactionElemMatrix; 
+Problem.Diffusion.Generator=@LaplaceElemMatrix; 
+Problem.Reaction.Generator=@ReactionElemMatrix; 
                                                    
                                                    
-Problem.Diffusion.LE.coef=1; % Set the diffusion coefficient.
-Problem.Reaction.LE.coef=-9; % Set the reaction coefficient.
+Problem.Diffusion.coef=1; % Set the diffusion coefficient.
+Problem.Reaction.coef=-9; % Set the reaction coefficient.
 
 % Set the source vector constant coefficient (Optional. Shown here as example).
 Problem.f.coef=0; 

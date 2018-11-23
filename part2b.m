@@ -6,20 +6,20 @@ function [Problem] = part2b(Q,TL,NumOfElems)
 %   Problem - A problem object structure set up for solving.
 
 %Init empty problem.
-Problem=[];
+Problem=newProblem;
 % Give title based on inputs.
 Problem.title=['Q=' num2str(Q) ', $T_L$=' num2str(TL)]; 
 %Define mesh
 Problem.mesh=OneDimLinearMeshGen(0,0.01,NumOfElems);
 %Define Local element Generator functions
-Problem.Diffusion.LE.Generator=@LaplaceElemMatrix;
-Problem.Reaction.LE.Generator=@ReactionElemMatrix;
+Problem.Diffusion.Generator=@LaplaceElemMatrix;
+Problem.Reaction.Generator=@ReactionElemMatrix;
 
 k=1.01e-5; %Given material constant.
 
 %Set coefficients
-Problem.Diffusion.LE.coef=k;
-Problem.Reaction.LE.coef=-Q;
+Problem.Diffusion.coef=k;
+Problem.Reaction.coef=-Q;
 
 %Set up source term.
 Problem.f.coef=Q*TL; % Constant multiplier.

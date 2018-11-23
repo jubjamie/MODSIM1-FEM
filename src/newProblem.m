@@ -28,6 +28,9 @@ classdef newProblem < handle
             %   Detailed explanation goes here
             DisplayMesh(obj);
         end
+        function obj = Mesh(obj,s,e,num)
+            obj.mesh = OneDimLinearMeshGen(s,e,num);
+        end
 
     end
 end

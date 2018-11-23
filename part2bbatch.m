@@ -23,7 +23,7 @@ plotSolution(Batch,PlotOpts,extraFcn);
 
 f10=figure('Name','Parameter Space - Part 2b - Constant x Position');
 heldXindex=4;
-[x,y,z]= generateContormatrices(Batch,1,2,heldXindex);
+[x,y,z]= generateContorMatrices(Batch,1,2,heldXindex);
 [cc,hh]=contourf(x,y,z,18,'ShowText','on');
 hh.LevelStep=1;
 hh.LevelList=round(hh.LevelList,0);  %rounds levels to 3rd decimal place

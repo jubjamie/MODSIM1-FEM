@@ -11,6 +11,7 @@ classdef newTransientProblem < handle
        Transient=struct('dt',0.01,'Theta',0.5);
        f=struct('fcn',@(a,b) 1,'coef',0);
        GM;
+       GV;
        c;
        c_prev;
        Result;
@@ -32,6 +33,10 @@ classdef newTransientProblem < handle
         end
         function obj = Mesh(obj,s,e,num)
             obj.mesh = OneDimLinearMeshGen(s,e,num);
+        end
+        function obj = ConstantInit(obj,constant)
+            assert(~isempty(obj.mesh),'Cannot init without a mesh');
+            obj.c = ones(1, obj.mesh.ngn)*constant;
         end
 
     end

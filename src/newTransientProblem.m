@@ -22,10 +22,10 @@ classdef newTransientProblem < handle
     end
     
     methods
-        function obj = Solve(obj)
+        function obj = Solve(obj,varargin)
             %NEWPROBLEM Construct an instance of this class
             %   Detailed explanation goes here
-            obj = FEMTransientSolve(obj);
+            obj = FEMTransientSolve(obj,varargin);
         end
         function obj = DisplayMesh(obj)
             %NEWPROBLEM Construct an instance of this class

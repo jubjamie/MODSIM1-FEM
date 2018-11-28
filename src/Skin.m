@@ -1,0 +1,21 @@
+function [Skin] = Skin()
+%SKIN Summary of this function goes here
+%   Detailed explanation goes here
+%TC = Thermal Conductivity Component
+%HS = Heat Sink Component
+%Tb = Blood Temperature
+%Epidermis (0-E)
+Skin.E.TC=25/(1200*3300);
+Skin.E.HS=0;
+
+%Dermis (E-D)
+Skin.D.TC=40/(1200*3300);
+Skin.D.HS=(0.0375*1060*3770)/(1200*3300);
+Skin.D.Tb=310.15;
+
+%Sub-Cutaneous (D-B)
+Skin.SC.TC=20/(1200*3300);
+Skin.SC.HS=(0.0375*1060*3770)/(1200*3300);
+Skin.SC.Tb=310.15;
+end
+

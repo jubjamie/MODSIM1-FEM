@@ -45,14 +45,25 @@ classdef newTransientProblem < handle
             steps=round(obj.Transient.Time/obj.Transient.dt)+1;
             timeseries=linspace(0,obj.Transient.Time,steps);
             N=obj.mesh.ngn;
-            equivRow=((x/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
-            c_values=obj.Solution(equivRow,:);
-            plot(timeseries,c_values,'r-');
+            for i=1:size(x,2)
+                equivRow=((x(i)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
+                c_values=obj.Solution(equivRow,:);
+                plot(timeseries,c_values);
+                hold on;
+            end
+            xlabel('Time (s)');
+            ylabel('Value');
         end
         function obj = PlotAtTime(obj, t)
-            figure(1);
-            c_values=obj.Solution(:,(t/obj.Transient.dt)+1);
-            plot(obj.mesh.nvec,c_values,'r-');
+            figure(3);
+            for i=1:size(t,2)
+                c_values=obj.Solution(:,(t(i)/obj.Transient.dt)+1);
+                plot(obj.mesh.nvec,c_values,'DisplayName',[num2str(t(i)) 's']);
+                hold on;
+            end
+            xlabel('Position (x)');
+            ylabel('Value');
+            legend();
         end
 
     end

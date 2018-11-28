@@ -40,22 +40,27 @@ classdef newTransientProblem < handle
             obj.c = ones(obj.mesh.ngn,1)*constant;
             obj.f.vec = zeros(obj.mesh.ngn,1);
         end
-        function obj = PlotAtX(obj, x)
-            figure(1);
+        function fig = PlotAtX(obj, x)
+            fig=figure(1);
+            set(fig,'Name','Plot Solution at Xs','NumberTitle','off',...
+                'Position', [100 300 700 500]);
             steps=round(obj.Transient.Time/obj.Transient.dt)+1;
             timeseries=linspace(0,obj.Transient.Time,steps);
             N=obj.mesh.ngn;
             for i=1:size(x,2)
                 equivRow=((x(i)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
                 c_values=obj.Solution(equivRow,:);
-                plot(timeseries,c_values);
+                plot(timeseries,c_values,'DisplayName',['Numerical Solution - x: ' num2str(x(i))]);
                 hold on;
             end
             xlabel('Time (s)');
             ylabel('c(x,t)');
+            legend('Location','SouthEast');
         end
-        function obj = PlotAtTime(obj, t)
-            figure(3);
+        function fig = PlotAtTime(obj, t)
+            fig=figure(3);
+            set(fig,'Name','Plot Solution at Times','NumberTitle','off',...
+                'Position', [800 300 700 500]);
             for i=1:size(t,2)
                 c_values=obj.Solution(:,(t(i)/obj.Transient.dt)+1);
                 plot(obj.mesh.nvec,c_values,'DisplayName',[num2str(t(i)) 's']);
@@ -63,7 +68,7 @@ classdef newTransientProblem < handle
             end
             xlabel('Position (x)');
             ylabel('c(x,t)');
-            legend();
+            legend('Location','Northwest');
         end
 
     end

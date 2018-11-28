@@ -13,6 +13,23 @@ function [localElemMatrix] = LaplaceElemMatrix(D,eID,msh)
 
 x0=msh.elem(eID).x(1);
 x1=msh.elem(eID).x(2);
+
+%Logic to check for various diffusion coefs
+% Coefs should come in as array of pairs.[x,D] e.g. [[0,1],[0.5,2]]
+% The coef at the end will be used for the rest of the mesh
+Dsize=size(D,2);
+if Dsize > 1
+    D(Dsize+1)=[msh.xmax,D(end,2)];
+    % Get x position in mesh
+    localx=(x0+x1)/2;
+    for i=1:Dsize+1
+        if localx<D(i+1,1) && localx>=D(i,1)
+            D=D(i,2);
+            break;
+        end
+    end
+   
+end
 %{
 Int00=D/(x1-x0);    % Short forms as derived in report derivation.
 Int01=-D/(x1-x0);

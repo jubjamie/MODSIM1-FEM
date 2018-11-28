@@ -52,7 +52,7 @@ classdef newTransientProblem < handle
                 hold on;
             end
             xlabel('Time (s)');
-            ylabel('Value');
+            ylabel('c(x,t)');
         end
         function obj = PlotAtTime(obj, t)
             figure(3);
@@ -62,7 +62,7 @@ classdef newTransientProblem < handle
                 hold on;
             end
             xlabel('Position (x)');
-            ylabel('Value');
+            ylabel('c(x,t)');
             legend();
         end
 

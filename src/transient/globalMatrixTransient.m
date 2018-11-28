@@ -59,16 +59,13 @@ for i=1:N-1 % Loop through each element, creating its entry into the global
     % matrix/source vector.
     % -- Mass Matrix (DIffusion) --
     % Add the previous value to the new ones. (Allows local elem overlap)
-    reactionElement=Problem.Reaction.Generator(Problem.Reaction.coef,...
-                                               i,Problem.mesh);
-    if Problem.Reaction.coef ~= 0
-        M(i:i+1,i:i+1)=M(i:i+1,i:i+1)+(reactionElement./Problem.Reaction.coef);
-    else
-        M(i:i+1,i:i+1)=M(i:i+1,i:i+1)+reactionElement;
-    end
+    massElement=MassElemMatrix(i,Problem.mesh);
+
+    M(i:i+1,i:i+1)=M(i:i+1,i:i+1)+massElement;
+
     K(i:i+1,i:i+1)=K(i:i+1,i:i+1)+... 
         Problem.Diffusion.Generator(Problem.Diffusion.coef,i,Problem.mesh)-...
-        reactionElement;
+        (Problem.Reaction.coef.*massElement);
     
     x0=Problem.mesh.elem(i).x(1); % Fetch x0 and x1 values for this element.
     x1=Problem.mesh.elem(i).x(2);

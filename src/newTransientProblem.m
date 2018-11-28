@@ -34,11 +34,11 @@ classdef newTransientProblem < handle
         end
         function obj = Mesh(obj,s,e,num)
             obj.mesh = OneDimLinearMeshGen(s,e,num);
+            obj.f.vec = zeros(obj.mesh.ngn,1);
         end
         function obj = ConstantInit(obj,constant)
             assert(~isempty(obj.mesh),'Cannot init without a mesh');
-            obj.c = ones(obj.mesh.ngn,1)*constant;
-            obj.f.vec = zeros(obj.mesh.ngn,1);
+            obj.c = ones(obj.mesh.ngn,1)*constant;          
         end
         function fig = PlotAtX(obj, x)
             fig=figure(1);

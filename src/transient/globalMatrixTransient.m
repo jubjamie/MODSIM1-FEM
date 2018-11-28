@@ -1,4 +1,4 @@
-function [GM,c,f,BCrhs,GV,Problem] = globalMatrixTransient(Problem)
+function [GM,GV,Problem] = globalMatrixTransient(Problem)
 %GLOBALMATRIXTRANSIENT Calculates all requierd matrices and vectors to solve a 1D FEM problem.
 %Generates Global Matrix and source vector, then applies boundary conditions to the vectors.
 %Also returns solution column vector initialised to zero

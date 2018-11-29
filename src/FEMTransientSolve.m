@@ -14,8 +14,6 @@ transientsolution(:,1)=Problem.c;
 if doplot
     figure(5);
     hold off;
-    dim = [.5 .5 .3 .3];
-    plottimer=annotation('textbox',dim,'String','','FitBoxToText','on','horizontalAlignment', 'right','LineStyle','none');
 end
 for i=2:steps+1
     progressbar(i/steps);
@@ -26,7 +24,7 @@ for i=2:steps+1
     if mod(i,10)==0 && doplot
         figure(5);
         plot(Problem.mesh.nvec,Problem.Result');
-        set(plottimer,'String',[num2str(i*Problem.Transient.dt) 's'])
+        legend(['Time: ' num2str(i*Problem.Transient.dt) 's']);
     end
 end
 Problem.Solution=transientsolution;

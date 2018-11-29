@@ -59,7 +59,7 @@ for i=1:N-1 % Loop through each element, creating its entry into the global
     % matrix/source vector.
     % -- Mass Matrix (DIffusion) --
     % Add the previous value to the new ones. (Allows local elem overlap)
-    massElement=MassElemMatrix(i,Problem.mesh);
+    massElement=ReactionElemMatrix(1,i,Problem.mesh);
 
     M(i:i+1,i:i+1)=M(i:i+1,i:i+1)+massElement;
 

@@ -65,7 +65,7 @@ for i=1:N-1 % Loop through each element, creating its entry into the global
 
     K(i:i+1,i:i+1)=K(i:i+1,i:i+1)+... 
         Problem.Diffusion.Generator(Problem.Diffusion.coef,i,Problem.mesh)-...
-        (Problem.Reaction.coef.*massElement);
+        (getReactionCoefs(Problem.Reaction.coef,i,Problem.mesh).*massElement);
     
     % Populate the source vector by multiplying constant terms by a polynomial
     % function of x0,1 and the Jacobian.

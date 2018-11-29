@@ -17,7 +17,7 @@ x1=msh.elem(eID).x(2);
 %Logic to check for various diffusion coefs
 % Coefs should come in as array of pairs.[x,D] e.g. [[0,1],[0.5,2]]
 % The coef at the end will be used for the rest of the mesh
-lambdasize=size(lambda,2);
+lambdasize=size(lambda,1);
 if lambdasize > 1
     lambda(lambdasize+1)=[msh.xmax,lambda(end,2)];
     % Get x position in mesh

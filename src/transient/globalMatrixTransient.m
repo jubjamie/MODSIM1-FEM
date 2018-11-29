@@ -67,12 +67,10 @@ for i=1:N-1 % Loop through each element, creating its entry into the global
         Problem.Diffusion.Generator(Problem.Diffusion.coef,i,Problem.mesh)-...
         (Problem.Reaction.coef.*massElement);
     
-    x0=Problem.mesh.elem(i).x(1); % Fetch x0 and x1 values for this element.
-    x1=Problem.mesh.elem(i).x(2);
-    
     % Populate the source vector by multiplying constant terms by a polynomial
     % function of x0,1 and the Jacobian.
-    f(i:i+1,1)=f(i:i+1,1)+(Problem.f.coef*Problem.f.fcn(x0,x1)*Problem.mesh.elem(i).J);
+    f(i:i+1,1)=f(i:i+1,1)+...
+        variableStaticSourceVector(Problem.f.coef,i,Problem.mesh);
 end
 
 GM=M+((Problem.Transient.Theta*Problem.Transient.dt).*K);

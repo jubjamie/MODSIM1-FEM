@@ -4,8 +4,8 @@ close all;
 Skin=Skin();
 performanceCounter=0;
 steps=[10,2,0.5];
-dts=[0.1,0.05,0.005];
-tempBounds=[313.15,393.15];
+dts=[0.1,0.1,0.1];
+tempBounds=[323.15,393.15];
 
 tic; % Star timing search
 

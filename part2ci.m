@@ -10,7 +10,7 @@ Skin=Skin();
 
 P2C.Diffusion.coef=[[0,Skin.E.TC];[Skin.E.xend,Skin.D.TC];[Skin.D.xend,Skin.B.TC]];
 P2C.Reaction.coef=-[[0,Skin.E.HS];[Skin.E.xend,Skin.D.HS];[Skin.D.xend,Skin.B.HS]];
-P2C.f.coef=[[0,Skin.E.HS];[Skin.E.xend,Skin.D.HS];[Skin.D.xend,Skin.B.HS]];
+P2C.f.coef=[[0,Skin.E.HS];[Skin.E.xend,Skin.D.HS*Skin.D.Tb];[Skin.D.xend,Skin.B.HS*Skin.B.Tb]];
 
 P2C.Transient.Time=50;
 P2C.Transient.Theta=1;

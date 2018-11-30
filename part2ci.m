@@ -20,7 +20,7 @@ P2C.ConstantInit(310.15);
 P2C.Solve(false);
 changeTime=P2C.PlotAtTime([2,5,50]);
 figure(changeTime);
-vline([Skin.E.xend,Skin.D.xend],'k--');
+plotSkin;
 saveas(changeTime,'status/cw2/timeoverview_2ci.png');
 contor2ci=figure();
 [x,y,z] = generateTransientProfile(P2C,5);

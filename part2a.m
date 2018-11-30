@@ -16,7 +16,7 @@ P2.Transient.dt=0.005;
 P2.ConstantInit(310.15);
 P2.BCS.D=[[393.15,0];[310.15,0.01];];
 P2.Solve();
-changeTime=P2.PlotAtTime([0.05,0.5,2,5]);
+changeTime=P2.PlotAtTime([0.05,0.5,2,5,50]);
 figure(changeTime);
 plotSkin;
 disp(['Gamma: ' num2str(calculateBurn(P2))]);

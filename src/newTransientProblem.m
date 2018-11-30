@@ -25,6 +25,9 @@ classdef newTransientProblem < handle
         function obj = Solve(obj,varargin)
             %NEWPROBLEM Construct an instance of this class
             %   Detailed explanation goes here
+            if isempty(obj.c)
+                ConstantInit(obj,0);
+            end
             obj = FEMTransientSolve(obj,varargin);
         end
         function obj = DisplayMesh(obj)
@@ -38,7 +41,23 @@ classdef newTransientProblem < handle
         end
         function obj = ConstantInit(obj,constant)
             assert(~isempty(obj.mesh),'Cannot init without a mesh');
-            obj.c = ones(obj.mesh.ngn,1)*constant;          
+            obj.c = ones(obj.mesh.ngn,1)*constant;
+            N=obj.mesh.ngn;
+            if isfield(obj.BCS,'D') &&...
+                    size(obj.BCS.D,1)>0 && size(obj.BCS.D,2)==2
+                for j=1:size(obj.BCS.D,1) % Loop through the Dirichlet BCs.
+                    BCd=obj.BCS.D(j,:); % Select the BC for this loop.
+        
+                    % Corresponding BC Vector node.
+                    equivRow=((BCd(2)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1; 
+                    % Assert that the x-position represents a node/row number in 
+                    % the global matrix
+                    assert(~mod(equivRow,1),'D.Boundary condition not specified for a node');
+        
+                    % Apply the Dirichlet BC mathod to this BC.
+                    obj.c(equivRow)=BCd(1); % Set source term/RHS to BC value.
+                end
+            end
         end
         function fig = PlotAtX(obj, x)
             fig=figure(1);

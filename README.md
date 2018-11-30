@@ -21,6 +21,24 @@ what effect the two methods, Crank-Nicolson and Backwards Euler, has on the solu
 <img src="status/cw2/part1_theta_0.5.png?raw=true"/>
 </p>
 
+## Part 2 - Full Burn Investigation
+### No Blood Flow
+
+393.15K Burn
+
+<p align="center">
+<img src="status/cw2/timeoverview_2a.png?raw=true"/>
+</p>
+
+### With Blood Flow
+
+393.15K Burn
+
+<p align="center">
+<img src="status/cw2/timeoverview_2ci.png?raw=true"/>
+<img src="status/cw2/contor2ci.png?raw=true"/>
+</p>
+
 # MODSIM1-FEM
 MODSIM Unit CW 1. Limited result graphs are displayed in this README for this project. This is a [semi object-oriented](https://github.com/jubjamie/MODSIM1-FEM#problem-structure) FEM Solver for 1D problems as specified in the assignment sheet. [Basic Usage as shown below.](https://github.com/jubjamie/MODSIM1-FEM#example-usage)
 

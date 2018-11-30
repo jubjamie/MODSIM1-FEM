@@ -18,8 +18,12 @@ P2C.Transient.dt=0.05;
 P2C.BCS.D=[[393.15,0];[310.15,0.01];];
 P2C.ConstantInit(310.15);
 P2C.Solve(false);
-changeTime=P2C.PlotAtTime([2,5,10,50]);
-gamma=calculateBurn(P2C)
-figure(7);
+changeTime=P2C.PlotAtTime([2,5,50]);
+figure(changeTime);
+vline([Skin.E.xend,Skin.D.xend],'k--');
+saveas(changeTime,'status/cw2/timeoverview_2ci.png');
+contor2ci=figure();
 [x,y,z] = generateTransientProfile(P2C,5);
-contourf(x,y,z,100,'ShowText','off','LineColor','none')
+contourf(x,y,z,100,'ShowText','off','LineColor','none');
+saveas(contor2ci,'status/cw2/contor2ci.png');
+gamma=calculateBurn(P2C);

@@ -87,7 +87,7 @@ classdef newTransientProblem < handle
             end
             xlabel('Position (x)');
             ylabel('c(x,t)');
-            legend('Location','Northwest');
+            legend('Location','Northeast');
         end
 
     end

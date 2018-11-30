@@ -23,6 +23,7 @@ saveas(fixedX,['status/cw2/part1_theta_' num2str(P.Transient.Theta) '.png']);
 
 figure(changeTime);
 title('Solution Varying Transiently - Crank Nicolson');
+legend('Location','Northwest');
 saveas(changeTime,['status/cw2/part1_time_overview_theta_' num2str(P.Transient.Theta) '.png']);
 
 clear x y
@@ -43,11 +44,12 @@ x=linspace(0,1,101);
 for i=1:101
     y(i)=TransientAnalyticSoln(0.8,x(i));
 end
-plot(x,y,'DisplayName','Analytical Solution - x: 0.8')
+plot(x,y,'DisplayName','Analytical Solution - x: 0.8');
 saveas(fixedXE,['status/cw2/part1_theta_' num2str(PE.Transient.Theta) '.png']);
 
 
 figure(changeTimeE);
 title('Solution Varying Transiently - Backwards Euler');
+legend('Location','Northwest');
 saveas(changeTimeE,['status/cw2/part1_time_overview_theta_' num2str(PE.Transient.Theta) '.png']);
 

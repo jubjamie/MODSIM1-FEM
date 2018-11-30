@@ -9,12 +9,16 @@ skin=Skin();
 fieldAtX=EvaluateTransient(Problem,skin.E.xend);
 burnTimeIndex=find(fieldAtX > 317.15,1);
 
+if ~isempty(burnTimeIndex) % Checks to see if burnt at all
 
 burnSeries=fieldAtX(burnTimeIndex:end);
 
 burnEq=2e98.*(exp((-12017)./(burnSeries-273.15)));
 
-gamma=trapz(Problem.Transient.dt,burnEq);
+gamma=trapz(burnEq)*Problem.Transient.dt;
+else
+    gamma=0;
+end
 
 end
 

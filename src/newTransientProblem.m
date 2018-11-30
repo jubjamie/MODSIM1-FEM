@@ -60,7 +60,7 @@ classdef newTransientProblem < handle
             obj.c = ones(obj.mesh.ngn,1)*constant;
         end
         function fig = PlotAtX(obj, x)
-            fig=figure(1);
+            fig=figure();
             set(fig,'Name','Plot Solution at Xs','NumberTitle','off',...
                 'Position', [100 300 700 500]);
             steps=round(obj.Transient.Time/obj.Transient.dt)+1;
@@ -77,7 +77,7 @@ classdef newTransientProblem < handle
             legend('Location','SouthEast');
         end
         function fig = PlotAtTime(obj, t)
-            fig=figure(3);
+            fig=figure();
             set(fig,'Name','Plot Solution at Times','NumberTitle','off',...
                 'Position', [800 300 700 500]);
             for i=1:size(t,2)

@@ -19,7 +19,10 @@ for i=1:101
     y(i)=TransientAnalyticSoln(0.8,x(i));
 end
 plot(x,y,'DisplayName','Analytical Solution - x: 0.8')
+saveas(fixedX,['status/cw2/part1_theta_' num2str(P.Transient.Theta) '.png']);
+
 
 figure(changeTime);
 title('Solution Varying Transiently');
+saveas(fixedX,['status/cw2/part1_time_overview_theta' num2str(P.Transient.Theta) '.png']);
 

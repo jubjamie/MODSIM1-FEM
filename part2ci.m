@@ -14,11 +14,11 @@ P2C.f.coef=[[0,Skin.E.HS];[Skin.E.xend,Skin.D.HS*Skin.D.Tb];[Skin.D.xend,Skin.B.
 
 P2C.Transient.Time=50;
 P2C.Transient.Theta=1;
-P2C.Transient.dt=0.5;
-P2C.ConstantInit(310.15);
+P2C.Transient.dt=0.05;
 P2C.BCS.D=[[393.15,0];[310.15,0.01];];
-P2C.Solve();
-changeTime=P2C.PlotAtTime([2,5,10]);
+P2C.ConstantInit(310.15);
+P2C.Solve(false);
+changeTime=P2C.PlotAtTime([2,5,10,50]);
 gamma=calculateBurn(P2C)
 figure(7);
 [x,y,z] = generateTransientProfile(P2C,5);

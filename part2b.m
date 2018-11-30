@@ -4,7 +4,7 @@ close all;
 Skin=Skin();
 performanceCounter=0;
 steps=[10,2,0.5];
-dts=[0.1,0.05,0.005];
+dts=[0.1,0.05,0.05];
 tempBounds=[313.15,393.15];
 
 tic; % Star timing search
@@ -26,8 +26,8 @@ for k=1:size(steps,2)
         P2.Transient.Time=50;
         P2.Transient.Theta=1;
         P2.Transient.dt=dts(k);
-        P2.ConstantInit(310.15);
         P2.BCS.D=[[temps(i),0];[310.15,0.01];];
+        P2.ConstantInit(310.15);
         P2.Solve(false);
         gammas(i)=calculateBurn(P2);
         

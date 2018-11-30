@@ -23,7 +23,7 @@ saveas(fixedX,['status/cw2/part1_theta_' num2str(P.Transient.Theta) '.png']);
 
 figure(changeTime);
 title('Solution Varying Transiently - Crank Nicolson');
-saveas(fixedX,['status/cw2/part1_time_overview_theta_' num2str(P.Transient.Theta) '.png']);
+saveas(changeTime,['status/cw2/part1_time_overview_theta_' num2str(P.Transient.Theta) '.png']);
 
 clear x y
 % Creat a new transient Problem
@@ -49,5 +49,5 @@ saveas(fixedXE,['status/cw2/part1_theta_' num2str(PE.Transient.Theta) '.png']);
 
 figure(changeTimeE);
 title('Solution Varying Transiently - Backwards Euler');
-saveas(fixedXE,['status/cw2/part1_time_overview_theta_' num2str(PE.Transient.Theta) '.png']);
+saveas(changeTimeE,['status/cw2/part1_time_overview_theta_' num2str(PE.Transient.Theta) '.png']);
 

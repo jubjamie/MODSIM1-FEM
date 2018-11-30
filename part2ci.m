@@ -21,5 +21,5 @@ P2C.Solve();
 changeTime=P2C.PlotAtTime([2,5,10]);
 calculateBurn(P2C);
 figure(7);
-[x,y,z] = generateTransientProfile(P2C);
+[x,y,z] = generateTransientProfile(P2C,5);
 contourf(x,y,z,100,'ShowText','off','LineColor','none')

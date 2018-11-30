@@ -3,7 +3,7 @@ startSolver;
 close all;
 
 P2C=newTransientProblem();
-P2C.Mesh(0,0.01,100);
+P2C.Mesh(0,0.01,600);
 
 %Set coefficients based on Skin
 Skin=Skin();
@@ -14,12 +14,12 @@ P2C.f.coef=[[0,Skin.E.HS];[Skin.E.xend,Skin.D.HS*Skin.D.Tb];[Skin.D.xend,Skin.B.
 
 P2C.Transient.Time=50;
 P2C.Transient.Theta=1;
-P2C.Transient.dt=0.01;
+P2C.Transient.dt=0.5;
 P2C.ConstantInit(310.15);
 P2C.BCS.D=[[393.15,0];[310.15,0.01];];
 P2C.Solve();
 changeTime=P2C.PlotAtTime([2,5,10]);
-calculateBurn(P2C);
+gamma=calculateBurn(P2C)
 figure(7);
 [x,y,z] = generateTransientProfile(P2C,5);
 contourf(x,y,z,100,'ShowText','off','LineColor','none')

@@ -10,15 +10,15 @@ what effect the two methods, Crank-Nicolson and Backwards Euler, has on the solu
 
 ### Backwards Euler
 <p align="center">
-<img src="status/cw2/part1_time_overview_theta_1.png?raw=true" width="45%" />
-<img src="status/cw2/part1_theta_1.png?raw=true" width="45%"/>
+<img src="status/cw2/part1_time_overview_theta_1.png?raw=true"/>
+<img src="status/cw2/part1_theta_1.png?raw=true"/>
 </p>
 
 
 ### Crank-Nicolson
 <p align="center">
-<img src="status/cw2/part1_time_overview_theta_0.5.png?raw=true" width="45%" />
-<img src="status/cw2/part1_theta_0.5.png?raw=true" width="45%"/>
+<img src="status/cw2/part1_time_overview_theta_0.5.png?raw=true"/>
+<img src="status/cw2/part1_theta_0.5.png?raw=true"/>
 </p>
 
 # MODSIM1-FEM

@@ -19,4 +19,7 @@ P2C.ConstantInit(310.15);
 P2C.BCS.D=[[393.15,0];[310.15,0.01];];
 P2C.Solve();
 changeTime=P2C.PlotAtTime([2,5,10]);
-calculateBurn(P2C)
+calculateBurn(P2C);
+figure(7);
+[x,y,z] = generateTransientProfile(P2C);
+contourf(x,y,z,100,'ShowText','off','LineColor','none')

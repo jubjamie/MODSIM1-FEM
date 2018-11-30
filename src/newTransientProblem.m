@@ -76,12 +76,17 @@ classdef newTransientProblem < handle
             ylabel('c(x,t)');
             legend('Location','SouthEast');
         end
+        function c_values = GetValuesAtX(obj, x)
+            N=obj.mesh.ngn;
+            equivRow=((x/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
+            c_values=obj.Solution(equivRow,:);
+        end
         function fig = PlotAtTime(obj, t)
             fig=figure();
             set(fig,'Name','Plot Solution at Times','NumberTitle','off',...
                 'Position', [800 300 700 500]);
             for i=1:size(t,2)
-                c_values=obj.Solution(:,(t(i)/obj.Transient.dt)+1);
+                c_values=obj.Solution(:,int16((t(i)/obj.Transient.dt)+1));
                 plot(obj.mesh.nvec,c_values,'DisplayName',[num2str(t(i)) 's']);
                 hold on;
             end

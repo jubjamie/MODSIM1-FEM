@@ -41,13 +41,14 @@ function [GM,GV,Problem] = globalMatrixTransient(Problem)
 
 % Init matrices
 %Get problem info from mesh
-N=Problem.mesh.ngn;  % Get matrix/vector size
-c=zeros(N,1); % Pre-allocate solution vector
-M=zeros(N); % Pre-allocate Mass Matrix
-K=zeros(N); % Pre-allocate Stiffness Matrix
-GM=zeros(N); % Pre-allocate Global Matrix
-f=zeros(N,1); % Pre-allocate source vector
-BCrhs=zeros(N,1); % Pre-allocate a BC vector
+N=Problem.mesh.ngn; %\/
+Ne=Problem.mesh.ne; % \Get matrix/vector size
+c=zeros((2*Ne)+1,1); % Pre-allocate solution vector
+M=zeros((2*Ne)+1); % Pre-allocate Mass Matrix
+K=zeros((2*Ne)+1); % Pre-allocate Stiffness Matrix
+GM=zeros((2*Ne)+1); % Pre-allocate Global Matrix
+f=zeros((2*Ne)+1,1); % Pre-allocate source vector
+BCrhs=zeros((2*Ne)+1,1); % Pre-allocate a BC vector
 
 %Set global vector to contain previous source terms and BCs
 GV=((1-Problem.Transient.Theta)*Problem.Transient.dt).*Problem.f.vec; % Pre-allocate Global Vector
@@ -61,15 +62,15 @@ for i=1:N-1 % Loop through each element, creating its entry into the global
     % Add the previous value to the new ones. (Allows local elem overlap)
     massElement=ReactionElemMatrix(1,i,Problem.mesh);
 
-    M(i:i+1,i:i+1)=M(i:i+1,i:i+1)+massElement;
+    M((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)=M((2*i)-1:(2*i)+1)+massElement;
 
-    K(i:i+1,i:i+1)=K(i:i+1,i:i+1)+... 
+    K((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)=K((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)+... 
         Problem.Diffusion.Generator(Problem.Diffusion.coef,i,Problem.mesh)-...
         (getReactionCoefs(Problem.Reaction.coef,i,Problem.mesh).*massElement);
     
     % Populate the source vector by multiplying constant terms by a polynomial
     % function of x0,1 and the Jacobian.
-    f(i:i+1,1)=f(i:i+1,1)+...
+    f((2*i)-1:(2*i)+1,1)=f((2*i)-1:(2*i)+1,1)+...
         variableStaticSourceVector(Problem.f.coef,i,Problem.mesh);
 end
 
@@ -90,7 +91,7 @@ if(isprop(Problem,'BCS') && isfield(Problem.BCS,'N') &&...
             'N.Boundary condition not specified for an end node');
         
         % Corresponding BC Vector node.
-        equivRow=((BCn(2)/(Problem.mesh.xmax-Problem.mesh.xmin))*(N-1))+1; 
+        equivRow=2*((BCn(2)/(Problem.mesh.xmax-Problem.mesh.xmin))*(N-1))+1; 
         % Apply Neumann boundary at node in BC vector.
         BCrhs(equivRow)=BCn(1)*((2*BCn(2))-1); 
     end
@@ -110,7 +111,7 @@ if(isprop(Problem,'BCS') && isfield(Problem.BCS,'D') &&...
         BCd=Problem.BCS.D(j,:); % Select the BC for this loop.
         
         % Corresponding BC Vector node.
-        equivRow=((BCd(2)/(Problem.mesh.xmax-Problem.mesh.xmin))*(N-1))+1; 
+        equivRow=2*((BCd(2)/(Problem.mesh.xmax-Problem.mesh.xmin))*(N-1))+1; 
         % Assert that the x-position represents a node/row number in 
         % the global matrix
         assert(~mod(equivRow,1),'D.Boundary condition not specified for a node');

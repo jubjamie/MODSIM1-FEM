@@ -44,32 +44,45 @@ localElemMatrix=[Int00, Int01;Int01, Int00]; % Assemble into 2x2 matrix.
 %Int11=IntF(D*dpsi1_dz*dz_dx*dpsi1_dz*dz_dx*J)dz<>[-1,1];-----------/
 
 %Use GQ
-N=2;
+N=3;
 gq=makeGQ(N);
 
-% Linear gradients for now.
-dpsi0_dz=-0.5;
-dpsi1_dz=0.5;
+% Quadratic Gradients
+dpsi0_dz=@(x) x-0.5;
+dpsi1_dz=@(x) -2*x;
+dpsi2_dz=@(x) 0.5+x;
+
+%Quadratic Gradients
 dz_dx=2/(x1-x0);
 
 Int00_gq=zeros(1,N);
 Int01_gq=zeros(1,N);
+Int11_gq=zeros(1,N);
+Int02_gq=zeros(1,N);
+Int12_gq=zeros(1,N);
+Int22_gq=zeros(1,N);
 
-% Int00
+% Ints
 for i=1:N
-    Int00_gq(i)=D*dpsi0_dz*dz_dx*dpsi0_dz;
+    Int00_gq(i)=D*dpsi0_dz(gq.xipts(i))*dz_dx*dpsi0_dz(gq.xipts(i));
+    Int01_gq(i)=D*dpsi0_dz(gq.xipts(i))*dz_dx*dpsi1_dz(gq.xipts(i));
+    Int11_gq(i)=D*dpsi1_dz(gq.xipts(i))*dz_dx*dpsi1_dz(gq.xipts(i));
+    Int02_gq(i)=D*dpsi0_dz(gq.xipts(i))*dz_dx*dpsi2_dz(gq.xipts(i));
+    Int12_gq(i)=D*dpsi1_dz(gq.xipts(i))*dz_dx*dpsi2_dz(gq.xipts(i));
+    Int22_gq(i)=D*dpsi2_dz(gq.xipts(i))*dz_dx*dpsi2_dz(gq.xipts(i));
 end
 %No xi(z) to evaluate at gauss point so weights only needed
 Int00=sum(Int00_gq.*gq.gsw);
-
-% Int01
-for i=1:N
-    Int01_gq(i)=D*dpsi0_dz*dz_dx*dpsi1_dz;
-end
-%No xi(z) to evaluate at gauss point so weights only needed
 Int01=sum(Int01_gq.*gq.gsw);
+Int11=sum(Int11_gq.*gq.gsw);
+Int02=sum(Int02_gq.*gq.gsw);
+Int12=sum(Int12_gq.*gq.gsw);
+Int22=sum(Int22_gq.*gq.gsw);
 
-localElemMatrix=[Int00, Int01;Int01, Int00];
+
+localElemMatrix=[Int00, Int01, Int02;
+                 Int01, Int11, Int12;
+                 Int02, Int12, Int22];
 
 end
 

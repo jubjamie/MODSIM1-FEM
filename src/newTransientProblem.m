@@ -35,7 +35,7 @@ classdef newTransientProblem < handle
                     BCd=obj.BCS.D(j,:); % Select the BC for this loop.
         
                     % Corresponding BC Vector node.
-                    equivRow=((BCd(2)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1; 
+                    equivRow=2*((BCd(2)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;  
                     % Assert that the x-position represents a node/row number in 
                     % the global matrix
                     assert(~mod(equivRow,1),'D.Boundary condition not specified for a node');
@@ -53,11 +53,11 @@ classdef newTransientProblem < handle
         end
         function obj = Mesh(obj,s,e,num)
             obj.mesh = OneDimLinearMeshGen(s,e,num);
-            obj.f.vec = zeros(obj.mesh.ngn,1);
+            obj.f.vec = zeros((2*obj.mesh.ne)+1,1);
         end
         function obj = ConstantInit(obj,constant)
             assert(~isempty(obj.mesh),'Cannot init without a mesh');
-            obj.c = ones(obj.mesh.ngn,1)*constant;
+            obj.c = ones((2*obj.mesh.ne)+1,1)*constant;
         end
         function fig = PlotAtX(obj, x)
             fig=figure();
@@ -67,7 +67,7 @@ classdef newTransientProblem < handle
             timeseries=linspace(0,obj.Transient.Time,steps);
             N=obj.mesh.ngn;
             for i=1:size(x,2)
-                equivRow=((x(i)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
+                equivRow=2*((x(i)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
                 c_values=obj.Solution(equivRow,:);
                 plot(timeseries,c_values,'DisplayName',['Numerical Solution - x: ' num2str(x(i))]);
                 hold on;
@@ -78,7 +78,7 @@ classdef newTransientProblem < handle
         end
         function c_values = GetValuesAtX(obj, x)
             N=obj.mesh.ngn;
-            equivRow=((x/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
+            equivRow=2*((x/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
             c_values=obj.Solution(equivRow,:);
         end
         function fig = PlotAtTime(obj, t)
@@ -87,7 +87,8 @@ classdef newTransientProblem < handle
                 'Position', [800 300 700 500]);
             for i=1:size(t,2)
                 c_values=obj.Solution(:,int16((t(i)/obj.Transient.dt)+1));
-                plot(obj.mesh.nvec,c_values,'DisplayName',[num2str(t(i)) 's']);
+                nvecConvert=linspace(obj.mesh.xmin,obj.mesh.xmax,(2*obj.mesh.ne)+1);
+                plot(nvecConvert,c_values,'DisplayName',[num2str(t(i)) 's']);
                 hold on;
             end
             xlabel('Position (x)');

@@ -18,7 +18,7 @@ P2C.Transient.dt=0.05;
 P2C.BCS.D=[[393.15,0];[310.15,0.01];];
 P2C.ConstantInit(310.15);
 P2C.Solve(false);
-changeTime=P2C.PlotAtTime([2,5,50]);
+changeTime=P2C.PlotAtTime([0.05,0.5,2,5,50]);
 figure(changeTime);
 plotSkin;
 saveas(changeTime,'status/cw2/timeoverview_2ci.png');

@@ -3,9 +3,9 @@ close all
 clear x y
 % Creat a new transient Problem
 P=newTransientProblem();
-P.Mesh(0,1,10);
+P.Mesh(0,1,50);
 P.Diffusion.coef=1;
-P.Transient.dt=0.01;
+P.Transient.dt=0.001;
 P.BCS.D=[[0,0];[1,1];];
 P.Solve();
 fixedX=P.PlotAtX(0.8);

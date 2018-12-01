@@ -94,6 +94,9 @@ classdef newTransientProblem < handle
             ylabel('c(x,t)');
             legend('Location','Northeast');
         end
+        function L2NormError=L2(obj,aFcn,Time)
+            L2NormError=L2Norm(obj,aFcn,Time);
+        end
 
     end
 end

@@ -1,4 +1,4 @@
-function [Problem] = part2a(Q,TL,NumOfElems)
+function [Problem] = cw1_part2a(Q,TL,NumOfElems)
 %PART2A The Problem template for the example in part 2a.
 %   Given a value of Q, TL & number of elements,
 %   a Problem object is returned with those parameters.

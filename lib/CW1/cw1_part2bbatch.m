@@ -3,7 +3,7 @@ startSolver;
 % Create Batch based on @part2a template interating Q,TL and 
 % Number of Elements through
 % [Lower Bounds],[Upper Bounds], [Number of Steps];
-Batch=problemBatch(@part2b,[0.5 294.15 10],[1.5 322.15 10],[5 5 1]);
+Batch=problemBatch(@cw1_part2b,[0.5 294.15 10],[1.5 322.15 10],[5 5 1]);
 
 Batch=solveBatch(Batch);  % Send to Batch solver using default @FEMSolver.
 
@@ -84,7 +84,7 @@ colorbar;
 saveas(f12,'status/part2b_profile_Q.png');
 
 % Compare to part2a.
-Batch2a=problemBatch(@part2a,[0.5 294.15 10],[1.5 322.15 10],[5 5 1]);
+Batch2a=problemBatch(@cw1_part2a,[0.5 294.15 10],[1.5 322.15 10],[5 5 1]);
 Batch2a=solveBatch(Batch2a);
 
 %Plot difference between a and b.

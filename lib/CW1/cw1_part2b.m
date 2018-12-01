@@ -1,4 +1,4 @@
-function [Problem] = part2b(Q,TL,NumOfElems)
+function [Problem] = cw1_part2b(Q,TL,NumOfElems)
 %PART2B Problem Template for part2b used for batching.
 %   Takes in Q,TL as parameters for the problem with NumOfElems elements.
 %

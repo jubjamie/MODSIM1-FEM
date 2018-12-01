@@ -4,7 +4,7 @@ startSolver;
 % Create Batch based on @part2a template interating Q,TL and 
 % Number of Elements through
 % [Lower Bounds],[Upper Bounds], [Number of Steps];
-Batch=problemBatch(@part2a,[0.5 294.15 10],[1.5 322.15 10],[5 5 1]);
+Batch=problemBatch(@cw1_part2a,[0.5 294.15 10],[1.5 322.15 10],[5 5 1]);
 
 Batch=solveBatch(Batch); % Send to Batch solver using default @FEMSolver.
 
@@ -26,7 +26,7 @@ plotSolution(Batch,PlotOpts,extraFcn);
 f3=figure('Name','Parameter Space - Part 2a - Constant x Position');
 heldXindex=4; % Specify index of domain vector to evalute.
 % Make the required matrices for contorf from the Batch.
-[x,y,z]= generateContormatrices(Batch,1,2,heldXindex);
+[x,y,z]= generateContorMatrices(Batch,1,2,heldXindex);
 % Plot contorf plot with some options.
 [cc,hh]=contourf(x,y,z,17,'ShowText','on');
 hh.LevelStep=1;

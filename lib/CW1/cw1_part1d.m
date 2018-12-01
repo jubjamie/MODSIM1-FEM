@@ -3,7 +3,7 @@ startSolver;
 % Create a batch of problems using the 
 % @part1dProblem Template iterating template input 1 (# of elems)
 % from 2 to 6 in 3 steps.
-Batch=problemBatch(@part1dProblem,[2],[6],[3]); 
+Batch=problemBatch(@cw1_part1dProblem,[2],[6],[3]); 
 
 % Send the Batch of Problems to the Batch Solver using default @FEMSolve
 Batch=solveBatch(Batch); 

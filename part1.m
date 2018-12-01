@@ -3,9 +3,9 @@ close all
 clear x y
 % Creat a new transient Problem
 P=newTransientProblem();
-P.Mesh(0,1,100);
+P.Mesh(0,1,10);
 P.Diffusion.coef=1;
-P.Transient.dt=0.001;
+P.Transient.dt=0.01;
 P.BCS.D=[[0,0];[1,1];];
 P.Solve();
 fixedX=P.PlotAtX(0.8);
@@ -27,7 +27,7 @@ title('Solution Varying Transiently - Crank Nicolson');
 legend('Location','Northwest');
 saveas(changeTime,['status/cw2/part1_time_overview_theta_' num2str(P.Transient.Theta) '.png']);
 
-% Creat a new transient Problem
+% Creat a new transient Problem for Backwards Euler
 PE=newTransientProblem();
 PE.Mesh(0,1,10);
 PE.Diffusion.coef=1;

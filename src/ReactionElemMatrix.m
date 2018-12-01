@@ -23,7 +23,7 @@ if lambdasize > 1
     % Get x position in mesh
     localx=(x0+x1)/2;
     for i=1:lambdasize+1
-        if localx<lambda(i+1,1) && localx>=lambda(i,1)
+        if localx<abs(lambda(i+1,1)) && localx>=abs(lambda(i,1))
             lambda=lambda(i,2);
             break;
         end

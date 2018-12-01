@@ -11,7 +11,7 @@ if scSize > 1
     % Get x position in mesh
     localx=(x0+x1)/2;
     for i=1:scSize+1
-        if localx<sourcecoef(i+1,1) && localx>=sourcecoef(i,1)
+        if localx<abs(sourcecoef(i+1,1)) && localx>=abs(sourcecoef(i,1))
             sourcecoef=sourcecoef(i,2);
             break;
         end

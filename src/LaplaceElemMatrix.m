@@ -23,7 +23,7 @@ if Dsize > 1
     % Get x position in mesh
     localx=(x0+x1)/2;
     for i=1:Dsize+1
-        if localx<D(i+1,1) && localx>=D(i,1)
+        if localx<abs(D(i+1,1)) && localx>=abs(D(i,1))
             D=D(i,2);
             break;
         end

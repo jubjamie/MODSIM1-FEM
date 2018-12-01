@@ -18,6 +18,34 @@ if scSize > 1
     end
    
 end
-sourceLocalElem=[sourcecoef*J,sourcecoef*J]';
+
+%Use GQ
+N=3;
+gq=makeGQ(N);
+
+% Linear gradients for now.
+
+Int0_gq=zeros(1,N);
+Int1_gq=zeros(1,N);
+Int2_gq=zeros(1,N);
+
+psi0=@(z) (z*(z-1))/2;
+psi1=@(z) 1-z^2;
+psi2=@(z) (z*(1+z))/2;
+
+% Int00
+for i=1:N
+    Int0_gq(i)=sourcecoef*psi0(gq.xipts(i))*J;
+    Int1_gq(i)=sourcecoef*psi1(gq.xipts(i))*J;
+    Int2_gq(i)=sourcecoef*psi2(gq.xipts(i))*J;
+
+end
+%No xi(z) to evaluate at gauss point so weights only needed
+Int0=sum(Int0_gq.*gq.gsw);
+Int1=sum(Int1_gq.*gq.gsw);
+Int2=sum(Int2_gq.*gq.gsw);
+
+
+sourceLocalElem=[Int0,Int1,Int2]';
 end
 

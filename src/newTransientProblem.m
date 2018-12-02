@@ -8,7 +8,7 @@ classdef newTransientProblem < handle
        Diffusion=struct('Generator',@LaplaceElemMatrix,'coef',0);
        title;
        Reaction=struct('Generator',@ReactionElemMatrix,'coef',0);
-       Transient=struct('dt',0.01,'Theta',0.5,'Time',1);
+       Transient=struct('dt',0.01,'Theta',1,'Time',1);
        f=struct('fcn',@(a,b) 1,'coef',0);
        GM;
        GV;

@@ -21,9 +21,9 @@ end
 
 %Use GQ
 if ~isempty(varargin)
-    assert(~mod(cell2mat(varargin{1}),1),...
+    assert(~mod(cell2mat(varargin(1)),1),...
         'Gaussian Quadrature Scheme must be integer');
-    N=cell2mat(varargin{1});
+    N=cell2mat(varargin(1));
 else
     N=3;
 end

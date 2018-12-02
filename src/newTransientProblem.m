@@ -20,6 +20,7 @@ classdef newTransientProblem < handle
        initParams;
        BatchOptions;
        basisType='Quad';
+       GQn=3;
     end
     
     methods

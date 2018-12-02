@@ -16,6 +16,7 @@ classdef newProblem < handle
        initParams;
        BatchOptions;
        basisType='linear';
+       GQn=3;
     end
     
     methods

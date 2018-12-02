@@ -43,9 +43,9 @@ localElemMatrix=[Int00, Int01;Int01, Int00]; % Assemble into 2x2 matrix.
 
 %Use GQ
 if ~isempty(varargin)
-    assert(~mod(cell2mat(varargin{1}),1),...
+    assert(~mod(cell2mat(varargin(1)),1),...
         'Gaussian Quadrature Scheme must be integer');
-    N=cell2mat(varargin{1});
+    N=cell2mat(varargin(1));
 else
     N=3;
 end

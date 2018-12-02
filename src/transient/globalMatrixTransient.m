@@ -60,18 +60,19 @@ for i=1:N-1 % Loop through each element, creating its entry into the global
     % matrix/source vector.
     % -- Mass Matrix (DIffusion) --
     % Add the previous value to the new ones. (Allows local elem overlap)
-    massElement=ReactionElemMatrix(1,i,Problem.mesh);
+    massElement=ReactionElemMatrix(1,i,Problem.mesh,Problem.GQn);
 
     M((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)=M((2*i)-1:(2*i)+1)+massElement;
 
     K((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)=K((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)+... 
-        Problem.Diffusion.Generator(Problem.Diffusion.coef,i,Problem.mesh)-...
+        Problem.Diffusion.Generator(Problem.Diffusion.coef,i,Problem.mesh,...
+        Problem.GQn)-...
         (getReactionCoefs(Problem.Reaction.coef,i,Problem.mesh).*massElement);
     
     % Populate the source vector by multiplying constant terms by a polynomial
     % function of x0,1 and the Jacobian.
     f((2*i)-1:(2*i)+1,1)=f((2*i)-1:(2*i)+1,1)+...
-        variableStaticSourceVector(Problem.f.coef,i,Problem.mesh);
+        variableStaticSourceVector(Problem.f.coef,i,Problem.mesh,Problem.GQn);
 end
 
 GM=M+((Problem.Transient.Theta*Problem.Transient.dt).*K);

@@ -62,7 +62,7 @@ for i=1:N-1 % Loop through each element, creating its entry into the global
     % Add the previous value to the new ones. (Allows local elem overlap)
     massElement=ReactionElemMatrix(1,i,Problem.mesh,Problem.GQn);
 
-    M((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)=M((2*i)-1:(2*i)+1)+massElement;
+    M((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)=M((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)+massElement;
 
     K((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)=K((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)+... 
         Problem.Diffusion.Generator(Problem.Diffusion.coef,i,Problem.mesh,...

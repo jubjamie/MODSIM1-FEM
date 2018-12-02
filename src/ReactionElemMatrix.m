@@ -61,25 +61,23 @@ Int12_gq=zeros(1,N);
 Int22_gq=zeros(1,N);
 
 if strcmp(msh.basisType,'Quad')
-psi0=@(z) (z*(z-1))/2;
-psi1=@(z) 1-z^2;
-psi2=@(z) (z*(1+z))/2;
+psi0=@(z) (z.*(z-1))./2;
+psi1=@(z) 1-z.^2;
+psi2=@(z) (z.*(1+z))./2;
 else
-psi0=@(z) (1-z)/2;
-psi1=@(z) (1+z)/2;
+psi0=@(z) (1-z)./2;
+psi1=@(z) (1+z)./2;
 end
 
-% Int00
-for i=1:N
-    Int00_gq(i)=lambda*psi0(gq.xipts(i))*psi0(gq.xipts(i))*J;
-    Int01_gq(i)=lambda*psi0(gq.xipts(i))*psi1(gq.xipts(i))*J;
-    if strcmp(msh.basisType,'Quad')
-    Int11_gq(i)=lambda*psi1(gq.xipts(i))*psi1(gq.xipts(i))*J;
-    Int02_gq(i)=lambda*psi0(gq.xipts(i))*psi2(gq.xipts(i))*J;
-    Int12_gq(i)=lambda*psi1(gq.xipts(i))*psi2(gq.xipts(i))*J;
-    Int22_gq(i)=lambda*psi2(gq.xipts(i))*psi2(gq.xipts(i))*J;
-    end
+Int00_gq=lambda.*psi0(gq.xipts).*psi0(gq.xipts).*J;
+Int01_gq=lambda.*psi0(gq.xipts).*psi1(gq.xipts).*J;
+if strcmp(msh.basisType,'Quad')
+Int11_gq=lambda.*psi1(gq.xipts).*psi1(gq.xipts).*J;
+Int02_gq=lambda.*psi0(gq.xipts).*psi2(gq.xipts).*J;
+Int12_gq=lambda.*psi1(gq.xipts).*psi2(gq.xipts).*J;
+Int22_gq=lambda.*psi2(gq.xipts).*psi2(gq.xipts).*J;
 end
+
 %No xi(z) to evaluate at gauss point so weights only needed
 Int00=sum(Int00_gq.*gq.gsw);
 Int01=sum(Int01_gq.*gq.gsw);

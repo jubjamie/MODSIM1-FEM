@@ -56,7 +56,7 @@ gq=makeGQ(N);
 if strcmp(msh.basisType,'Quad')
     % Quadratic Gradients
     dpsi0_dz=@(x) x-0.5;
-    dpsi1_dz=@(x) -2*x;
+    dpsi1_dz=@(x) -2.*x;
     dpsi2_dz=@(x) 0.5+x;
 else
     %Linear Gradients
@@ -74,6 +74,15 @@ Int12_gq=zeros(1,N);
 Int22_gq=zeros(1,N);
 
 % Ints
+Int00_gq=D.*dpsi0_dz(gq.xipts).*dz_dx.*dpsi0_dz(gq.xipts);
+Int01_gq=D.*dpsi0_dz(gq.xipts).*dz_dx.*dpsi1_dz(gq.xipts);
+if strcmp(msh.basisType,'Quad')
+Int11_gq=D.*dpsi1_dz(gq.xipts).*dz_dx.*dpsi1_dz(gq.xipts);
+Int02_gq=D.*dpsi0_dz(gq.xipts).*dz_dx.*dpsi2_dz(gq.xipts);
+Int12_gq=D.*dpsi1_dz(gq.xipts).*dz_dx.*dpsi2_dz(gq.xipts);
+Int22_gq=D.*dpsi2_dz(gq.xipts).*dz_dx.*dpsi2_dz(gq.xipts);
+end
+%{
 for i=1:N
     Int00_gq(i)=D*dpsi0_dz(gq.xipts(i))*dz_dx*dpsi0_dz(gq.xipts(i));
     Int01_gq(i)=D*dpsi0_dz(gq.xipts(i))*dz_dx*dpsi1_dz(gq.xipts(i));
@@ -84,6 +93,7 @@ for i=1:N
         Int22_gq(i)=D*dpsi2_dz(gq.xipts(i))*dz_dx*dpsi2_dz(gq.xipts(i));
     end
 end
+%}
 %No xi(z) to evaluate at gauss point so weights only needed
 Int00=sum(Int00_gq.*gq.gsw);
 Int01=sum(Int01_gq.*gq.gsw);

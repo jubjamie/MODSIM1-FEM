@@ -12,6 +12,7 @@ function [mesh] = OneDimLinearMeshGen(xmin,xmax,Ne)
     mesh.xmax=xmax;
 
     mesh.nvec = xmin:dx:xmax;
+    mesh.basisType='linear';
     
     %loop over elements & set the element properties
     for i=1:Ne

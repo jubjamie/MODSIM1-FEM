@@ -54,18 +54,25 @@ Int02_gq=zeros(1,N);
 Int12_gq=zeros(1,N);
 Int22_gq=zeros(1,N);
 
+if strcmp(msh.basisType,'Quad')
 psi0=@(z) (z*(z-1))/2;
 psi1=@(z) 1-z^2;
 psi2=@(z) (z*(1+z))/2;
+else
+psi0=@(z) (1-z)/2;
+psi1=@(z) (1+z)/2;
+end
 
 % Int00
 for i=1:N
     Int00_gq(i)=lambda*psi0(gq.xipts(i))*psi0(gq.xipts(i))*J;
     Int01_gq(i)=lambda*psi0(gq.xipts(i))*psi1(gq.xipts(i))*J;
+    if strcmp(msh.basisType,'Quad')
     Int11_gq(i)=lambda*psi1(gq.xipts(i))*psi1(gq.xipts(i))*J;
     Int02_gq(i)=lambda*psi0(gq.xipts(i))*psi2(gq.xipts(i))*J;
     Int12_gq(i)=lambda*psi1(gq.xipts(i))*psi2(gq.xipts(i))*J;
     Int22_gq(i)=lambda*psi2(gq.xipts(i))*psi2(gq.xipts(i))*J;
+    end
 end
 %No xi(z) to evaluate at gauss point so weights only needed
 Int00=sum(Int00_gq.*gq.gsw);
@@ -75,10 +82,13 @@ Int02=sum(Int02_gq.*gq.gsw);
 Int12=sum(Int12_gq.*gq.gsw);
 Int22=sum(Int22_gq.*gq.gsw);
 
-
+if strcmp(msh.basisType,'Quad')
 localElemMatrix=[Int00, Int01, Int02;
                  Int01, Int11, Int12;
                  Int02, Int12, Int22];
+else
+localElemMatrix=[Int00, Int01;
+                 Int01, Int00];    
 
 end
 

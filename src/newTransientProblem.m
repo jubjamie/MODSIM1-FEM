@@ -19,6 +19,7 @@ classdef newTransientProblem < handle
        BCrhs;
        initParams;
        BatchOptions;
+       basisType='Quad';
     end
     
     methods
@@ -54,6 +55,7 @@ classdef newTransientProblem < handle
         function obj = Mesh(obj,s,e,num)
             obj.mesh = OneDimLinearMeshGen(s,e,num);
             obj.f.vec = zeros((2*obj.mesh.ne)+1,1);
+            obj.mesh.basisType=obj.basisType;
         end
         function obj = ConstantInit(obj,constant)
             assert(~isempty(obj.mesh),'Cannot init without a mesh');

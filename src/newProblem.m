@@ -15,6 +15,7 @@ classdef newProblem < handle
        BCrhs;
        initParams;
        BatchOptions;
+       basisType='linear';
     end
     
     methods
@@ -30,6 +31,7 @@ classdef newProblem < handle
         end
         function obj = Mesh(obj,s,e,num)
             obj.mesh = OneDimLinearMeshGen(s,e,num);
+            obj.mesh.basisType=obj.basisType;
         end
 
     end

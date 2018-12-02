@@ -28,7 +28,7 @@ if Dsize > 1
             break;
         end
     end
-   
+    
 end
 %{
 Int00=D/(x1-x0);    % Short forms as derived in report derivation.
@@ -47,12 +47,17 @@ localElemMatrix=[Int00, Int01;Int01, Int00]; % Assemble into 2x2 matrix.
 N=3;
 gq=makeGQ(N);
 
-% Quadratic Gradients
-dpsi0_dz=@(x) x-0.5;
-dpsi1_dz=@(x) -2*x;
-dpsi2_dz=@(x) 0.5+x;
-
-%Quadratic Gradients
+if strcmp(msh.basisType,'Quad')
+    % Quadratic Gradients
+    dpsi0_dz=@(x) x-0.5;
+    dpsi1_dz=@(x) -2*x;
+    dpsi2_dz=@(x) 0.5+x;
+else
+    %Linear Gradients
+    dpsi0_dz=@(x) -0.5;
+    dpsi1_dz=@(x) 0.5;
+end
+%zx Gradients
 dz_dx=2/(x1-x0);
 
 Int00_gq=zeros(1,N);
@@ -66,10 +71,12 @@ Int22_gq=zeros(1,N);
 for i=1:N
     Int00_gq(i)=D*dpsi0_dz(gq.xipts(i))*dz_dx*dpsi0_dz(gq.xipts(i));
     Int01_gq(i)=D*dpsi0_dz(gq.xipts(i))*dz_dx*dpsi1_dz(gq.xipts(i));
-    Int11_gq(i)=D*dpsi1_dz(gq.xipts(i))*dz_dx*dpsi1_dz(gq.xipts(i));
-    Int02_gq(i)=D*dpsi0_dz(gq.xipts(i))*dz_dx*dpsi2_dz(gq.xipts(i));
-    Int12_gq(i)=D*dpsi1_dz(gq.xipts(i))*dz_dx*dpsi2_dz(gq.xipts(i));
-    Int22_gq(i)=D*dpsi2_dz(gq.xipts(i))*dz_dx*dpsi2_dz(gq.xipts(i));
+    if strcmp(msh.basisType,'Quad')
+        Int11_gq(i)=D*dpsi1_dz(gq.xipts(i))*dz_dx*dpsi1_dz(gq.xipts(i));
+        Int02_gq(i)=D*dpsi0_dz(gq.xipts(i))*dz_dx*dpsi2_dz(gq.xipts(i));
+        Int12_gq(i)=D*dpsi1_dz(gq.xipts(i))*dz_dx*dpsi2_dz(gq.xipts(i));
+        Int22_gq(i)=D*dpsi2_dz(gq.xipts(i))*dz_dx*dpsi2_dz(gq.xipts(i));
+    end
 end
 %No xi(z) to evaluate at gauss point so weights only needed
 Int00=sum(Int00_gq.*gq.gsw);
@@ -79,10 +86,13 @@ Int02=sum(Int02_gq.*gq.gsw);
 Int12=sum(Int12_gq.*gq.gsw);
 Int22=sum(Int22_gq.*gq.gsw);
 
-
-localElemMatrix=[Int00, Int01, Int02;
-                 Int01, Int11, Int12;
-                 Int02, Int12, Int22];
-
+if strcmp(msh.basisType,'Quad')
+    localElemMatrix=[Int00, Int01, Int02;
+                    Int01, Int11, Int12;
+                    Int02, Int12, Int22];
+else
+    localElemMatrix=[Int00, Int01;
+                     Int01, Int00];
+end
 end
 

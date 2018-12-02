@@ -1,4 +1,4 @@
-function [localElemMatrix] = LaplaceElemMatrix(D,eID,msh)
+function [localElemMatrix] = LaplaceElemMatrix(D,eID,msh,varargin)
 %LAPLACEELEMMATRIX Creates the diffusion localElem Matrix.
 %   (D, eID, mesh)
 %   D - The diffusion coefficent to use in the matrix.
@@ -44,7 +44,13 @@ localElemMatrix=[Int00, Int01;Int01, Int00]; % Assemble into 2x2 matrix.
 %Int11=IntF(D*dpsi1_dz*dz_dx*dpsi1_dz*dz_dx*J)dz<>[-1,1];-----------/
 
 %Use GQ
-N=3;
+if ~isempty(varargin)
+    assert(~mod(cell2mat(varargin{1}),1),...
+        'Gaussian Quadrature Scheme must be integer');
+    N=cell2mat(varargin{1});
+else
+    N=3;
+end
 gq=makeGQ(N);
 
 if strcmp(msh.basisType,'Quad')

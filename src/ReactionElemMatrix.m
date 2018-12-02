@@ -1,4 +1,4 @@
-function [localElemMatrix] = ReactionElemMatrix(lambda,eID,msh)
+function [localElemMatrix] = ReactionElemMatrix(lambda,eID,msh,varargin)
 %LAPLACEELEMMATRIX Creates the reaction local element matrix.
 %   (lambda, eID, mesh)
 %   lambda - The reaction coefficent to use in the matrix.
@@ -42,7 +42,13 @@ localElemMatrix=[Int00, Int01;Int01, Int00]; % Assemble into 2x2 matrix.
 %Int01=INT(lambda*psi1*psi0*J)dz
 
 %Use GQ
-N=3;
+if ~isempty(varargin)
+    assert(~mod(cell2mat(varargin{1}),1),...
+        'Gaussian Quadrature Scheme must be integer');
+    N=cell2mat(varargin{1});
+else
+    N=3;
+end
 gq=makeGQ(N);
 
 % Linear gradients for now.

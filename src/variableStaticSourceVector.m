@@ -1,4 +1,4 @@
-function [sourceLocalElem] = variableStaticSourceVector(sourcecoef,eID,msh)
+function [sourceLocalElem] = variableStaticSourceVector(sourcecoef,eID,msh,varargin)
 %SOURCEVECTOR Creates a custom function for the FEM Solver to construct the
 
 J=msh.elem(eID).J;
@@ -20,7 +20,13 @@ if scSize > 1
 end
 
 %Use GQ
-N=3;
+if ~isempty(varargin)
+    assert(~mod(cell2mat(varargin{1}),1),...
+        'Gaussian Quadrature Scheme must be integer');
+    N=cell2mat(varargin{1});
+else
+    N=3;
+end
 gq=makeGQ(N);
 
 % Linear gradients for now.

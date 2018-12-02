@@ -45,13 +45,10 @@ localElemMatrix=[Int00, Int01;Int01, Int00]; % Assemble into 2x2 matrix.
 
 %Use GQ
 if ~isempty(varargin)
-    assert(~mod(cell2mat(varargin(1)),1),...
-        'Gaussian Quadrature Scheme must be integer');
-    N=cell2mat(varargin(1));
+    gq=varargin{1};
 else
-    N=3;
+    gq=makeGQ(3);
 end
-gq=makeGQ(N);
 
 if strcmp(msh.basisType,'Quad')
     % Quadratic Gradients
@@ -66,12 +63,12 @@ end
 %zx Gradients
 dz_dx=2/(x1-x0);
 
-Int00_gq=zeros(1,N);
-Int01_gq=zeros(1,N);
-Int11_gq=zeros(1,N);
-Int02_gq=zeros(1,N);
-Int12_gq=zeros(1,N);
-Int22_gq=zeros(1,N);
+Int00_gq=zeros(1,gq.npts);
+Int01_gq=zeros(1,gq.npts);
+Int11_gq=zeros(1,gq.npts);
+Int02_gq=zeros(1,gq.npts);
+Int12_gq=zeros(1,gq.npts);
+Int22_gq=zeros(1,gq.npts);
 
 % Ints
 Int00_gq=D.*dpsi0_dz(gq.xipts).*dz_dx.*dpsi0_dz(gq.xipts);

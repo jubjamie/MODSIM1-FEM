@@ -7,6 +7,7 @@ P.Mesh(0,1,10);
 P.Diffusion.coef=1;
 %P.Transient.dt=0.001;
 P.BCS.D=[[0,0];[1,1];];
+P.basisType='Linear';
 P.Solve();
 fixedX=P.PlotAtX(0.8);
 changeTime=P.PlotAtTime([0.05,0.1,0.3,1]);
@@ -19,13 +20,13 @@ for i=1:timeStepCount
     y(i)=TransientAnalyticSoln(0.8,x(i));
 end
 plot(x,y,'DisplayName','Analytical Solution - x: 0.8')
-saveas(fixedX,['status/cw2/part1_theta_' num2str(P.Transient.Theta) '.png']);
+saveas(fixedX,['status/cw2/part1_theta_' num2str(P.Transient.Theta) '_' P.basisType '.png']);
 
 
 figure(changeTime);
 title('Solution Varying Transiently - Crank Nicolson');
 legend('Location','Northwest');
-saveas(changeTime,['status/cw2/part1_time_overview_theta_' num2str(P.Transient.Theta) '.png']);
+saveas(changeTime,['status/cw2/part1_time_overview_theta_' num2str(P.Transient.Theta) '_' P.basisType '.png']);
 
 % Creat a new transient Problem for Backwards Euler
 PE=newTransientProblem();
@@ -33,6 +34,7 @@ PE.Mesh(0,1,10);
 PE.Diffusion.coef=1;
 PE.Transient.Theta=1;
 PE.BCS.D=[[0,0];[1,1];];
+PE.basisType='Linear';
 PE.Solve();
 fixedXE=PE.PlotAtX(0.8);
 changeTimeE=PE.PlotAtTime([0.05,0.1,0.3,1]);
@@ -45,13 +47,13 @@ for i=1:timeStepCountE
     yE(i)=TransientAnalyticSoln(0.8,xE(i));
 end
 plot(xE,yE,'DisplayName','Analytical Solution - x: 0.8');
-saveas(fixedXE,['status/cw2/part1_theta_' num2str(PE.Transient.Theta) '.png']);
+saveas(fixedXE,['status/cw2/part1_theta_' num2str(PE.Transient.Theta) '_' PE.basisType '.png']);
 
 
 figure(changeTimeE);
 title('Solution Varying Transiently - Backwards Euler');
 legend('Location','Northwest');
-saveas(changeTimeE,['status/cw2/part1_time_overview_theta_' num2str(PE.Transient.Theta) '.png']);
+saveas(changeTimeE,['status/cw2/part1_time_overview_theta_' num2str(PE.Transient.Theta) '_' PE.basisType '.png']);
 
 errorCompare=figure();
 hline(0,'k--');

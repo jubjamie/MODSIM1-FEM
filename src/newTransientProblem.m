@@ -21,6 +21,8 @@ classdef newTransientProblem < handle
        BatchOptions;
        basisType='Quad';
        GQn=3;
+       constantInitVal=0;
+       GQ;
     end
     
     methods
@@ -28,9 +30,9 @@ classdef newTransientProblem < handle
             %NEWPROBLEM Construct an instance of this class
             %   Detailed explanation goes here
             obj.mesh.basisType=obj.basisType;
-            if isempty(obj.c)
-                ConstantInit(obj,0);
-            end
+            ConstantInitDo(obj,obj.constantInitVal);
+            obj.GQ=makeGQ(obj.GQn);
+            
             N=obj.mesh.ngn;
             if isfield(obj.BCS,'D') &&...
                     size(obj.BCS.D,1)>0 && size(obj.BCS.D,2)==2
@@ -38,7 +40,11 @@ classdef newTransientProblem < handle
                     BCd=obj.BCS.D(j,:); % Select the BC for this loop.
         
                     % Corresponding BC Vector node.
-                    equivRow=2*((BCd(2)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;  
+                    if strcmp(obj.basisType,'Quad')
+                        equivRow=2*((BCd(2)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
+                    else
+                        equivRow=((BCd(2)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1; 
+                    end
                     % Assert that the x-position represents a node/row number in 
                     % the global matrix
                     assert(~mod(equivRow,1),'D.Boundary condition not specified for a node');
@@ -47,6 +53,14 @@ classdef newTransientProblem < handle
                     obj.c(equivRow)=BCd(1); % Set source term/RHS to BC value.
                 end
             end
+            
+            % Perform set up for quad or linear stuff
+            if strcmp(obj.basisType,'Quad')
+            obj.f.vec = zeros((2*obj.mesh.ne)+1,1);
+            else
+            obj.f.vec = zeros(obj.mesh.ngn,1);    
+            end
+            
             obj = FEMTransientSolve(obj,varargin);
         end
         function obj = DisplayMesh(obj)
@@ -56,12 +70,17 @@ classdef newTransientProblem < handle
         end
         function obj = Mesh(obj,s,e,num)
             obj.mesh = OneDimLinearMeshGen(s,e,num);
-            obj.f.vec = zeros((2*obj.mesh.ne)+1,1);
-            obj.mesh.basisType=obj.basisType;
         end
         function obj = ConstantInit(obj,constant)
+            obj.constantInitVal=constant;
+        end
+        function obj = ConstantInitDo(obj,constant)
             assert(~isempty(obj.mesh),'Cannot init without a mesh');
+            if strcmp(obj.basisType,'Quad')
             obj.c = ones((2*obj.mesh.ne)+1,1)*constant;
+            else
+            obj.c = ones(obj.mesh.ngn,1)*constant;    
+            end
         end
         function fig = PlotAtX(obj, x)
             fig=figure();
@@ -71,7 +90,11 @@ classdef newTransientProblem < handle
             timeseries=linspace(0,obj.Transient.Time,steps);
             N=obj.mesh.ngn;
             for i=1:size(x,2)
+                if strcmp(obj.basisType,'Quad')
                 equivRow=2*((x(i)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
+                else
+                equivRow=((x(i)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;   
+                end
                 c_values=obj.Solution(equivRow,:);
                 plot(timeseries,c_values,'DisplayName',['Numerical Solution - x: ' num2str(x(i))]);
                 hold on;
@@ -82,7 +105,12 @@ classdef newTransientProblem < handle
         end
         function c_values = GetValuesAtX(obj, x)
             N=obj.mesh.ngn;
+            if strcmp(obj.basisType,'Quad')
             equivRow=2*((x/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
+            else
+            equivRow=((x/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
+            end
+            
             c_values=obj.Solution(equivRow,:);
         end
         function fig = PlotAtTime(obj, t)
@@ -91,7 +119,11 @@ classdef newTransientProblem < handle
                 'Position', [800 300 700 500]);
             for i=1:size(t,2)
                 c_values=obj.Solution(:,int16((t(i)/obj.Transient.dt)+1));
+                if strcmp(obj.basisType,'Quad')
                 plot(obj.mesh.nvec,c_values(1:2:end),'DisplayName',[num2str(t(i)) 's']);
+                else
+                plot(obj.mesh.nvec,c_values,'DisplayName',[num2str(t(i)) 's']);    
+                end
                 hold on;
             end
             xlabel('Position (x)');

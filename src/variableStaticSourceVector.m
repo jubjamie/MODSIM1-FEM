@@ -21,19 +21,17 @@ end
 
 %Use GQ
 if ~isempty(varargin)
-    assert(~mod(cell2mat(varargin(1)),1),...
-        'Gaussian Quadrature Scheme must be integer');
-    N=cell2mat(varargin(1));
+    gq=varargin{1};
 else
-    N=3;
+    gq=makeGQ(3);
 end
-gq=makeGQ(N);
+%gq=makeGQ(N);
 
 % Linear gradients for now.
 
-Int0_gq=zeros(1,N);
-Int1_gq=zeros(1,N);
-Int2_gq=zeros(1,N);
+Int0_gq=zeros(1,gq.npts);
+Int1_gq=zeros(1,gq.npts);
+Int2_gq=zeros(1,gq.npts);
 
 if strcmp(msh.basisType,'Quad')
 psi0=@(z) (z.*(z-1))./2;

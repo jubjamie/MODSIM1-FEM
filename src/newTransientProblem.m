@@ -89,8 +89,7 @@ classdef newTransientProblem < handle
                 'Position', [800 300 700 500]);
             for i=1:size(t,2)
                 c_values=obj.Solution(:,int16((t(i)/obj.Transient.dt)+1));
-                nvecConvert=linspace(obj.mesh.xmin,obj.mesh.xmax,(2*obj.mesh.ne)+1);
-                plot(nvecConvert,c_values,'DisplayName',[num2str(t(i)) 's']);
+                plot(obj.mesh.nvec,c_values(1:2:end),'DisplayName',[num2str(t(i)) 's']);
                 hold on;
             end
             xlabel('Position (x)');

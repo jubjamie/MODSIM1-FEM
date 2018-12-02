@@ -27,6 +27,7 @@ classdef newTransientProblem < handle
         function obj = Solve(obj,varargin)
             %NEWPROBLEM Construct an instance of this class
             %   Detailed explanation goes here
+            obj.mesh.basisType=obj.basisType;
             if isempty(obj.c)
                 ConstantInit(obj,0);
             end

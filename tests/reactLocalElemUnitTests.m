@@ -42,4 +42,14 @@ elemat2 = [ (1/18) (1/36); (1/36) (1/18)];
 diff = elemat1 - elemat2; 
 %calculates the total squared error between the matrices
 diffnorm = sum(sum(diff.*diff)); 
-assert(abs(diffnorm) <= tol)
+assert(abs(diffnorm) <= tol);
+%% Test4: Check local elem is the same for different GQn schemes
+tol = 1e-14;
+D = 1; %diffusion coefficient
+eID=2; %element ID
+msh = OneDimLinearMeshGen(0,1,3);
+elmats={};
+for gq=3:5
+    elmats{gq-2} = round(ReactionElemMatrix(D,eID,msh,gq),10);
+end
+assert(isequal(elmats{1},elmats{2},elmats{3}),'Local Elems are different for different GQns');

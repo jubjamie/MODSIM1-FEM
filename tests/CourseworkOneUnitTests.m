@@ -41,3 +41,14 @@ elemat2 = [ 3 -3; -3 3];
 diff = elemat1 - elemat2; %calculate the difference between the two matrices
 diffnorm = sum(sum(diff.*diff)); %calculates the total squared error between the matrices
 assert(abs(diffnorm) <= tol)
+
+%% Test4: Check local elem is the same for different GQn schemes
+tol = 1e-14;
+D = 1; %diffusion coefficient
+eID=2; %element ID
+msh = OneDimLinearMeshGen(0,1,3);
+
+for gq=2:5
+    elmats{gq-1} = LaplaceElemMatrix(D,eID,msh,gq);
+end
+assert(isequal(elmats{1},elmats{2},elmats{3},elmats{4}),'Local Elems are different for different GQns');

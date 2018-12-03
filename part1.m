@@ -6,6 +6,7 @@ P=newTransientProblem();
 P.Mesh(0,1,10);
 P.Diffusion.coef=1;
 %P.Transient.dt=0.001;
+P.Transient.Theta=0.5;
 P.BCS.D=[[0,0];[1,1];];
 P.basisType='Linear';
 P.Solve();

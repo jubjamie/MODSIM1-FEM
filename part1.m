@@ -69,4 +69,5 @@ xlabel('Time (s)');
 ylabel('Error (Ce-Cx)');
 legend('Location','Northeast');
 title(['Error from Analytical Solution at x=' num2str(x_point)]);
+grid on;
 saveas(errorCompare,['status/cw2/part1_error_x-' num2str(x_point) '_' PE.basisType '.png']);

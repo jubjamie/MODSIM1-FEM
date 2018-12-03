@@ -102,6 +102,7 @@ classdef newTransientProblem < handle
             xlabel('Time (s)');
             ylabel('c(x,t)');
             legend('Location','SouthEast');
+            grid on;
         end
         function c_values = GetValuesAtX(obj, x)
             N=obj.mesh.ngn;
@@ -129,6 +130,7 @@ classdef newTransientProblem < handle
             xlabel('Position (x)');
             ylabel('c(x,t)');
             legend('Location','Northeast');
+            grid on;
         end
         function L2NormError=L2(obj,aFcn,Time)
             L2NormError=L2Norm(obj,aFcn,Time);

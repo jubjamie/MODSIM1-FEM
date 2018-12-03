@@ -16,9 +16,12 @@ if strcmp(Problem.basisType,'Quad')
 basis0=@(z) (z*(z-1))./2;
 basis1=@(z) 1-z.^2;
 basis2=@(z) (z*(1+z))./2;
+
+xindexFcn=@(x) (2*x)-1; 
 else
 basis0=@(z) (1-z)./2;
 basis1=@(z) (1+z)./2;
+xindexFcn=@(x) x; 
 end
 
 %For analytical always provide linear functions
@@ -33,7 +36,7 @@ for i=1:Ne
     diff_sq=zeros(1,N);
     for k=1:N
         % Get the numerical solution at surrounding nodes.
-        solIndex=(2*i)-1;
+        solIndex=xindexFcn(i);
         c0=Problem.Solution(solIndex,int16((Time/Problem.Transient.dt)+1));
         c1=Problem.Solution(solIndex+1,int16((Time/Problem.Transient.dt)+1));
         if strcmp(Problem.basisType,'Quad')

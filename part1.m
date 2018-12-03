@@ -1,7 +1,10 @@
 startSolver;
 close all
 clear x y xE yE
+
 x_point=0.8; % Used for error analysis and x plotting.
+jointBT='Quad'; % Sets basis type for both problems.
+
 % Creat a new transient Problem
 P=newTransientProblem();
 P.Mesh(0,1,10);
@@ -9,7 +12,7 @@ P.Diffusion.coef=1;
 %P.Transient.dt=0.001;
 P.Transient.Theta=0.5;
 P.BCS.D=[[0,0];[1,1];];
-P.basisType='Linear';
+P.basisType=jointBT;
 P.Solve();
 fixedX=P.PlotAtX(x_point);
 changeTime=P.PlotAtTime([0.05,0.1,0.3,1]);
@@ -36,7 +39,7 @@ PE.Mesh(0,1,10);
 PE.Diffusion.coef=1;
 PE.Transient.Theta=1;
 PE.BCS.D=[[0,0];[1,1];];
-PE.basisType='Linear';
+PE.basisType=jointBT;
 PE.Solve();
 fixedXE=PE.PlotAtX(x_point);
 changeTimeE=PE.PlotAtTime([0.05,0.1,0.3,1]);

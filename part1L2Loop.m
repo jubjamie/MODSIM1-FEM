@@ -42,4 +42,5 @@ for i=1:size(dts,2)
 end
 legend();
 title('L2 Norm Errors Therough Time with Different Solver Settings');
-saveas(L2Loop,'status/cw2/L2Loop.png');
+saveas(L2Loop,'status/cw2/L2Loop.png');xlabel('Time (s)');
+ylabel('L2 Norm Error');

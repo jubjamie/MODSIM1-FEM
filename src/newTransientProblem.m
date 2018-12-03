@@ -134,6 +134,7 @@ classdef newTransientProblem < handle
         end
         function L2NormError=L2(obj,aFcn,Time)
             L2NormError=L2Norm(obj,aFcn,Time);
+            disp(['L2 Norm: ' num2str(L2NormError)]);
         end
 
     end

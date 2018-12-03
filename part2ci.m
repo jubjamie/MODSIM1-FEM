@@ -22,7 +22,7 @@ P2C.Solve(false);
 changeTime=P2C.PlotAtTime([0.05,0.5,2,5,50]);
 figure(changeTime);
 plotSkin;
-saveas(changeTime,['status/cw2/timeoverview_2ci_' P2C.basisType '.png']);
+saveas(changeTime,['status/cw2/timeoverview_2ci_theta_' num2str(P2.basisType) '_' P2.basisType '.png']);
 contor2ci=figure();
 [x,y,z] = generateTransientProfile(P2C,5);
 contourf(x,y,z,100,'ShowText','off','LineColor','none');

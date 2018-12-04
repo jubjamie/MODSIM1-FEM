@@ -15,7 +15,7 @@ P2C.f.coef=[[0,Skin.E.HS];[Skin.E.xend,Skin.D.HS*Skin.D.Tb];[Skin.D.xend,Skin.B.
 P2C.Transient.Time=50;
 P2C.Transient.Theta=1;
 P2C.Transient.dt=0.005;
-P2C.BCS.D=[[328.65,0];[310.15,0.01];];
+P2C.BCS.D=[[393.15,0];[310.15,0.01];];
 P2C.ConstantInit(310.15);
 P2C.basisType='Quad';
 P2C.Solve(false);
@@ -24,7 +24,7 @@ figure(changeTime);
 plotSkin;
 disp(['Gamma: ' num2str(calculateBurn(P2C))]);
 title(['Transient Numerical Solution - Theta: ' num2str(P2C.Transient.Theta) ', dt: ' num2str(P2C.Transient.dt) ' Using ' P2C.basisType ' Basis Functions']);
-saveas(changeTime,['status/cw2/timeoverview_2ci_theta_' num2str(P2.basisType) '_' P2.basisType '.png']);
+saveas(changeTime,['status/cw2/timeoverview_2ci_theta_' P2C.basisType '.png']);
 contor2ci=figure();
 [x,y,z] = generateTransientProfile(P2C,5);
 contourf(x,y,z,100,'ShowText','off','LineColor','none');

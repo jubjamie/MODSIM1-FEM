@@ -10,15 +10,15 @@ what effect the two methods, Crank-Nicolson and Backwards Euler, has on the solu
 
 ### Backwards Euler
 <p align="center">
-<img src="status/cw2/part1_time_overview_theta_1.png?raw=true"/>
-<img src="status/cw2/part1_theta_1.png?raw=true"/>
+<img src="status/cw2/part1_time_overview_theta_1_dt_0.001_Linear.png?raw=true"/>
+<img src="status/cw2/part1_theta_1_dt_0.001_Linear.png?raw=true"/>
 </p>
 
 
 ### Crank-Nicolson
 <p align="center">
-<img src="status/cw2/part1_time_overview_theta_0.5.png?raw=true"/>
-<img src="status/cw2/part1_theta_0.5.png?raw=true"/>
+<img src="status/cw2/part1_time_overview_theta_0.5_dt_0.001_Linear.png?raw=true"/>
+<img src="status/cw2/part1_theta_0.5_dt_0.001_Linear.png?raw=true"/>
 </p>
 
 ## Part 2 - Full Burn Investigation
@@ -27,7 +27,8 @@ what effect the two methods, Crank-Nicolson and Backwards Euler, has on the solu
 393.15K Burn
 
 <p align="center">
-<img src="status/cw2/timeoverview_2a.png?raw=true"/>
+<img src="status/cw2/timeoverview_2a_theta_1_Quad.png?raw=true"/>
+<img src="status/cw2/contor2ai_Quad.png?raw=true"/>
 </p>
 
 ### With Blood Flow
@@ -36,7 +37,7 @@ what effect the two methods, Crank-Nicolson and Backwards Euler, has on the solu
 
 <p align="center">
 <img src="status/cw2/timeoverview_2ci.png?raw=true"/>
-<img src="status/cw2/contor2ci.png?raw=true"/>
+<img src="status/cw2/contor2ci_Quad.png?raw=true"/>
 </p>
 
 # MODSIM1-FEM
@@ -74,28 +75,4 @@ plotSolution({part2aProblem}); % Note how the single problem is inside a singlua
 
 That's it, the result will now be displayed. Full information can be access from the Problem structure.
 
-## Problem Structure
-Setting up a Problem involves using some of the following. Example of this formation includes part2b.m.
 
-
-### The Problem can contain the following:
-
-           Problem.title: A string title for the problem, useful for legends later.
-           Problem.mesh: The 1D mesh
-           Problem.Diffusion.LE.Generator: A function handle for a function returning the local element matrix. Optional, default will be set.
-           Problem.Diffusion.LE.coef: The diffusion coefficient D.
-           Problem.Reaction.LE.Generator: A function handle for a function returning the local element matrix.
-           Problem.Reaction.LE.coef: The reaction coefficient lambda. If not set, no reaction term used.
-           
-           Problem.f.coef: A constant source term or constant multipying term for a polynomial source.
-           Problem.f.fcn: A function handle for a run-time integrated & compiled function for polynomial source terms.
-                          Definition example:
-                          Problem.f.fcn=sourceVector('1+(4*x)');
-                                       where x is the term for integration.
-
-           Problem.BCS.N: An array of Neumann boundary conditions using value@x notation.
-                          e.g.[[2,0];,[0,1];]; Sets gradient of 2 at x=0
-                                               and gradient of 0 at x=1.
-           Problem.BCS.D: An array of Dirichlet boundary conditions using value@x notation.
-                          e.g.[[2,0];,[0,1];]; Sets value of 2 at x=0
-                                               and value of 0 at x=1.

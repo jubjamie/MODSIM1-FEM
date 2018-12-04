@@ -4,11 +4,13 @@ close all;
 Skin=Skin();
 performanceCounter=0;
 steps=[10,2,0.5];
-dts=[0.1,0.05,0.05];
+dts=[0.1,0.05,0.005];
 tempBounds=[313.15,393.15];
-
+markerSpecs={'gx','bx','mx','yx'};
 tic; % Star timing search
-
+gammaSearch=figure(10);
+hold on;
+grid on;
 for k=1:size(steps,2)
     fprintf(['#########\nSearching ' num2str(tempBounds(1)) 'K - '... 
         num2str(tempBounds(2)) 'K\n#########\n']);
@@ -34,12 +36,25 @@ for k=1:size(steps,2)
     end
     tempBounds(1)=temps(find(gammas<=1,1,'last'));
     tempBounds(2)=temps(find(gammas>1,1,'first'));
+    if k<size(steps,2)
+        plot(tempBounds(1),log10(gammas(find(gammas<=1,1,'last'))),markerSpecs{k});
+        plot(tempBounds(2),log10(gammas(find(gammas>1,1,'first'))),markerSpecs{k});
+    else
+       plot(tempBounds(1),log10(gammas(find(gammas<=1,1,'last'))),'ro');
+       plot(tempBounds(2),log10(gammas(find(gammas>1,1,'first'))),'rx');
+    end
+    
 end
 
+hline(0,'k--');
+xlabel('Burn Temperature (K)');
+ylabel('Log10(Gamma)');
+title('Gamma Search for Temperature Reduction');
+saveas(gammaSearch,'status/cw2/gammaSearch_2b.png');
 runtimer=toc; % Stop timing core code
 disp(['Search Completed in ' num2str(runtimer) ' seconds']);
 
 fprintf(['\nRequired Temperature Difference: ' num2str(393.15-tempBounds(1)) 'K\nContact Temperature: ' num2str(tempBounds(1)) 'K\n']);
-
+fprintf(['Gamma: ' num2str(gammas(find(gammas<=1,1,'last')))]);
 
 

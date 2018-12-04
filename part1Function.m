@@ -1,6 +1,8 @@
 function [P] = part1Function(Theta,dt,BT,elements)
-%UNTITLED Summary of this function goes here
-%   Detailed explanation goes here
+%PART1FUNCTION Easy function form of part 1
+%   Good for looping through.
+%   Demonstrates how the newTransientProblem class allows building and 
+%   solving in a really concise and clear way.
 P=newTransientProblem();
 P.Mesh(0,1,elements);
 P.Diffusion.coef=1;

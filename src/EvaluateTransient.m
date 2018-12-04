@@ -1,11 +1,12 @@
 function [value] = EvaluateTransient(Problem,x)
-%EVALUATE Given a Problem, returns the interpolated value at x
+%EVALUATETRANSIENT Given a Transient Problem, returns the interpolated
+% value at x across all time steps.
 %   (Problem, x)
 %   Problem - A generated Problem WITH solution/result.
 %   x - The value at which the solved Problem should be evaluted.
 %
 %   Outputs
-%   value - The linearly interpolated value at x.
+%   value - The linearly interpolated veector of x at all times.
 
 %Work out position of x in nvec
 flooredValue=x-Problem.mesh.xmin; % Convert value to a position from x=0;

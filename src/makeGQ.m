@@ -6,6 +6,8 @@ function [ gq ] = makeGQ(N)
         %order of quadrature scheme i.e. %number of Gauss points
         gq.gsw = zeros(N,1); %array of Gauss weights
         gq.xipts = zeros(N,1); %array of Gauss points
+        
+        % Set GQ weights and points depending on the scheme selected.
         switch N
             case 1  
               gq.gsw(1)=2; 

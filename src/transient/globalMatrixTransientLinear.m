@@ -1,43 +1,21 @@
 function [GM,GV,Problem] = globalMatrixTransientLinear(Problem)
 %GLOBALMATRIXTRANSIENT Calculates all requierd matrices and vectors to solve a 1D FEM problem.
 %Generates Global Matrix and source vector, then applies boundary conditions to the vectors.
-%Also returns solution column vector initialised to zero
-%   Problem - A valid Problem. Example of this formation includes part2b.m.
-%           The Problem can contain the following:
-%           Problem.title: A string title for the problem, useful for legends later.
-%           Problem.mesh: The 1D mesh
-%           Problem.Diffusion.LE.Generator: A function handle for a function
-%                                           returning the local element matrix.
-%                                           Optional, default will be set.
-%           Problem.Diffusion.LE.coef: The diffusion coefficient D.
-%           Problem.Reaction.LE.Generator: A function handle for a function
-%                                          returning the local element matrix.
-%           Problem.Reaction.LE.coef: The reaction coefficient lambda.
-%                                     If not set, no reaction term used.
-%           Problem.f.coef: A constant source term or constant multipying
-%                           term for a polynomial source.
-%           Problem.f.fcn: A function handle for a run-time integrated &
-%                          compiled function for polynomial source terms.
-%                          Definition example:
-%                          Problem.f.fcn=sourceVector('1+(4*x)');
-%                                       where x is the term for integration.
-%
-%           Problem.BCS.N: An array of Neumann boundary conditions using value@x notation.
-%                          e.g.[[2,0];,[0,1];]; Sets gradient of 2 at x=0
-%                                               and gradient of 0 at x=1.
-%           Problem.BCS.D: An array of Dirichlet boundary conditions using value@x notation.
-%                          e.g.[[2,0];,[0,1];]; Sets value of 2 at x=0
-%                                               and value of 0 at x=1.
+
+%   Problem - A valid transient Problem as formed by newTransientProblem() Class
+
 %   Outputs
-%   M - Completed Global Matrix
-%   c - Empty solution vector of correct size.
-%   f - Completed Source Vector
-%   BCrhs - The RHS BC vector that eventually gets added to f.
-%   Updated Problem containing all above information added e.g. Problem.M = M
+%   GM - Completed Global Matrix
+%   GV - Global Vector
+%   Problem - Updated Problem object
+
 
 %-----------------%
 %NOTE THIS TRANSIENT VERSION USES M AS MASS MATRIX, NOT GLOBAL MATRIX
 %LIKE THE STATIC VERSION
+
+%Linear Version
+%------------------%
 
 % Init matrices
 %Get problem info from mesh
@@ -57,25 +35,32 @@ GV=((1-Problem.Transient.Theta)*Problem.Transient.dt).*Problem.f.vec; % Pre-allo
 
 for i=1:N-1 % Loop through each element, creating its entry into the global
     % matrix/source vector.
-    % -- Mass Matrix (DIffusion) --
-    % Add the previous value to the new ones. (Allows local elem overlap)
+    % For varying coefficients, a matrix of value<>x region is passed.
+    % The local element matrices will use the appropiate value.
+    
+    % -- Mass Element  -- %
+    % Same as reaction with lambda of 1.
     massElement=ReactionElemMatrix(1,i,Problem.mesh);
-
+    % Add the previous value to the new ones. (Allows local elem overlap)
     M(i:i+1,i:i+1)=M(i:i+1,i:i+1)+massElement;
 
+    % -- Stiffness Elements --%
+    % Add the previous value to the new ones. (Allows local elem overlap)
     K(i:i+1,i:i+1)=K(i:i+1,i:i+1)+... 
         Problem.Diffusion.Generator(Problem.Diffusion.coef,i,Problem.mesh)-...
         (getReactionCoefs(Problem.Reaction.coef,i,Problem.mesh).*massElement);
+    % Note that the reaction term is the mass elem*coefs to reduce function calls.
     
-    % Populate the source vector by multiplying constant terms by a polynomial
-    % function of x0,1 and the Jacobian.
+    % -- Source Terms -- %   
     f(i:i+1,1)=f(i:i+1,1)+...
         variableStaticSourceVector(Problem.f.coef,i,Problem.mesh);
 end
 
+% Assemble the global matrices/vectors according to the theta scheme.
 GM=M+((Problem.Transient.Theta*Problem.Transient.dt).*K);
 prevSolMultiplier=M-((1-Problem.Transient.Theta)*Problem.Transient.dt).*K;
 GV=GV+prevSolMultiplier*Problem.c;
+
 %-----------%
 % Enforce Neumann Boundaries
 % Check if any Neumann BCs are specified and are of the correct size.

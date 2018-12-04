@@ -1,6 +1,6 @@
 function [Skin] = Skin()
-%SKIN Summary of this function goes here
-%   Detailed explanation goes here
+%SKIN Return a Skin structure
+%   Contains the required coeffs for different skin regions.
 %TC = Thermal Conductivity Component
 %HS = Heat Sink Component
 %Tb = Blood Temperature

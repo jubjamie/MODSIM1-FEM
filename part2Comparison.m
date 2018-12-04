@@ -28,5 +28,5 @@ grid on;
 xlabel('Position (x)');
 ylabel('c(x,t)');
 legend('Location','Northeast');
-title(['Transient Solution Comparison - Theta: ' num2str(P2.Transient.Theta) ', dt: ' num2str(P2.Transient.Theta) ' Using ' P2.basisType ' Basis Functions']);
+title(['Transient Solution Comparison - Theta: ' num2str(P2.Transient.Theta) ', dt: ' num2str(P2.Transient.dt) ' Using ' P2.basisType ' Basis Functions']);
 disp('Adjust legend accordingly and save in figure.');

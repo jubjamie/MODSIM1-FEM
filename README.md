@@ -36,7 +36,7 @@ what effect the two methods, Crank-Nicolson and Backwards Euler, has on the solu
 *393.15K Burn*
 
 <p align="center">
-<img src="status/cw2/timeoverview_2ci_theta_1_Quad.png?raw=true"/>
+<img src="status/cw2/timeoverview_2ci_theta_Quad.png?raw=true"/>
 <img src="status/cw2/contor2ci_Quad.png?raw=true"/>
 </p>
 

@@ -38,7 +38,8 @@ basis2=@(z) (z*(1+z))./2;
 
 % Calculate the value at x.
 value=(c0NodeValue.*basis0(internalposition))+...
-    (c1NodeValue.*basis1(internalposition))+(c2NodeValue.*basis2(internalposition));
+      (c1NodeValue.*basis1(internalposition))+...
+      (c2NodeValue.*basis2(internalposition));
 else
 %Using linear basis function so c=c0basis0+c1basis1
 basis0=@(z) (1-z)./2;

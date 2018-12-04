@@ -16,11 +16,13 @@ Ne=Problem.mesh.ne;
 steps=round(Problem.Transient.Time/Problem.Transient.dt);
 
 % Set global matrix assembly version, init temporary solution matrix and
-%create x-domain for plotting depending on whether basis function type is linear or quadratic.
+% create x-domain for plotting depending on whether basis function type is 
+% linear or quadratic.
 if strcmp(Problem.basisType,'Quad')
     disp('Solving using Quadratic Basis Functions');
     transientsolution=zeros((2*Ne)+1,steps+1);
-    nvecConvert=linspace(Problem.mesh.xmin,Problem.mesh.xmax,(2*Problem.mesh.ne)+1);
+    nvecConvert=linspace(Problem.mesh.xmin,Problem.mesh.xmax,...
+        (2*Problem.mesh.ne)+1);
     globalAssembler=@(x) globalMatrixTransient(Problem);
 else
     disp('Solving using Linear Basis Functions');

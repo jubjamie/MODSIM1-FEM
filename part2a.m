@@ -29,7 +29,8 @@ changeTime=P2.PlotAtTime([0.05,0.5,2,5,50]);
 figure(changeTime);
 plotSkin;
 disp(['Gamma: ' num2str(calculateBurn(P2))]);
-title(['Transient Numerical Solution - Theta: ' num2str(P2.Transient.Theta) ', dt: ' num2str(P2.Transient.dt) ' Using ' P2.basisType ' Basis Functions']);
+title(['Transient Numerical Solution - Theta: ' num2str(P2.Transient.Theta)...
+    ', dt: ' num2str(P2.Transient.dt) ' Using ' P2.basisType ' Basis Functions']);
 saveas(changeTime,['status/cw2/timeoverview_2a_theta_' P2.basisType '.png']);
 
 % Make contor plot

@@ -30,13 +30,16 @@ for i=1:timeStepCount
     y(i)=TransientAnalyticSoln(x_point,x(i));
 end
 plot(x,y,'DisplayName',['Analytical Solution - x:' num2str(x_point)])
-saveas(fixedX,['status/cw2/part1_theta_' num2str(P.Transient.Theta) '_dt_' num2str(P.Transient.dt) '_' P.basisType '.png']);
+saveas(fixedX,['status/cw2/part1_theta_' num2str(P.Transient.Theta) ...
+    '_dt_' num2str(P.Transient.dt) '_' P.basisType '.png']);
 
 
 figure(changeTime); % Load into gcf
 title('Solution Varying Transiently - Crank Nicolson');
 legend('Location','Northwest');
-saveas(changeTime,['status/cw2/part1_time_overview_theta_' num2str(P.Transient.Theta) '_dt_' num2str(P.Transient.dt) '_' P.basisType '.png']);
+saveas(changeTime,['status/cw2/part1_time_overview_theta_' ...
+    num2str(P.Transient.Theta) '_dt_' num2str(P.Transient.dt) '_' ...
+    P.basisType '.png']);
 
 % Creat a new transient Problem for Backwards Euler
 PE=newTransientProblem();
@@ -63,13 +66,16 @@ for i=1:timeStepCountE
     yE(i)=TransientAnalyticSoln(x_point,xE(i));
 end
 plot(xE,yE,'DisplayName',['Analytical Solution - x: ' num2str(x_point)]);
-saveas(fixedXE,['status/cw2/part1_theta_' num2str(PE.Transient.Theta) '_dt_' num2str(P.Transient.dt) '_' PE.basisType '.png']);
+saveas(fixedXE,['status/cw2/part1_theta_' num2str(PE.Transient.Theta)...
+    '_dt_' num2str(P.Transient.dt) '_' PE.basisType '.png']);
 
 
 figure(changeTimeE); % Load into gcf
 title('Solution Varying Transiently - Backwards Euler');
 legend('Location','Northwest');
-saveas(changeTimeE,['status/cw2/part1_time_overview_theta_' num2str(PE.Transient.Theta) '_dt_' num2str(P.Transient.dt) '_' PE.basisType '.png']);
+saveas(changeTimeE,['status/cw2/part1_time_overview_theta_'...
+    num2str(PE.Transient.Theta) '_dt_' num2str(P.Transient.dt) '_'...
+    PE.basisType '.png']);
 
 % Compare errors at xpoint
 errorCompare=figure();
@@ -84,4 +90,5 @@ ylabel('Error (Ce-Cx)');
 legend('Location','Northeast');
 title(['Error from Analytical Solution at x=' num2str(x_point)]);
 grid on;
-saveas(errorCompare,['status/cw2/part1_error_x-' num2str(x_point) '_dt_' num2str(P.Transient.dt) '_' PE.basisType '.png']);
+saveas(errorCompare,['status/cw2/part1_error_x-' num2str(x_point) '_dt_'...
+    num2str(P.Transient.dt) '_' PE.basisType '.png']);

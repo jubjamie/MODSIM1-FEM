@@ -9,7 +9,8 @@ function [x,y,z] = generateTransientProfile(Problem,timeRange)
 % Not useful when problem reaches steady state early on.
 if strcmp(timeRange,'all')
     y=Problem.mesh.nvec;
-    x=linspace(0,Problem.Transient.Time,(Problem.Transient.Time/Problem.Transient.dt)+1);
+    x=linspace(0,Problem.Transient.Time,...
+        (Problem.Transient.Time/Problem.Transient.dt)+1);
     if strcmp(Problem.basisType,'Quad')
         z=Problem.Solution(1:2:end,:);
     else

@@ -39,9 +39,12 @@ for k=1:size(steps,2)
         P2.Mesh(0,0.01,100);
         
         %Set coefficients based on Skin
-        P2.Diffusion.coef=[[0,Skin.E.TC];[Skin.E.xend,Skin.D.TC];[Skin.D.xend,Skin.B.TC]];
-        P2.Reaction.coef=-[[0,Skin.E.HS];[Skin.E.xend,Skin.D.HS];[Skin.D.xend,Skin.B.HS]];
-        P2.f.coef=[[0,Skin.E.HS];[Skin.E.xend,Skin.D.HS*Skin.D.Tb];[Skin.D.xend,Skin.B.HS*Skin.B.Tb]];
+        P2.Diffusion.coef=[[0,Skin.E.TC];[Skin.E.xend,Skin.D.TC];...
+                            [Skin.D.xend,Skin.B.TC]];
+        P2.Reaction.coef=-[[0,Skin.E.HS];[Skin.E.xend,Skin.D.HS];...
+                            [Skin.D.xend,Skin.B.HS]];
+        P2.f.coef=[[0,Skin.E.HS];[Skin.E.xend,Skin.D.HS*Skin.D.Tb];...
+                            [Skin.D.xend,Skin.B.HS*Skin.B.Tb]];
         disp(temps(i));
         
         P2.Transient.Time=50;
@@ -84,7 +87,8 @@ saveas(gammaSearch,'status/cw2/gammaSearch_2cii.png');
 
 disp(['Search Completed in ' num2str(runtimer) ' seconds']);
 
-fprintf(['\nRequired Temperature Difference: ' num2str(393.15-tempBounds(1)) 'K\nContact Temperature: ' num2str(tempBounds(1)) 'K\n']);
+fprintf(['\nRequired Temperature Difference: ' num2str(393.15-tempBounds(1))...
+    'K\nContact Temperature: ' num2str(tempBounds(1)) 'K\n']);
 fprintf(['Gamma: ' num2str(gammas(find(gammas<=1,1,'last')))]);
 
 

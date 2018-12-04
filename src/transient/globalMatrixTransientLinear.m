@@ -1,6 +1,8 @@
 function [GM,GV,Problem] = globalMatrixTransientLinear(Problem)
-%GLOBALMATRIXTRANSIENT Calculates all requierd matrices and vectors to solve a 1D FEM problem.
-%Generates Global Matrix and source vector, then applies boundary conditions to the vectors.
+%GLOBALMATRIXTRANSIENT Calculates all requierd matrices and vectors to solve
+% a 1D FEM problem.
+%Generates Global Matrix and source vector, then applies boundary conditions
+% to the vectors.
 
 %   Problem - A valid transient Problem as formed by newTransientProblem() Class
 
@@ -28,7 +30,7 @@ f=zeros(N,1); % Pre-allocate source vector
 BCrhs=zeros(N,1); % Pre-allocate a BC vector
 
 %Set global vector to contain previous source terms and BCs
-GV=((1-Problem.Transient.Theta)*Problem.Transient.dt).*Problem.f.vec; % Pre-allocate Global Vector
+GV=((1-Problem.Transient.Theta)*Problem.Transient.dt).*Problem.f.vec; 
 
 
 % Generate Basic Global and Source

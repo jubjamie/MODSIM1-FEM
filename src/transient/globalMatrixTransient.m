@@ -1,6 +1,8 @@
 function [GM,GV,Problem] = globalMatrixTransient(Problem)
-%GLOBALMATRIXTRANSIENT Calculates all requierd matrices and vectors to solve a 1D FEM problem.
-%Generates Global Matrix and source vector, then applies boundary conditions to the vectors.
+%GLOBALMATRIXTRANSIENT Calculates all requierd matrices and vectors to solve
+% a 1D FEM problem.
+%Generates Global Matrix and source vector, then applies boundary conditions
+% to the vectors.
 
 %   Problem - A valid transient Problem as formed by newTransientProblem() Class
 
@@ -29,7 +31,7 @@ f=zeros((2*Ne)+1,1); % Pre-allocate source vector
 BCrhs=zeros((2*Ne)+1,1); % Pre-allocate a BC vector
 
 %Set global vector to contain previous source terms and BCs
-GV=((1-Problem.Transient.Theta)*Problem.Transient.dt).*Problem.f.vec; % Pre-allocate Global Vector
+GV=((1-Problem.Transient.Theta)*Problem.Transient.dt).*Problem.f.vec; 
 
 for i=1:N-1 % Loop through each element, creating its entry into the global
     % matrix/source vector.
@@ -40,7 +42,8 @@ for i=1:N-1 % Loop through each element, creating its entry into the global
     % Same as reaction with lambda of 1.
     massElement=ReactionElemMatrix(1,i,Problem.mesh,Problem.GQ);
     % Add the previous value to the new ones. (Allows local elem overlap)
-    M((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)=M((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)+massElement;
+    M((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)=...
+        M((2*i)-1:(2*i)+1,(2*i)-1:(2*i)+1)+massElement;
 
     % -- Stiffness Elements --%
     % Add the previous value to the new ones. (Allows local elem overlap)

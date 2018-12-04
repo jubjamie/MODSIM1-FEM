@@ -28,8 +28,9 @@ for i=1:size(dts,2)
               posCounter=((i-1)*size(Thetas,2)*size(BTs,2)*size(Elements,2))+...
                   ((j-1)*size(BTs,2)*size(Elements,2)) +...
                            ((k-1)*size(Elements,2))+m;
-               disp(['Solving: Element Counts=' num2str(Elements(m)) ', BT=' BTs{k}...
-                    ', Theta=' num2str(Thetas(j)) ', dt=' num2str(dts(i))]);
+               disp(['Solving: Element Counts=' num2str(Elements(m))...
+                   ', BT=' BTs{k} ', Theta=' num2str(Thetas(j))...
+                   ', dt=' num2str(dts(i))]);
                % Use function form of part1 problem and get solved Problem
                solvedProblem=part1Function(Thetas(j),dts(i),BTs{k},Elements(m));
                
@@ -54,7 +55,7 @@ for i=1:size(dts,2)
     end
 end
 legend();
-title('L2 Norm Errors Therough Time with Different Solver Settings');
+title('L2 Norm Errors Through Time with Different Solver Settings');
 xlabel('Time (s)');
 ylabel('L2 Norm Error');
 saveas(L2Loop,'status/cw2/L2Loop.png');

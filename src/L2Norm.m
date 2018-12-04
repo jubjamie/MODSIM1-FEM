@@ -38,7 +38,8 @@ for i=1:Ne
         c1=Problem.Solution(solIndex+1,int16((Time/Problem.Transient.dt)+1));
         if strcmp(Problem.basisType,'Quad')
             c2=Problem.Solution(solIndex+2,int16((Time/Problem.Transient.dt)+1));
-            Cxi=(c0*basis0(gq.xipts(k))+c1*basis1(gq.xipts(k))+c2*basis2(gq.xipts(k)));
+            Cxi=(c0*basis0(gq.xipts(k))+c1*basis1(gq.xipts(k))+...
+                c2*basis2(gq.xipts(k)));
         else
             Cxi=(c0*basis0(gq.xipts(k))+c1*basis1(gq.xipts(k)));
         end
@@ -56,3 +57,4 @@ for i=1:Ne
 end
 
 RMS=sqrt(sum(elementInts)); % Sum errors over whole domain
+end

@@ -119,7 +119,8 @@ classdef newTransientProblem < handle
                     equivRow=((x(i)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
                 end
                 c_values=obj.Solution(equivRow,:);
-                plot(timeseries,c_values,'DisplayName',['Numerical Solution - x: ' num2str(x(i))]);
+                plot(timeseries,c_values,'DisplayName',...
+                    ['Numerical Solution - x: ' num2str(x(i))]);
                 hold on;
             end
             xlabel('Time (s)');
@@ -150,7 +151,8 @@ classdef newTransientProblem < handle
                 c_values=obj.Solution(:,int16((t(i)/obj.Transient.dt)+1));
                 if strcmp(obj.basisType,'Quad')
                     % If quadratic basis, only plot global nodes
-                    plot(obj.mesh.nvec,c_values(1:2:end),'DisplayName',[num2str(t(i)) 's']);
+                    plot(obj.mesh.nvec,c_values(1:2:end),'DisplayName',...
+                        [num2str(t(i)) 's']);
                 else
                     plot(obj.mesh.nvec,c_values,'DisplayName',[num2str(t(i)) 's']);
                 end

@@ -51,15 +51,18 @@ classdef newTransientProblem < handle
         
                     % Corresponding BC Vector node.
                     if strcmp(obj.basisType,'Quad')
-                        equivRow=2*((BCd(2)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1;
+                        equivRow=2*((BCd(2)/(obj.mesh.xmax-obj.mesh.xmin))...
+                            *(N-1))+1;
                     else
-                        equivRow=((BCd(2)/(obj.mesh.xmax-obj.mesh.xmin))*(N-1))+1; 
+                        equivRow=((BCd(2)/(obj.mesh.xmax-obj.mesh.xmin))...
+                            *(N-1))+1; 
                     end
                     % Assert that the x-position represents a node/row number in 
                     % the global matrix
-                    assert(~mod(equivRow,1),'D.Boundary condition not specified for a node');
+                    assert(~mod(equivRow,1),...
+                        'D.Boundary condition not specified for a node');
         
-                    % Apply the Dirichlet BC mathod to this BC.
+                    % Apply the Dirichlet BC method to this BC.
                     obj.c(equivRow)=BCd(1); % Set source term/RHS to BC value.
                 end
             end
